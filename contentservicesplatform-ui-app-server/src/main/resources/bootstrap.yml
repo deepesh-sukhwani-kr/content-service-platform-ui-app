@@ -1,0 +1,9 @@
+---
+spring:
+  profiles: cloud
+kroger:
+  graylog:
+    host: ${vcap.services.cspux-graylog.credentials.host}
+    port: ${vcap.services.cspux-graylog.credentials.port}
+    environment: ${vcap.services.cspux-graylog.credentials.environment}
+    facility: ${vcap.services.cspux-graylog.credentials.facility}

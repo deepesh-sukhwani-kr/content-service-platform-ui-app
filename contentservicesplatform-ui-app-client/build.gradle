@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        nodePluginVersion = '1.2.0'
+    }
+    repositories {
+        mavenLocal()
+        maven { url "http://artifactory.kroger.com/artifactory/plugins-release" }
+    }
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:${nodePluginVersion}"
+    }
+}
+
+apply plugin: 'com.moowork.node'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'base'
+
+version '0.0.1'
+buildDir = 'dist'
+
+node {
+  // Version of node to use.
+  version = '8.11.3'
+
+  // Base URL for fetching node distributions
+  distBaseUrl = 'http://artifactory.kroger.com/artifactory/nodejs-dist/'
+
+  // If true, it will download node using above parameters.
+  // If false, it will try to use globally installed node.
+  download = true
+}
+
+task install(type: NpmTask) {
+    args = ['install']
+}
+task lint(type: NpmTask) {
+    args = ['run', 'lint']
+}
+task buildDist(type: NpmTask) {
+    // Choose either prod or dev packaging
+    args = ['run', "build-${System.env.ENV?System.env.ENV:'prod'}"]
+}
+task bundle {
+    dependsOn 'install'
+    dependsOn 'lint'
+    dependsOn 'buildDist'
+    tasks.findByName('lint').mustRunAfter 'install'
+    tasks.findByName('buildDist').mustRunAfter 'lint'
+}
+
+assemble.dependsOn(bundle)

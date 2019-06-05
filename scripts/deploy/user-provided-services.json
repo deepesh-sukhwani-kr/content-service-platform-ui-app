@@ -1,0 +1,133 @@
+{
+    "environments": [
+        {
+            "name": "dev",
+            "userProvidedServices": [
+                {
+                    "name": "cspux-encryptionkey",
+                    "content": {
+                        "encryptedKey": "${ENC_KEY}"
+                    }
+                },
+                {
+                    "name": "cspux-auth",
+                    "content": {
+                        "clientId": "5420-cspux-dev",
+                        "clientSecret": "KRYPT(gHcuX1w6YU/o+SIEfI9thcKl8hYd8bDo6pgp66dBDlSfjv+LOIKKYtvjTHZuOkWPd70e2rwcc8farKF8IMWOFw==)",
+                        "defaultTargetUri": "https://implivedev.kroger.com",
+                        "identityServerUri": "https://identity.kroger.com"
+                    }
+                },
+                {
+                    "name": "cspux-db",
+                    "content": {
+                        "password": "KRYPT(EWZcPK9HJHAsIirNcHwX6sI3SyIp2l3/eDbMoCOee3eWNPOfZesUSC+C/QraBkeon7Kkux6mDeVDpEH3uCQ7YQ==)",
+                        "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+                        "url": "jdbc:sqlserver://n060kicsql41.kroger.com:1675;databaseName=cspuxdbdev",
+                        "username": "svc5420cspuxdbd"
+                    }
+                }
+            ],
+            "zones": [
+                {
+                    "org": "KIC",
+                    "api": "api.cfhdcinternaltest.kroger.com",
+                    "space": "cspux-5420-dev",
+                    "name": "cfhdcinternaltest.kroger.com"
+                },
+                {
+                    "org": "KIC",
+                    "api": "api.cfcdcinternaltest.kroger.com",
+                    "space": "cspux-5420-dev",
+                    "name": "cfcdcinternaltest.kroger.com"
+                }
+            ]
+        },
+        {
+            "name": "test",
+            "userProvidedServices": [
+                {
+                    "name": "cspux-encryptionkey",
+                    "content": {
+                        "encryptedKey": "${ENC_KEY}"
+                    }
+                },
+                {
+                    "name": "cspux-auth",
+                    "content": {
+                        "clientId": "5420-cspux-test",
+                        "clientSecret": "KRYPT(fdOZG03TttUXl8FdSp+1Ju1r7ufd/o8ZH30FkZniwnCMJHsVBR7+I45SQPrDighIxz5MpKKWY12yqkdpvSqKSg==)",
+                        "defaultTargetUri": "https://implivetest.kroger.com",
+                        "identityServerUri": "https://identity.kroger.com"
+                    }
+                },
+                {
+                    "name": "cspux-db",
+                    "content": {
+                        "password": "KRYPT(tjsg4Jctcj8j+AG+4hBxDqxfXLtgWECHWRTWedftAoF3wB0gdbF3cbhCv+xUvey+O7fsHHvhT3ogT/+4RWE4sQ==)",
+                        "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+                        "url": "jdbc:sqlserver://n060kicsql41.kroger.com:1675;databaseName=cspuxdbtest",
+                        "username": "svc5420cspuxdbt"
+                    }
+                }
+            ],
+            "zones": [
+                {
+                    "org": "KIC",
+                    "api": "api.cfhdcinternaltest.kroger.com",
+                    "space": "cspux-5420-test",
+                    "name": "cfhdcinternaltest.kroger.com"
+                },
+                {
+                    "org": "KIC",
+                    "api": "api.cfcdcinternaltest.kroger.com",
+                    "space": "cspux-5420-test",
+                    "name": "cfcdcinternaltest.kroger.com"
+                }
+            ]
+        },
+        {
+            "name": "prod",
+            "userProvidedServices": [
+                {
+                    "name": "cspux-encryptionkey",
+                    "content": {
+                        "encryptedKey": "${ENC_KEY}"
+                    }
+                },
+                {
+                    "name": "cspux-auth",
+                    "content": {
+                        "clientId": "5420-cspux-prod",
+                        "clientSecret": "KRYPT(RmyH4qG9KsFKWGdDIKa7mn4huVCQ1ZAyrf6zWxmF0/Z/0bt3B8akJ6X5SVEUoeebh2K54cakmj1McN5psjcifw==)",
+                        "defaultTargetUri": "https://implive.kroger.com",
+                        "identityServerUri": "https://identity.kroger.com"
+                    }
+                },
+                {
+                    "name": "cspux-db",
+                    "content": {
+                        "password": "KRYPT(mZfRrd5G5y//GIARuClDewDTnCxo7Gwv1E2sCYn4ZqQ6TCeZn2EBjZ0Lr5kRB6Ktk5CCqQIuiPCDzoUYlNlyug==)",
+                        "driver": "com.microsoft.sqlserver.jdbc.SQLServerDriver",
+                        "url": "jdbc:sqlserver://n060sql11.kroger.com:1675;databaseName=cspuxdbprod",
+                        "username": "svc5420cspuxdbp"
+                    }
+                }
+            ],
+            "zones": [
+                {
+                    "org": "KIC",
+                    "api": "api.cfcdcinternal.kroger.com",
+                    "space": "cspux-5420-prod",
+                    "name": "cfcdcinternal.kroger.com"
+                },
+                {
+                    "org": "KIC",
+                    "api": "api.cfhdcinternal.kroger.com",
+                    "space": "cspux-5420-prod",
+                    "name": "cfhdcinternal.kroger.com"
+                }
+            ]
+        }
+    ]
+}

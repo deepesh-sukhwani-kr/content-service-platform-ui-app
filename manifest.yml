@@ -1,0 +1,10 @@
+---
+memory: 1024M
+buildpack: java_buildpack_offline
+timeout: 60
+instances: 1
+services:
+- cspux-encryptionkey
+- cspux-db
+- cspux-auth
+- cspux-graylog
