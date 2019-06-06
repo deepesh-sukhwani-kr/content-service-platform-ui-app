@@ -7,4 +7,3 @@ services:
 - cspux-encryptionkey
 - cspux-db
 - cspux-auth
-- cspux-graylog
