@@ -19,32 +19,6 @@
 
 	<springProfile name="cloud">
 
-		<springProperty name="graylogHost" source="kroger.graylog.host" />
-		<springProperty name="graylogPort" source="kroger.graylog.port" />
-		<springProperty name="graylogFacility" source="kroger.graylog.facility" />
-
-		<appender name="GELF"
-			class="com.github.pukkaone.gelf.logback.GelfAppender">
-			<graylogHost>${graylogHost}</graylogHost>
-			<graylogPort>${graylogPort}</graylogPort>
-			<facility>${graylogFacility}</facility>
-			<levelIncluded>true</levelIncluded>
-			<locationIncluded>false</locationIncluded>
-			<loggerIncluded>true</loggerIncluded>
-			<markerIncluded>false</markerIncluded>
-			<mdcIncluded>true</mdcIncluded>
-			<threadIncluded>false</threadIncluded>
-			<marshaller
-				class="com.github.pukkaone.gelf.logback.DefaultGelfMessageFactory">
-				<shortMessagePattern>%.-100(%m%rEx)</shortMessagePattern>
-				<fullMessagePattern>%m%n%xEx</fullMessagePattern>
-			</marshaller>
-		</appender>
-
-		<root level="info">
-			<appender-ref ref="GELF" />
-		</root>
-
 	</springProfile>
 
 </configuration>
