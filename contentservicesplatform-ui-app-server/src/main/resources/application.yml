@@ -47,16 +47,7 @@ kroger:
   krypt:
     aes:
       encryptedKey: uY266kD0KlmVxQxa1gLAvSCFdAFtS4OBh/kT4oQsAEO1ujL/BlkhpqXohd8HDDW8
-  mom:
-    ws:
-      client:
-        endpoint: http://webservices-stage.kroger.com/operations/MOM/MonitoringEventService
-        username: username
-        password: password
-        version: 3.0.0
-        logical-id: '1'
-        component-id: APP
-        system-environment-code: Stage
+
 security:
   oauth2:
     client:
@@ -82,16 +73,7 @@ kroger:
   krypt:
     aes:
       encryptedKey: ${vcap.services.cspux-encryptionkey.credentials.encryptedKey}
-  mom:
-    ws:
-      client:
-        endpoint: ${vcap.services.mom-service.credentials.endpoint}
-        username: ${vcap.services.mom-service.credentials.username}
-        password: ${vcap.services.mom-service.credentials.password}
-        version: ${vcap.services.mom-service.credentials.version}
-        logical-id: ${vcap.services.mom-service.credentials.logical-id}
-        component-id: ${vcap.services.mom-service.credentials.component-id}
-        system-environment-code: ${vcap.services.mom-service.credentials.system-environment-code}
+
 security:
   oauth2:
     client:
