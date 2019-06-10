@@ -71,10 +71,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kroger.commons</groupId>
-			<artifactId>kroger-boot-starter-mom</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.kroger.commons</groupId>
 			<artifactId>kroger-boot-starter-security-oauth</artifactId>
 		</dependency>
 		<dependency>
