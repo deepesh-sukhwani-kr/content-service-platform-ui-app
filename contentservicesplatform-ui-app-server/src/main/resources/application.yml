@@ -69,7 +69,7 @@ search:
 authorization: Basic U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
 ---
 spring:
-  profiles: cloud
+  profiles: test
   datasource:
     driver-class-name: ${vcap.services.cspux-db.credentials.driver}
     url: ${vcap.services.cspux-db.credentials.url}
