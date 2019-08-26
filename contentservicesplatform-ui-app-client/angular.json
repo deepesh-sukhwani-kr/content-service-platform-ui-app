@@ -26,6 +26,10 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/bootstrap-less/bootstrap/bootstrap.less",
               "node_modules/kroger-bootstrap-less/less/kroger-bootstrap-styles.less",
+              "node_modules/font-awesome/css/font-awesome.min.css",
+              "node_modules/primeng/resources/themes/darkness/theme.css",
+              "node_modules/selenium-webdriver/lib/test/data/css/ui-lightness/jquery-ui-1.8.10.custom.css",
+              "src/assets/themes/custom/jquery-ui.theme.css",
               "src/styles.less"
             ],
             "scripts": [
