@@ -1,0 +1,27 @@
+#csvAttrContainer {
+  margin:auto;
+  width: 50%;
+  padding: 10px;
+  align: center;
+}
+
+:host ::ng-deep .ui-table .ui-table-thead > tr > th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0px;
+}
+
+@media screen and (max-width: 64em) {
+  :host ::ng-deep .ui-table .ui-table-thead > tr > th {
+    top: 100px;
+  }
+}
+
+:host ::ng-deep .ui-messages-error {
+  background-color: rgba(248, 183, 189, 0.32);
+}
+
+:host ::ng-deep .ui-messages-warn {
+  background-color: rgba(255, 227, 153, 0.32);
+}
+

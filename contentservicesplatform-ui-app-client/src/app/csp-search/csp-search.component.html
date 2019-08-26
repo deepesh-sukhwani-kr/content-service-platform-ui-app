@@ -1,0 +1,222 @@
+<div class="addAttrContainer">
+  <table algin="center" width="100%" border="0px">
+    <tr>
+      <td>
+        <form [formGroup]="form"><br/>
+          <table algin="center" width="100%" border="0px">
+            <tr>
+              <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="7" align="center">
+                <table border="0px" width="80%">
+                  <tr>
+                    <td width="60%">
+                      <h2 style="text-align:right; font-family: Segoe UI, Arial, sans-serif; color: #0c467c;">
+                        <strong>CSP Image Search</strong>
+                      </h2>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>
+                      <img src="../../assets/search.jfif" height="60px">
+                    </td>
+                    <td></td>
+                    <td align="right">
+                      <a href="https://confluence.kroger.com/confluence/display/IMP/Utility%3A+CSP+Image+Search+%28V1%29+-+User+Guide"
+                         target="_blank">
+                        <button pButton type="button" icon="pi pi-question" pTooltip="Help"></button>
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7">&nbsp;</td>
+            </tr>
+
+            <tr>
+              <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="1" width=15%></td>
+              <td colspan="4" width="75%">
+                <p-messages [(value)]="msgs"></p-messages>
+              </td>
+              <td colspan="2" width="20%"></td>
+            </tr>
+            <tr>
+              <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="1" width=8%></td>
+              <td colspan="1" width="25%">
+        <span class="ui-float-label">
+          <input id="imageId" type="text" size="30" pInputText formControlName="imageId"/>
+          <label for="imageId">Image ID</label>
+        </span>
+              </td>
+              <td colspan="1" width=2%></td>
+              <td colspan="1" width="30%">
+        <span class="ui-float-label">
+          <input id="gtin" type="text" size="30" pInputText formControlName="gtin"/>
+          <label for="gtin">GTIN</label>
+        </span>
+              </td>
+              <td colspan="1" width=2%></td>
+              <td colspan="1" width="8%">
+                <button pButton (click)="getImages()" type="button" label="Search" size="10" icon="pi pi-search" id="search"></button>
+              </td>
+              <td colspan="1" width="22%">
+                <button pButton (click)="reset()" type="button" label="Clear" size="10" icon="pi pi-trash"></button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="1">&nbsp;</td>
+              <td colspan="3">
+                <div *ngIf="div_visible" >
+                  <p-progressBar mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+                </div>
+              </td>
+              <td colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="7">&nbsp;</td>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+    </tr>
+    <tr id="result" style="visibility: hidden">
+      <td>
+        <table width="1305px" border="0px">
+          <tr>
+            <td width="15%">&nbsp;</td>
+            <td width="70%" align="center">
+              <p-dataView #dv [value]="images" [paginator]="true" [rows]="20" paginatorPosition="both"
+                          filterBy={{filterField}}
+                          [sortField]="sortField" [sortOrder]="sortOrder" [style]="{'width':'1000px'}">
+                <p-header>
+                  <div class="ui-helper-clearfix">
+                    <div class="ui-g">
+                      <div class="ui-g-6 ui-md-4" align="left" style="max-width: 170px;">
+                        <p-dropdown [options]="filterOptions" placeholder="Filter By"
+                                    (onChange)="onFilterChange($event)" [style]="{'max-width':'150px'}"></p-dropdown>
+                      </div>
+                      <div class="ui-g-6 ui-md-4 filter-container" align="left">
+                        <div style="position:relative; alignment: right; visibility: hidden;" id="filterText">
+                          <input type="search" pInputText placeholder={{filterField}}
+                                 (keyup)="dv.filter($event.target.value)">
+                        </div>
+                      </div>
+                      <div class="ui-g-12 ui-md-4"></div>
+                      <div class="ui-g-12 ui-md-4" style="align: right; max-width: 150px">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                                    (onChange)="onSortChange($event)" [style]="{'max-width':'150px'}"></p-dropdown>
+                      </div>
+
+                    </div>
+                  </div>
+                </p-header>
+                <ng-template let-image pTemplate="listItem">
+                  <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9;background-color: white;">
+                    <div class="ui-g-12 ui-md-3" style="text-align:center">
+                      <img src="{{retrievalUrl}}{{image.imageId}}"
+                      height="200px" width="200px">
+                    </div>
+                    <div class="ui-g-12 ui-md-8 image-details">
+                      <div class="ui-g">
+                        <div class="ui-g-2 ui-sm-6" align="left">Image ID:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.imageId}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">GTIN:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.gtin}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">Description:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.description}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">Date:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.lastModifiedDate}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">View Angle:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.viewAngle}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">Resolution DPI:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.resolutionDpi}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">Provided Size:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.providedSize}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">Image Source:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.source}}</b></div>
+                        <div class="ui-g-2 ui-sm-6" align="left">View Image:</div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b><a href="{{image.encodedURL}}" target="_blank">Click
+                          here</a></b></div>
+                      </div>
+                    </div>
+                    <div class="ui-g-12 ui-md-1 search-icon">
+                      <button pButton type="button" icon="pi pi-external-link"
+                              (click)="selectImage($event, image)"></button>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-dataView>
+              <p-dialog header="Image Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+                        [modal]="true" (onAfterHide)="onDialogHide()"
+                        [width]='800'>
+
+                <div class="ui-g" *ngIf="selectedImage" style="background-color: white; color: black">
+                  <div class="ui-g-4" align="right">Image Id:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.imageId}}</b></div>
+                  <div class="ui-g-4" align="right">GTIN:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.gtin}}</b></div>
+                  <div class="ui-g-4" align="right">Item Type:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.itemType}}</b></div>
+                  <div class="ui-g-4" align="right">Approval Status:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.approvalStatus}}</b></div>
+                  <div class="ui-g-4" align="right">File Extension Type:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.fileType}}</b></div>
+                  <div class="ui-g-4" align="right">Description:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.description}}</b></div>
+                  <div class="ui-g-4" align="right">Last Modified Date:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.lastModifiedDate}}</b></div>
+                  <div class="ui-g-4" align="right">Image Background:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.backGround}}</b></div>
+                  <div class="ui-g-4" align="right">Image Height:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.height}}</b></div>
+                  <div class="ui-g-4" align="right">Image Width:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.width}}</b></div>
+                  <div class="ui-g-4" align="right">Color Profile:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.color}}</b></div>
+                  <div class="ui-g-4" align="right">Resolution DPI:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.resolutionDpi}}</b></div>
+                  <div class="ui-g-4" align="right">View angle:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.viewAngle}}</b></div>
+                  <div class="ui-g-4" align="right">Source:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.source}}</b></div>
+                  <div class="ui-g-4" align="right">Provided size:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.providedSize}}</b></div>
+                  <div class="ui-g-4" align="right">UPC10:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.upc10}}</b></div>
+                  <div class="ui-g-4" align="right">UPC12:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.upc12}}</b></div>
+                  <div class="ui-g-4" align="right">UPC13:</div>
+                  <div class="ui-g-8" align="left"><b>{{selectedImage.upc13}}</b></div>
+                  <div class="ui-g-4" align="right">URL:</div>
+                  <div class="ui-g-8" align="left" color="blue"><b><u><a href="{{selectedImage.encodedURL}}"
+                                                                         target="_blank">Link</a></u></b></div>
+                </div>
+              </p-dialog>
+            </td>
+            <td width="15%"></td>
+          </tr>
+          <tr>
+            <td colspan="3">&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>

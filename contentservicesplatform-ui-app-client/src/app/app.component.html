@@ -1,6 +1,20 @@
+<header>
+  <app-kroger-notifications></app-kroger-notifications>
+  <app-header></app-header>
+</header>
 <div class="app cf" id="page">
-    <app-kroger-notifications></app-kroger-notifications>
-    <app-header></app-header>
-    <router-outlet #mainBody></router-outlet>
-    <app-footer></app-footer>
+  <table border="0px">
+    <tr>
+      <td valign="top">
+        <div style="float: left;">
+          <p-menu [model]="items"></p-menu>
+        </div>
+      </td>
+      <td valign="top">
+        <div class="scrollable">
+          <router-outlet #mainBody></router-outlet>
+        </div>
+      </td>
+    </tr>
+  </table>
 </div>

@@ -1,0 +1,234 @@
+<div class="addAttrContainer">
+  <p-toast [style]="{marginTop: '100px'}" key="uploadToast"></p-toast>
+  <table algin="center" width="100%" border="0px">
+    <tr>
+      <td>
+        <form [formGroup]="form"><br/>
+          <table algin="center" width="100%" border="0px">
+            <tr>
+              <td colspan="7" align="center">
+                <table border="0px" width="70%">
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td width="60%">
+                      <h2 style="text-align:right; font-family: Segoe UI, Arial, sans-serif; color: #0c467c;">
+                        <strong>CSP Upload Images</strong>
+                      </h2>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>
+                      <img src="../../assets/upload.png" height="50px">
+                    </td>
+                    <td>&nbsp;</td>
+                    <td align="right">
+                      <a href="https://confluence.kroger.com/confluence/display/IMP/Utility%3A+CSP+Upload+Images+%28V1%29+-+User+Guide"
+                         target="_blank">
+                        <button pButton type="button" icon="pi pi-question" pTooltip="Help"></button>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" style="visibility: hidden" id="gtinMessage">
+                      <p-message severity="error" text={{msg}}></p-message>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1">
+                      <span class="ui-float-label">
+                        <input id="gtin" type="text" size="30" pInputText formControlName="gtin"/>
+                        <label for="gtin">GTIN</label>
+                      </span>
+                    </td>
+                    <td colspan="2">
+                    </td>
+                    <td colspan="1" width="20%">
+                      <button pButton (click)="submit()" type="button" label="Upload Image(s)"
+                              icon="pi pi-upload" id="submit"></button>
+                    </td>
+                    <td colspan="1" width="10%" align="right">
+                      <button pButton (click)="reset()" type="button" label="Clear" size="10"
+                              icon="pi pi-trash"></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1">
+                      <div *ngIf="div_visible">
+                        <p-progressBar mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+                      </div>
+                    </td>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">
+                      <button pButton (click)="addAttributes()" type="button" label="Add Row" icon="pi pi-plus-circle"
+                              size="10"></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5" align="center">
+                      <div formArrayName="imageAttributes" align="center">
+                        <ng-container *ngFor="let obj of imageAttributes.controls; let i=index" [formGroupName]="i">
+                          <hr *ngIf="i!=0"/>
+                          <table border="0px" width="100%">
+                            <tr>
+                              <td colspan="1"
+                                  style="text-align:left; font-family: Segoe UI, Arial, sans-serif; color: rgba(0,116,217,0.84); font-size: medium">
+                                <b>Image Number: {{i+1}}</b>
+                              </td>
+                              <td colspan="2" id="imageId{{i}}"
+                                  style="visibility: hidden; text-align: center; background-color: rgba(66,248,123,0.32); font-family: Segoe UI, Arial, sans-serif; color: black; font-size: medium">
+                                Image ID # {{imageIds[i]}}
+                                <br/>
+                                <a href="{{imageUrls[i]}}" target="_blank">
+                                  Click Here
+                                </a>
+                              </td>
+                              <td colspan="1" align="right">
+                                <button pButton (click)="deleteRow(i)" type="button" label="Delete Row"
+                                        icon="pi pi-minus-circle"
+                                        size="10" *ngIf="i!=0"></button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">
+                                <p-messages [(value)]="msgs[i]"></p-messages>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="1" width="10%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <b>Source:&nbsp;&nbsp;</b></td>
+                              <td colspan="1" width="30%">
+                                <p-dropdown [options]="sources" placeholder="Select Source"
+                                            [style]="{'width':'220px'}"
+                                            (onChange)="onSourceChange($event, i)"
+                                            formControlName="source"></p-dropdown>
+                              </td>
+                              <td colspan="1" width="30%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <b>View Angle:&nbsp;&nbsp;</b></td>
+                              <td colspan="1" width="30%">
+                                <p-dropdown [options]="viewAngles" placeholder="Select View Angle"
+                                            [style]="{'width':'220px'}" formControlName="viewAngle"></p-dropdown>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="1" width="10%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <b>Background:&nbsp;&nbsp;</b></td>
+                              <td colspan="1" width="30%">
+                                <p-dropdown [options]="backgrounds" placeholder="Select Background"
+                                            [style]="{'width':'220px'}" formControlName="background"></p-dropdown>
+                              </td>
+                              <td colspan="1" width="30%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <b>Provided Size:&nbsp;&nbsp;</b>
+                              </td>
+                              <td colspan="1" width="30%">
+                                <input id="providedSize" type="text" size="18px" placeholder="Provided Size" size="22px"
+                                       pInputText formControlName="providedSize"/>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="1" width="10%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <b>Description:&nbsp;&nbsp;</b>
+                              </td>
+                              <td colspan="1" width="30%">
+                                <textarea rows="1" cols="22" pInputTextarea autoResize="autoResize"
+                                          [style]="{'width':'200px'}"
+                                          placeholder="Description" formControlName="description"></textarea>
+                              </td>
+                              <td colspan="1" width="10%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <b>File Name:&nbsp;&nbsp;</b>
+                              </td>
+                              <td colspan="1" width="30%">
+                                <input id="fileName{{i}}" type="text" size="22px" placeholder="File Name" pInputText
+                                       formControlName="fileName" disabled="true"/>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="1" width="30%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                                <div style="visibility: hidden;" id="vendorUrlLabel{{i}}">
+                                  <b>{{selectedVendor}}&nbsp;URL:&nbsp;&nbsp;</b>
+                                </div>
+                              </td>
+                              <td colspan="1" width="30%">
+                                <div style="visibility: hidden;" id="vendorUrl{{i}}">
+                                  <input type="text" size="22px" placeholder="URL" pInputText
+                                         formControlName="url"/>
+                                </div>
+                              </td>
+                              <td colspan="2" width="60%" align="right"
+                                  style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="4">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td colspan="4" style="visibility: hidden;" id="fileUpload{{i}}">
+                                <p-fileUpload name="image[]" customUpload="true" multiple="false"
+                                              accept="image/*" maxFileSize="1000000"
+                                              [style]="{'max-width':'720px; overflow-y: scroll;'}"
+                                              (uploadHandler)="onUpload($event, i)"
+                                              widgetVar="myFileUpload" [disabled]="ifSubmitted" >
+                                  <ng-template pTemplate="content">
+                                  </ng-template>
+                                </p-fileUpload>
+                              </td>
+                            </tr>
+                          </table>
+
+                        </ng-container>
+                      </div>
+
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td colspan="5">&nbsp;</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>

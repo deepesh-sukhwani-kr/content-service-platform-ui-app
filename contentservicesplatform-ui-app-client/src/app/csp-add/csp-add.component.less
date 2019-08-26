@@ -1,0 +1,332 @@
+#addAttrContainer {
+  margin:auto;
+  width: 50%;
+  padding: 10px;
+  align: center;
+}
+
+#gtin
+{
+  border: 0px solid #000000;
+  border-bottom-width: 2px;
+  background-color: transparent;
+  border-color: #0074D9;
+  font-size: 20px;
+}
+#gtin:hover
+{
+  border-color: #000066;
+  background-color: #FFFFF7;
+}
+
+
+hr {
+  display: block;
+  margin-before: 0.5em;
+  margin-after: 0.5em;
+  margin-start: auto;
+  margin-end: auto;
+  overflow: hidden;
+  border-style: inset;
+  border-width: 1px;
+}
+
+:host ::ng-deep button {
+  margin-right: .25em;
+}
+
+:host ::ng-deep .ui-message-error {
+  background-color: rgba(248, 183, 189, 0.32);
+}
+
+:host ::ng-deep .ui-messages-error {
+  background-color: rgba(248, 183, 189, 0.32);
+}
+:host ::ng-deep .ui-messages-success {
+  background-color: rgba(66, 248, 123, 0.32);
+}
+:host ::ng-deep .ui-toast-message-success {
+  background-color: rgba(66, 248, 123, 0.32);
+}
+
+:host ::ng-deep .ui-inputtext {
+  margin-right: .25em;
+}
+
+:host ::ng-deep .ui-dialog {
+  width: 600px;
+}
+
+
+:host ::ng-deep .ui-calendar {
+  position: relative;
+  display: inline-block;
+}
+
+:host ::ng-deep .ui-calendar .ui-calendar-button {
+  position: absolute;
+  height: 100%;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  width: 2em;
+  border-left: 0 none;
+}
+
+:host ::ng-deep .ui-calendar .ui-calendar-button:enabled:hover,
+.ui-calendar .ui-calendar-button:focus {
+  border-left: 0 none;
+}
+
+:host ::ng-deep .ui-calendar .ui-datepicker {
+  min-width: 100%;
+}
+
+/* Fluid */
+:host ::ng-deep .ui-fluid .ui-calendar {
+  width: 100%;
+}
+
+:host ::ng-deep .ui-fluid .ui-calendar-button {
+  width: 2em;
+}
+
+:host ::ng-deep .ui-fluid .ui-datepicker-buttonbar button {
+  width: auto;
+}
+
+:host ::ng-deep .ui-fluid .ui-calendar.ui-calendar-w-btn .ui-inputtext {
+  width: calc(100% - 2em);
+}
+
+/* Datepicker */
+:host ::ng-deep .ui-datepicker {
+  width: auto;
+  padding: .2em;
+  position: absolute;
+}
+
+:host ::ng-deep .ui-datepicker.ui-datepicker-inline {
+  display: inline-block;
+  position: static;
+}
+
+:host ::ng-deep .ui-datepicker .ui-datepicker-group {
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+
+/* Header */
+:host ::ng-deep .ui-datepicker .ui-datepicker-header {
+  position: relative;
+  padding: .5em 0;
+}
+:host ::ng-deep .ui-datepicker .ui-datepicker-prev,
+:host ::ng-deep .ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: .5em;
+  width: 1.8em;
+  height: 1.8em;
+}
+
+:host ::ng-deep .ui-datepicker .ui-datepicker-prev {
+  left: .125em;
+}
+:host ::ng-deep .ui-datepicker .ui-datepicker-next {
+  right: .125em;
+}
+:host ::ng-deep .ui-datepicker .ui-datepicker-prev span,
+:host ::ng-deep .ui-datepicker .ui-datepicker-next span {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -.5em;
+  margin-left: -.5em;
+}
+:host ::ng-deep .ui-datepicker .ui-datepicker-title {
+  margin: 0 2.3em;
+  line-height: 1.8em;
+  text-align: center;
+}
+:host ::ng-deep .ui-datepicker .ui-datepicker-title select {
+  font-size: 1em;
+  margin: .125em 0;
+  vertical-align: middle;
+}
+:host ::ng-deep .ui-datepicker select.ui-datepicker-month {
+  margin-right: .25em;
+}
+:host ::ng-deep .ui-datepicker span.ui-datepicker-year {
+  margin-left: .25em;
+}
+
+/* Multiple Month DatePicker */
+:host ::ng-deep .ui-datepicker-multiple-month .ui-datepicker-group {
+  display: table-cell;
+  border-left-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  border-right-width: 1px;
+}
+
+/* DatePicker Table */
+:host ::ng-deep .ui-datepicker table {
+  width: 100%;
+  font-size: .9em;
+  border-collapse: collapse;
+  margin: 0 0 .4em;
+}
+:host ::ng-deep .ui-datepicker th {
+  padding: .5em;
+  text-align: center;
+  font-weight: bold;
+  border: 0;
+}
+:host ::ng-deep .ui-datepicker td {
+  border: 0;
+  padding: 0;
+}
+:host ::ng-deep .ui-datepicker td > span,
+:host ::ng-deep .ui-datepicker td > a {
+  display: block;
+  padding: .5em;
+  text-decoration: none;
+  border: 0 none;
+  text-align: center;
+}
+
+:host ::ng-deep .ui-datepicker .ui-datepicker-buttonbar {
+  border-left: 0 none;
+  border-right: 0 none;
+  border-bottom: 0 none;
+  padding: .5em;
+}
+
+:host ::ng-deep .ui-datepicker .ui-datepicker-buttonbar > .ui-g > div:last-child {
+  text-align: right;
+}
+
+:host ::ng-deep .ui-datepicker .ui-datepicker-buttonbar > .ui-g > div {
+  padding: 0;
+}
+
+:host ::ng-deep .ui-calendar.ui-calendar-w-btn input {
+  -moz-border-radius-topright: 0px;
+  -webkit-border-top-right-radius: 0px;
+  -khtml-border-top-right-radius: 0px;
+  border-top-right-radius: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+  -khtml-border-bottom-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+/* Month Picker */
+:host ::ng-deep .ui-monthpicker .ui-monthpicker-month {
+  width: 33.3%;
+  display: inline-block;
+  text-align: center;
+  padding: .5em;
+}
+
+:host ::ng-deep .ui-datepicker-monthpicker select.ui-datepicker-year {
+  width: auto;
+}
+
+/* Time Picker */
+:host ::ng-deep .ui-timepicker {
+  text-align: center;
+  padding: .5em 0;
+}
+
+:host ::ng-deep .ui-timepicker > div {
+  display: inline-block;
+  margin-left: .5em;
+  min-width: 1.5em;
+}
+
+:host ::ng-deep .ui-timepicker > .ui-minute-picker,
+:host ::ng-deep .ui-timepicker > .ui-second-picker {
+  margin-left: 0;
+}
+
+:host ::ng-deep .ui-timepicker > .ui-separator {
+  margin-left: 0px;
+  min-width: .75em;
+}
+
+:host ::ng-deep .ui-timepicker > .ui-separator a {
+  visibility: hidden;
+}
+
+:host ::ng-deep .ui-timepicker > div a {
+  display: block;
+  opacity: 0.7;
+  filter:Alpha(Opacity=70);
+}
+
+:host ::ng-deep .ui-timepicker > div a:last-child {
+  margin-top: .3em;
+}
+
+:host ::ng-deep .ui-timepicker > div a:hover {
+  display: block;
+  opacity: 1;
+  filter:Alpha(Opacity=100);
+}
+input[type=text]::-ms-clear {
+  display: none;
+}
+
+/* Touch UI */
+:host ::ng-deep .ui-datepicker-touch-ui,
+:host ::ng-deep .ui-calendar .ui-datepicker-touch-ui {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 80vw;
+}
+
+:host ::ng-deep .ui-datepicker-touch-ui.ui-datepicker th {
+  padding: 2em 0;
+}
+:host ::ng-deep .ui-datepicker-touch-ui.ui-datepicker td {
+  padding: 0;
+}
+:host ::ng-deep .ui-datepicker-touch-ui.ui-datepicker td > span,
+:host ::ng-deep .ui-datepicker-touch-ui.ui-datepicker td > a {
+  padding: 2em 0;
+}
+
+:host ::ng-deep .ui-datepicker-touch-ui .ui-timepicker {
+  padding: 1em 0;
+}
+
+:host ::ng-deep .ui-datepicker-touch-ui .ui-timepicker > div a {
+  font-size: 2em;
+}
+
+:host ::ng-deep .ui-datepicker-mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 40em) {
+  .ui-datepicker-multiple-month {
+    width: 17em;
+    overflow: auto;
+  }
+
+  .ui-datepicker-touch-ui.ui-datepicker th {
+    padding: 1em 0;
+  }
+
+  .ui-datepicker-touch-ui.ui-datepicker td span,
+  .ui-datepicker-touch-ui.ui-datepicker td a {
+    padding: 1em 0;
+  }
+}
+

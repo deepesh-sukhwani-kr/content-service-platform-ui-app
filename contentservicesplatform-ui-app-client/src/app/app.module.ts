@@ -8,6 +8,16 @@ import { AppComponent } from './app.component';
 import { KrogerNotificationsModule, KrogerNotificationsService } from 'kroger-notifications';
 import { CoreModule } from './core/core.module';
 import { HomeModule } from './home/home.module';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {InputTextModule} from 'primeng/inputtext';
+import {AccordionModule} from 'primeng/accordion';
+
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {CspSearchModule} from "./csp-search/csp-search.module";
+import {MenuModule} from 'primeng/menu';
+import {CspAddModule} from "./csp-add/csp-add.module";
+import {CsvUploadModule} from "./csv-upload/csv-upload.module";
+
 
 @NgModule({
   declarations: [
@@ -19,7 +29,16 @@ import { HomeModule } from './home/home.module';
     RouterModule,
     KrogerNotificationsModule.forRoot(),
     CoreModule,
-    HomeModule
+    HomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    CspSearchModule,
+    CspAddModule,
+    CsvUploadModule,
+    AccordionModule,
+    MenuModule,
+    NgbModule.forRoot()
   ],
   providers: [KrogerNotificationsService],
   bootstrap: [AppComponent]
