@@ -31,6 +31,11 @@ management:
 #logging:
   #level:
     #org.springframework.security: DEBUG
+add:
+  url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
+search:
+  url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
+authorization: Basic U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
 ---
 spring:
   profiles: local
@@ -57,6 +62,11 @@ security:
       userAuthorizationUri: https://federation.kroger.com/identity/oauth/authorize
     resource:
       tokenInfoUri: https://federation.kroger.com/identity/oauth/check_token
+add:
+  url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
+search:
+  url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
+authorization: Basic U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
 ---
 spring:
   profiles: cloud
@@ -83,6 +93,11 @@ security:
       userAuthorizationUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/authorize
     resource:
       tokenInfoUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/check_token
+add:
+  url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
+search:
+  url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
+authorization: Basic U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
 ---
 spring:
   profiles: unittest
@@ -108,3 +123,8 @@ security:
       userAuthorizationUri: https://federation.kroger.com/identity/oauth/authorize
     resource:
       tokenInfoUri: https://federation.kroger.com/identity/oauth/check_token
+add:
+  url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
+search:
+  url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
+authorization: Basic U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1

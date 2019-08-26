@@ -112,6 +112,48 @@
 			<artifactId>kroger-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.kroger.imp.apm</groupId>
+			<artifactId>IMPAPMPluginGladson</artifactId>
+			<version>2.0.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.kroger.imp.apm</groupId>
+			<artifactId>IMPAPMPluginKwikee</artifactId>
+			<version>1.0.21</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.kroger.imp.library</groupId>
+			<artifactId>imp-library</artifactId>
+			<version>1.0.14</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kroger.imp.assetmanagement</groupId>
+			<artifactId>imp-assetmanagement-service</artifactId>
+			<version>2.0.58</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kroger.imp.search</groupId>
+			<artifactId>imp-search-service</artifactId>
+			<version>2.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kroger.imp.datasource</groupId>
+			<artifactId>imp-datasource-library</artifactId>
+			<version>1.1.21</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
