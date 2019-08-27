@@ -68,12 +68,25 @@ export class CsvUploadComponent implements OnInit {
       detail: 'Upload is in progress. Please DO NOT hit back, refresh or any other button in this window. ' +
       'Progress will be lost!'
     });
+    if(this.ifImagesNotUploaded){
+      this.msgs.push({
+        severity: 'warn', summary: 'Warning: ',
+        detail: 'Files not provided for the rows highlighted in Red. ' +
+        'Hence, those rows will not be processed by Content Services Platform!'
+      });
+      this.csvAssets.forEach(csvAsset => {
+        if(!csvAsset.fileProvidedStatus)
+          document.getElementById(csvAsset.fileName+'_tr').style.backgroundColor = '#f8d3d9'
+      })
+    }
     this.csvAssets.forEach(csvAsset => {
-      csvAsset.uploadStatus = 'In Progress';
-      document.getElementById(csvAsset.fileName).style.color = '#F8E535';
-      this.addService.addImages(this.buildAddImageRequest(csvAsset))
-        .subscribe(successResponse => this.handleSuccess(successResponse, csvAsset),
-          failureResponse => this.handleFailure(failureResponse, csvAsset));
+      if(csvAsset.fileProvidedStatus) {
+        csvAsset.uploadStatus = 'In Progress';
+        document.getElementById(csvAsset.fileName).style.color = '#F8E535';
+        this.addService.addImages(this.buildAddImageRequest(csvAsset))
+          .subscribe(successResponse => this.handleSuccess(successResponse, csvAsset),
+            failureResponse => this.handleFailure(failureResponse, csvAsset));
+      }
     })
   }
 

@@ -45,7 +45,7 @@
                     </td>
                     <td colspan="1" width="45%"  align="right">
                       <button pButton (click)="submit()" type="button" label="Submit"
-                              icon="pi pi-upload" id="submit" [disabled]=ifImagesNotUploaded></button>
+                              icon="pi pi-upload" id="submit"></button>
                     </td>
                     <td colspan="1" width="15%" align="right">
                       <button pButton (click)="reset()" type="button" label="Clear" size="10"
@@ -101,7 +101,7 @@
                             </tr>
                           </ng-template>
                           <ng-template pTemplate="body" let-csvAsset>
-                            <tr style="white-space:nowrap;">
+                            <tr style="white-space:nowrap;"  id="{{csvAsset.fileName}}">
                               <td align="center"><img src="{{csvAsset.fileProvided}}" height="15px"/></td>
                               <td> <div id="{{csvAsset.fileName}}" style="color: #4858f8">{{csvAsset.uploadStatus}}</div></td>
                               <td>

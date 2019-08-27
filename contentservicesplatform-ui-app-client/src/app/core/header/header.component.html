@@ -10,10 +10,10 @@
         </button>
         <div id="kroger_logo" ui-sref="home"></div>
         <div id="innerWrap">
-              <p>ng</p>
+              <p></p>
         </div>
         <div class="logBox">
-            <p *ngIf="isAuthenticated">Welcome, {{ this.currentUser.fullName }} | <a (click)="doLogout()" style="cursor: pointer;">Sign Out</a></p>
+            <p *ngIf="isAuthenticated">Welcome, {{ this.currentUser.fullName }} ({{this.currentUser.username}}) | <a (click)="doLogout()" style="cursor: pointer;">Sign Out</a></p>
             <p *ngIf="!isAuthenticated"> <a (click)="doLogin()" style="cursor: pointer;">Sign In</a> </p>
         </div>
     </div>
