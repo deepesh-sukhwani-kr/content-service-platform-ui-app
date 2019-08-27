@@ -1,3 +1,4 @@
+import {Component, OnInit} from '@angular/core';
 import {Papa} from "ngx-papaparse";
 import {CsvAsset} from "./model/csv-asset";
 import {Message} from "primeng/components/common/api";
@@ -9,7 +10,6 @@ import {CspAddService} from "../csp-add/csp-add.service";
 import {AddImageResponse} from "../csp-add/model/addImageResponse";
 import {AssetDetailResponse} from "../csp-add/model/assetDetailResponse";
 import {CsvUploadConstants} from "./csv-upload-constants";
-import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'app-csv-upload',
@@ -59,35 +59,41 @@ export class CsvUploadComponent implements OnInit {
   }
 
   submit() {
-    this.isFinalized = true;
-    this.ifImagesNotUploaded = true;
-    this.progressVisible = true;
-    this.msgs = [];
-    this.msgs.push({
-      severity: 'warn', summary: 'Warning: ',
-      detail: 'Upload is in progress. Please DO NOT hit back, refresh or any other button in this window. ' +
-      'Progress will be lost!'
-    });
-    if(this.ifImagesNotUploaded){
+    if(this.ifSingleImageUploaded()) {
+      this.isFinalized = true;
+      this.ifImagesNotUploaded = true;
+      this.progressVisible = true;
+      this.msgs = [];
       this.msgs.push({
         severity: 'warn', summary: 'Warning: ',
-        detail: 'Files not provided for the rows highlighted in Red. ' +
-        'Hence, those rows will not be processed by Content Services Platform!'
+        detail: 'Upload is in progress. Please DO NOT hit back, refresh or any other button in this window. ' +
+        'Progress will be lost!'
       });
-      this.csvAssets.forEach(csvAsset => {
-        if(!csvAsset.fileProvidedStatus)
-          document.getElementById(csvAsset.fileName+'_tr').style.backgroundColor = '#f8d3d9'
-      })
-    }
-    this.csvAssets.forEach(csvAsset => {
-      if(csvAsset.fileProvidedStatus) {
-        csvAsset.uploadStatus = 'In Progress';
-        document.getElementById(csvAsset.fileName).style.color = '#F8E535';
-        this.addService.addImages(this.buildAddImageRequest(csvAsset))
-          .subscribe(successResponse => this.handleSuccess(successResponse, csvAsset),
-            failureResponse => this.handleFailure(failureResponse, csvAsset));
+      if (this.ifImagesNotUploaded) {
+        this.msgs.push({
+          severity: 'warn', summary: 'Warning: ',
+          detail: 'Files not provided for the rows highlighted in Red. ' +
+          'Hence, those rows will not be processed by Content Services Platform!'
+        });
+        this.csvAssets.forEach(csvAsset => {
+          if (!csvAsset.fileProvidedStatus)
+            document.getElementById(csvAsset.fileName + '_tr').style.backgroundColor = '#f8d3d9'
+        })
       }
-    })
+      this.csvAssets.forEach(csvAsset => {
+        if (csvAsset.fileProvidedStatus) {
+          csvAsset.uploadStatus = 'In Progress';
+          document.getElementById(csvAsset.fileName).style.color = '#F8E535';
+          this.addService.addImages(this.buildAddImageRequest(csvAsset))
+            .subscribe(successResponse => this.handleSuccess(successResponse, csvAsset),
+              failureResponse => this.handleFailure(failureResponse, csvAsset));
+        } else {
+          csvAsset.processed = true;
+        }
+      })
+    }else {
+      this.showError('Error', 'At least one file should be uploaded before clicking submit!');
+    }
   }
 
   download() {
@@ -114,6 +120,15 @@ export class CsvUploadComponent implements OnInit {
     this.isCompleted = false
     document.getElementById("imageUpload").style.visibility = "hidden";
     document.getElementById("csvTable").style.visibility = "hidden";
+  }
+
+  private ifSingleImageUploaded(): boolean{
+    let flag: boolean = false;
+    this.csvAssets.forEach(csvAsset => {
+      if(csvAsset.fileProvidedStatus)
+        flag = true;
+    });
+    return flag;
   }
 
   private handleSuccess(response: Object, csvAsset: CsvAsset) {
@@ -419,6 +434,13 @@ export class CsvUploadComponent implements OnInit {
       this.progressVisible = false;
       this.msgs = [];
       this.isCompleted = true;
+      if(this.ifImagesNotUploaded) {
+        this.msgs.push({
+          severity: 'warn', summary: 'Warning: ',
+          detail: 'Files not provided for the rows highlighted in Red. ' +
+          'Hence, those rows will not be processed by Content Services Platform!'
+        });
+      }
     }
   }
 
