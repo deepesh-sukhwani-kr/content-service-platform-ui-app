@@ -158,4 +158,4 @@ add:
   url: https://impprod.cfcdcinternal.kroger.com/imp/asset/v1/images/add
 search:
   url: https://imp-search-prod.cfhdcinternal.kroger.com/imp/search/v1/images/search
-authorization: KRYPT(SOCPvS4DzHT3hkkGrg+TvdSKi1b0gt3r5yq0a7rZ+Z4=)
+authorization: KRYPT(uI/bHZoouTfUZHxOQrVmkhXD5uz/+w9QuWQgOEg0Wnk=)
