@@ -11,6 +11,7 @@ import {AssetType} from "./constants/assetType";
 import {CspAddService} from "./csp-add.service";
 import {AssetDetailResponse} from "./model/assetDetailResponse";
 import {AddImageResponse} from "./model/addImageResponse";
+import {AuthService, User} from "kroger-ng-oauth2";
 
 
 /**
@@ -41,7 +42,8 @@ export class CspAddComponent implements OnInit {
   ifSubmitted: boolean = false;
 
   constructor(private _formBuilder: FormBuilder, private http: HttpClient,
-              private messageService: MessageService, private  addService: CspAddService) {
+              private messageService: MessageService, private  addService: CspAddService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -359,7 +361,8 @@ export class CspAddComponent implements OnInit {
     identifier.gtin = this.form.get('gtin').value;
 
     var request: ImageAddRequest = new ImageAddRequest();
-    request.referenceId = "CSP-UI-ADD-" + new Date().getMilliseconds();
+    request.referenceId = "CSP-UI-ADD-"
+      +(<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds();
     request.creationDatetime = new Date().toISOString();
     request.imageType = IMAGE_TYPE;
     request.assetIdentifier = identifier;

@@ -25,7 +25,6 @@ export class CspSearchService {
       .toPromise()
       .then(res => <CspSearchResponse>res)
       .then(data => {
-        console.log('CSP-Search-'+(<User>this.authService.getUser()).username);
         return data;
       });
   }

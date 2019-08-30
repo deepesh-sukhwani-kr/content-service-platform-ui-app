@@ -10,6 +10,7 @@ import {CspAddService} from "../csp-add/csp-add.service";
 import {AddImageResponse} from "../csp-add/model/addImageResponse";
 import {AssetDetailResponse} from "../csp-add/model/assetDetailResponse";
 import {CsvUploadConstants} from "./csv-upload-constants";
+import {AuthService, User} from "kroger-ng-oauth2";
 
 @Component({
   selector: 'app-csv-upload',
@@ -29,7 +30,7 @@ export class CsvUploadComponent implements OnInit {
   progressVisible: boolean = false;
   isCompleted: boolean = false
 
-  constructor(private papa: Papa, private addService: CspAddService) {
+  constructor(private papa: Papa, private addService: CspAddService, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -385,7 +386,8 @@ export class CsvUploadComponent implements OnInit {
     identifier.gtin = csvAsset.gtin;
 
     var request: ImageAddRequest = new ImageAddRequest();
-    request.referenceId = CsvUploadConstants.REFERENCE_ID_PREFIX + new Date().getMilliseconds()
+    request.referenceId = CsvUploadConstants.REFERENCE_ID_PREFIX+
+      (<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds()
       + "-" + identifier.gtin;
     request.creationDatetime = new Date().toISOString();
     request.imageType = 'ProductImage';
