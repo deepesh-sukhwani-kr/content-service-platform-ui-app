@@ -25,7 +25,10 @@ public class SearchImageRequestConverter {
         transactionRef.setCreationdatetime(Instant.now().toString());
         transactionRef.setEvent("SEARCH");
         transactionRef.setSource("UI");
-        transactionRef.setEnvironment(env);
+        if("stage".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("prod");
+        else
+            transactionRef.setEnvironment(env);
 
         //Set Transaction Ref and SearchFilter
         searchImageAPIRequest.setTransactionRef(transactionRef);

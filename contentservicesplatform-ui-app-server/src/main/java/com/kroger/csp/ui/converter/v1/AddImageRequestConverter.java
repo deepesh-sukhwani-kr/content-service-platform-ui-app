@@ -38,7 +38,10 @@ public class AddImageRequestConverter {
         transactionRef.setCreationdatetime(addImageUIRequest.getCreationDatetime());
         transactionRef.setEvent("ADDASSET");
         transactionRef.setSource("UI");
-        transactionRef.setEnvironment(env);
+        if("stage".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("prod");
+        else
+            transactionRef.setEnvironment(env);
 
         //Populate Asset Fields
         Asset asset = new Asset();
