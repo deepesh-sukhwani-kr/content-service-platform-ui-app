@@ -44,7 +44,7 @@ public class AddImageService {
 
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(addUrl);
             HttpHeaders headers = new HttpHeaders();
-            headers.add(AUTHORIZATION, authorizationValue);
+            headers.add(AUTHORIZATION, "Basic "+authorizationValue);
             headers.add("Content-Type", "application/json");
             HttpEntity<AddImageAPIRequest> httpEntityRequest = new HttpEntity<>(request, headers);
 

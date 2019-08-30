@@ -32,7 +32,7 @@ public class SearchImageService {
         SearchImageAPIResponse searchImageAPIResponse = new SearchImageAPIResponse();
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(searchUrl);
         HttpHeaders headers = new HttpHeaders();
-        headers.add(AUTHORIZATION, authorizationValue);
+        headers.add(AUTHORIZATION, "Basic "+authorizationValue);
         headers.add("Content-Type", "application/json");
         HttpEntity<SearchImageAPIRequest> httpEntityRequest = new HttpEntity<>(request, headers);
         ResponseEntity<SearchImageAPIResponse> responseEntity = restTemplate.postForEntity(builder.build().encode().toUri(), httpEntityRequest, SearchImageAPIResponse.class);
