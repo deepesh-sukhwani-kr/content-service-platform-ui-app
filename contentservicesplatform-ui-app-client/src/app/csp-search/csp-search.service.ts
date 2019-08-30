@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Image} from "../model/image";
 import {CspSearchResponse} from "../model/cspSearchResponse";
 import {EndPoints} from "../configuration/endPoints";
+import {AuthService, User} from "kroger-ng-oauth2";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CspSearchService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   getImages(imageId: string, gtin: string ) {
@@ -20,10 +21,11 @@ export class CspSearchService {
       param = param + '&gtin=' + gtin;
     return this.http
       .get<any>(EndPoints.SEARCH_ENDPOINT +
-        '?referenceId=CSP-Search-'+new Date().getMilliseconds()+param)
+        '?referenceId=CSP-Search-'+(<User>this.authService.getUser()).username+'-'+new Date().getMilliseconds()+param)
       .toPromise()
       .then(res => <CspSearchResponse>res)
       .then(data => {
+        console.log('CSP-Search-'+(<User>this.authService.getUser()).username);
         return data;
       });
   }
