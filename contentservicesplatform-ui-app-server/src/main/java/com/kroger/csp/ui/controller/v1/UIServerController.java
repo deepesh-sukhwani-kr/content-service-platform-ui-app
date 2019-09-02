@@ -42,7 +42,7 @@ public class UIServerController {
 
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addImage", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public AddImageUIResponse addImage(@RequestBody AddImageUIRequest request) {
 
         AddImageUIResponse addImageUIResponse = new AddImageUIResponse();
