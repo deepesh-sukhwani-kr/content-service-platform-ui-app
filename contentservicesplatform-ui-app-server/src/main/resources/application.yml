@@ -155,7 +155,7 @@ security:
     resource:
       tokenInfoUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/check_token
 add:
-  url: https://imp.cfcdcinternal.kroger.com/imp/asset/v1/images/add
+  url: https://imp.kroger.com/imp/asset/v1/images/add
 search:
-  url: https://imp-search-prod.cfhdcinternal.kroger.com/imp/search/v1/images/search
+  url: https://imp.kroger.com/imp/search/v1/images/search
 authorization: KRYPT(TZEp0MsolJd4pL4H8f59GG3MF00QDa5FZZonTnz1gqDEr813RiO2nnGsuA8Qd2iXOQVjap56dA3MxNvLlmdo066phWedhJM3oxRTHlOhfAA=)
