@@ -11,6 +11,7 @@ import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import com.kroger.csp.ui.service.v1.AddImageService;
 import com.kroger.csp.ui.service.v1.SearchImageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,7 @@ public class UIServerController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @RequestMapping(value = "/addImage", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public AddImageUIResponse addImage(@RequestBody AddImageUIRequest request) {
 
