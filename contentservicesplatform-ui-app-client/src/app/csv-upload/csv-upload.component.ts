@@ -134,7 +134,7 @@ export class CsvUploadComponent implements OnInit {
 
   private handleSuccess(response: Object, csvAsset: CsvAsset) {
     let res = <AddImageResponse>response;
-    if (res.assetDetails[0]) {
+    if (res != null && res.assetDetails!= null && res.assetDetails[0]) {
       if (this.isSequenceSuccess(res.assetDetails[0])) {
         csvAsset.imageId = res.assetDetails[0].imageId;
         csvAsset.url = res.assetDetails[0].imageUrl;
@@ -158,6 +158,7 @@ export class CsvUploadComponent implements OnInit {
     csvAsset.uploadStatus = 'Failed: Connection Error';
     csvAsset.processed = true;
     document.getElementById(csvAsset.fileName).style.color = '#f82c25';
+    console.log(response);
     this.completeProcessing();
   }
 

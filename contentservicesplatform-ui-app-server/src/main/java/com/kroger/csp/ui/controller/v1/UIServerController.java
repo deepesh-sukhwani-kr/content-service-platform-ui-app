@@ -11,7 +11,6 @@ import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import com.kroger.csp.ui.service.v1.AddImageService;
 import com.kroger.csp.ui.service.v1.SearchImageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @RestController
@@ -41,7 +37,6 @@ public class UIServerController {
     private SearchImageService searchImageService;
 
 
-
     @CrossOrigin(origins = "*", methods = {RequestMethod.POST})
     @RequestMapping(value = "/addImage", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public AddImageUIResponse addImage(@RequestBody AddImageUIRequest request) {
@@ -59,29 +54,17 @@ public class UIServerController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/addMultipleImages", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<AddImageUIResponse> addMultipleImages (@RequestBody List<AddImageUIRequest> requestList) {
+    @RequestMapping(value = "/addMultipleImages", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String addMultipleImages(@RequestBody Object requestList) {
 
-        List<AddImageUIResponse> addImageUIResponseList = new ArrayList<>();
-
-        try {
-            for(AddImageUIRequest addImageUIRequest : requestList) {
-
-                AddImageAPIRequest addImageAPIRequest = addImageRequestConverter.populateAPIRequest(addImageUIRequest);
-                addImageUIResponseList.add(addImageService.addImage(addImageAPIRequest));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-        return addImageUIResponseList;
+        return "test";
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/cspSearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public SearchResponse searchImageInCSP (@RequestParam(value = "imageId", required = false) String imageId,
-                                            @RequestParam(value = "gtin", required = false) String gtin,
-                                            @RequestParam(value = "referenceId", required = true) String referenceId) {
+    public SearchResponse searchImageInCSP(@RequestParam(value = "imageId", required = false) String imageId,
+                                           @RequestParam(value = "gtin", required = false) String gtin,
+                                           @RequestParam(value = "referenceId", required = true) String referenceId) {
 
         SearchImageUIResponse searchImageUIResponse = new SearchImageUIResponse();
         SearchResponse response = new SearchResponse();
