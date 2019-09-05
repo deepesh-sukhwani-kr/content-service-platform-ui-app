@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -107,6 +108,8 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
      */
     public static void configureAuthRules(HttpSecurity http) throws Exception
     {
+        CookieCsrfTokenRepository cookieCsrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        http.csrf().csrfTokenRepository(cookieCsrfTokenRepository);
         // @formatter:off
         http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout").permitAll()
                 .anyRequest().authenticated();
