@@ -108,8 +108,7 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
      */
     public static void configureAuthRules(HttpSecurity http) throws Exception
     {
-        CookieCsrfTokenRepository cookieCsrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        http.csrf().csrfTokenRepository(cookieCsrfTokenRepository);
+        http.csrf().disable();
         // @formatter:off
         http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout").permitAll()
                 .anyRequest().authenticated();
