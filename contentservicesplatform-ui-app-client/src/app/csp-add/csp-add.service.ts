@@ -19,8 +19,6 @@ export class CspAddService {
         'Content-Type':  'application/json',
       })
     };
-    this.http.post('/imp/ui/v1/server/addMultipleImages', request)
-      .subscribe(value => console.log('test post: ' + value));
     return  this.http.post(EndPoints.ADD_ENDPOINT, request, httpOptions);
   }
 }

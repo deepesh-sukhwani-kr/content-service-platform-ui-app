@@ -54,13 +54,6 @@ public class UIServerController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/addMultipleImages", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String addMultipleImages(@RequestBody Object requestList) {
-
-        return "test";
-    }
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/cspSearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public SearchResponse searchImageInCSP(@RequestParam(value = "imageId", required = false) String imageId,
                                            @RequestParam(value = "gtin", required = false) String gtin,
