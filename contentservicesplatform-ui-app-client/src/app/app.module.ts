@@ -1,13 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { RouterModule } from '@angular/router';
+import {AppRoutingModule} from './app-routing.module';
+import {RouterModule} from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { KrogerNotificationsModule, KrogerNotificationsService } from 'kroger-notifications';
-import { CoreModule } from './core/core.module';
-import { HomeModule } from './home/home.module';
+import {AppComponent} from './app.component';
+import {KrogerNotificationsModule, KrogerNotificationsService} from 'kroger-notifications';
+import {CoreModule} from './core/core.module';
+import {HomeModule} from './home/home.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from 'primeng/inputtext';
 import {AccordionModule} from 'primeng/accordion';
@@ -17,11 +17,12 @@ import {CspSearchModule} from "./csp-search/csp-search.module";
 import {MenuModule} from 'primeng/menu';
 import {CspAddModule} from "./csp-add/csp-add.module";
 import {CsvUploadModule} from "./csv-upload/csv-upload.module";
+import {CspVendorModule} from "./csp-vendor/csp-vendor.module";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +37,7 @@ import {CsvUploadModule} from "./csv-upload/csv-upload.module";
     CspSearchModule,
     CspAddModule,
     CsvUploadModule,
+    CspVendorModule,
     AccordionModule,
     MenuModule,
     NgbModule.forRoot()

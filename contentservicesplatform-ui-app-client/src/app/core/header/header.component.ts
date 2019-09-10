@@ -1,6 +1,6 @@
-import { Component, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService, User } from 'kroger-ng-oauth2';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService, User} from 'kroger-ng-oauth2';
 
 @Component({
   selector: 'app-header',

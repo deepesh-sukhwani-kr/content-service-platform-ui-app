@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StartingPageComponent } from './starting-page.component';
+import {StartingPageComponent} from './starting-page.component';
 
 describe('StartingPageComponent', () => {
   let component: StartingPageComponent;

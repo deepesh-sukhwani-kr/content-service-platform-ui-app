@@ -1,4 +1,4 @@
-import { CspSearchModule } from './csp-search.module';
+import {CspSearchModule} from './csp-search.module';
 
 describe('CspSearchModule', () => {
   let cspSearchModule: CspSearchModule;

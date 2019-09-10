@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {DropdownModule} from "primeng/dropdown";
 import {AccordionModule} from "primeng/accordion";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";

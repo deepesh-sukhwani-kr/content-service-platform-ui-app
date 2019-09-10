@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Image} from "../model/image";
 import {CspSearchResponse} from "../model/cspSearchResponse";
 import {EndPoints} from "../configuration/endPoints";
 import {AuthService, User} from "kroger-ng-oauth2";

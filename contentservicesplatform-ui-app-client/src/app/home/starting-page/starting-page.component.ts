@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, RouterStateSnapshot, RouterState } from '@angular/router';
-import { AuthService } from 'kroger-ng-oauth2';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService} from 'kroger-ng-oauth2';
 
 @Component({
   selector: 'app-starting-page',

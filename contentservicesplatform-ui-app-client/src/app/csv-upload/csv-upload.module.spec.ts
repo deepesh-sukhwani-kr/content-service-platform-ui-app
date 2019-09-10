@@ -1,4 +1,4 @@
-import { CsvUploadModule } from './csv-upload.module';
+import {CsvUploadModule} from './csv-upload.module';
 
 describe('CsvUploadModule', () => {
   let csvUploadModule: CsvUploadModule;

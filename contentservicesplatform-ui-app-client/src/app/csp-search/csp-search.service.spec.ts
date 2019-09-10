@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CspSearchService } from './csp-search.service';
+import {CspSearchService} from './csp-search.service';
 
 describe('CspSearchService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

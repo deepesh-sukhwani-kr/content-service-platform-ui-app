@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ImageAddRequest} from "./model/imageAddRequest";
-import {AddImageResponse} from "./model/addImageResponse";
 import {EndPoints} from "../configuration/endPoints";
 
 @Injectable({

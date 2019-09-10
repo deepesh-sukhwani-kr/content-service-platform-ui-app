@@ -1,7 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { KrogerNotificationsService, KrogerNotification } from 'kroger-notifications';
-import { AuthService } from 'kroger-ng-oauth2';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
+import {KrogerNotificationsService} from 'kroger-notifications';
+import {AuthService} from 'kroger-ng-oauth2';
 import {MenuItem} from "primeng/api";
 
 @Component({
@@ -39,7 +39,7 @@ export class AppComponent {
         label: 'Search',
         items: [
           {label: 'CSP Search', icon: 'pi pi-fw pi-search', routerLink: '/search'},
-          {label: 'Vendor Search', icon: 'pi pi-fw pi-cloud-upload', routerLink: '/home'}
+          {label: 'Vendor Search', icon: 'pi pi-fw pi-cloud-upload', routerLink: '/vendor'}
         ]
       }];
   }

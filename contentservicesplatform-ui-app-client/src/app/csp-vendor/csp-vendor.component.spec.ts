@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CspVendorComponent } from './csp-vendor.component';
+import {CspVendorComponent} from './csp-vendor.component';
 
 describe('CspVendorComponent', () => {
   let component: CspVendorComponent;

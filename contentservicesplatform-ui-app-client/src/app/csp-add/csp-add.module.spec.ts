@@ -1,4 +1,4 @@
-import { CspAddModule } from './csp-add.module';
+import {CspAddModule} from './csp-add.module';
 
 describe('CspAddModule', () => {
   let cspAddModule: CspAddModule;

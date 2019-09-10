@@ -1,7 +1,7 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HomePageComponent } from './home-page.component';
-import { HomeService } from '../home.service';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {HomePageComponent} from './home-page.component';
+import {HomeService} from '../home.service';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;

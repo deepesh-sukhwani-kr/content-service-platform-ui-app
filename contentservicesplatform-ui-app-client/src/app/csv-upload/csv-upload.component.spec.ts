@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CsvUploadComponent } from './csv-upload.component';
+import {CsvUploadComponent} from './csv-upload.component';
 
 describe('CsvUploadComponent', () => {
   let component: CsvUploadComponent;

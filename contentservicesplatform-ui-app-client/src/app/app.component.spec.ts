@@ -1,12 +1,12 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {async, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './core/header/header.component';
-import { NavbarComponent } from './core/navbar/navbar.component';
-import { FooterComponent } from './core/footer/footer.component';
-import { MockLoginIframeComponent, MockUserService, UserService, LoginEventService } from 'kroger-angular-oauth2';
-import { KrogerNotificationsComponent, KrogerNotificationsService } from 'kroger-notifications';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './core/header/header.component';
+import {NavbarComponent} from './core/navbar/navbar.component';
+import {FooterComponent} from './core/footer/footer.component';
+import {LoginEventService, MockLoginIframeComponent, MockUserService, UserService} from 'kroger-angular-oauth2';
+import {KrogerNotificationsComponent, KrogerNotificationsService} from 'kroger-notifications';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
