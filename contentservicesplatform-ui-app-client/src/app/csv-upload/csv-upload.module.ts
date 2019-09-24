@@ -18,7 +18,7 @@ import {TooltipModule} from "primeng/tooltip";
     BrowserModule,
     MessagesModule,
     ProgressBarModule,
-    TooltipModule
+    TooltipModule,
   ],
   exports: [
     CsvUploadComponent

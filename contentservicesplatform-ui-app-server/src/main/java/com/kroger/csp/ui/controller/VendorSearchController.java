@@ -24,7 +24,7 @@ public class VendorSearchController {
     private GladsonSearchService gladsonSearchService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @RequestMapping(value = "/vendorSearch", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/vendorSearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public VendorSearchResponse vendorSearch(@RequestParam(value = "vendorSource", required = true) String vendorSource,
                                              @RequestParam(value = "gtin", required = true) String gtin) {
 
@@ -36,9 +36,11 @@ public class VendorSearchController {
             }else if(StringUtils.equalsIgnoreCase(vendorSource, "GLADSON")) {
                 vendorSearchResponse = gladsonSearchService.getImageDetailsByGtin(gtin);
             }
+            System.out.println("processed: " + vendorSearchResponse);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("finished!");
         return vendorSearchResponse;
     }
 }

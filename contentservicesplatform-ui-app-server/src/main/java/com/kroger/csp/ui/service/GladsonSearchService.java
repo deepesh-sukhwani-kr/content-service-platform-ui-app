@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 
 @Service
@@ -21,10 +22,16 @@ public class GladsonSearchService {
     Properties properties;
 
     public VendorSearchResponse getImageDetailsByGtin(String gtin) throws Exception {
-
+        System.out.println("inside gladsone");
 
         VendorSearchResponse vendorSearchResponse = new VendorSearchResponse();
         List<VendorSearchViewAngleResponse> viewAngleResponseList = new ArrayList<>();
+
+        Set<String> names = properties.stringPropertyNames();
+        for (String name : names){
+            System.out.println(name+" = "+properties.getProperty(name));
+        }
+
 
         try {
 
@@ -32,6 +39,8 @@ public class GladsonSearchService {
 
             Map<String, String> searchResultsMap = new TreeMap(String.CASE_INSENSITIVE_ORDER);
             searchResultsMap = gladsonUpdatedAPI.imageSearch(gtin);
+
+            System.out.println("VENDOR GLADSON RESPONSE = "+searchResultsMap);
 
             for(String viewAngle: searchResultsMap.keySet()){
                 VendorSearchViewAngleResponse vendorSearchViewAngleResponse = new VendorSearchViewAngleResponse();
@@ -47,8 +56,9 @@ public class GladsonSearchService {
             vendorSearchResponse.setViewAngleList(viewAngleResponseList);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+        System.out.println("Gladson processing done");
         return vendorSearchResponse;
     }
 

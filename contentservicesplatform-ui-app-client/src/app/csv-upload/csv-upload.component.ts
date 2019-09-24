@@ -11,6 +11,8 @@ import {AddImageResponse} from "../csp-add/model/addImageResponse";
 import {AssetDetailResponse} from "../csp-add/model/assetDetailResponse";
 import {CsvUploadConstants} from "./csv-upload-constants";
 import {AuthService, User} from "kroger-ng-oauth2";
+import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-csv-upload',
@@ -30,7 +32,8 @@ export class CsvUploadComponent implements OnInit {
   progressVisible: boolean = false;
   isCompleted: boolean = false
 
-  constructor(private papa: Papa, private addService: CspAddService, private authService: AuthService) {
+  constructor(private papa: Papa, private addService: CspAddService, private authService: AuthService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -155,11 +158,33 @@ export class CsvUploadComponent implements OnInit {
   }
 
   private handleFailure(response: Object, csvAsset: CsvAsset) {
+
+    if((<HttpErrorResponse>response).url)
+      this.router.navigate(['/login']);
+
     csvAsset.uploadStatus = 'Failed: Connection Error';
     csvAsset.processed = true;
     document.getElementById(csvAsset.fileName).style.color = '#f82c25';
     console.log(response);
     this.completeProcessing();
+    console.log((<User>this.authService.getUser()).username);
+    console.log((<User>this.authService.getUser()).accountNonExpired);
+    console.log((<User>this.authService.getUser()).accountNonLocked);
+    console.log((<User>this.authService.getUser()).anonymous);
+    console.log((<User>this.authService.getUser()).coopDivisionNumber);
+    console.log((<User>this.authService.getUser()).credentialsNonExpired);
+    console.log((<User>this.authService.getUser()).divisionCode);
+    console.log((<User>this.authService.getUser()).divisionNumber);
+    console.log((<User>this.authService.getUser()).emailAddress);
+    console.log((<User>this.authService.getUser()).enabled);
+    console.log((<User>this.authService.getUser()).groups);
+    console.log((<User>this.authService.getUser()).hash);
+    console.log((<User>this.authService.getUser()).hqDivisionNumber);
+    console.log((<User>this.authService.getUser()).initials);
+
+
+
+
   }
 
   private isSequenceSuccess(sequence: AssetDetailResponse) {

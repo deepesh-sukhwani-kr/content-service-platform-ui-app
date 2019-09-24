@@ -15,4 +15,8 @@ public class VendorSearchResponse {
     private String description;
     private String imageType;
 
+    public String toString(){
+         return (this.source + "-" + this.gtin + "-" + this.viewAngleList + "-" + this.description + "-" + this.imageType);
+    }
+
 }

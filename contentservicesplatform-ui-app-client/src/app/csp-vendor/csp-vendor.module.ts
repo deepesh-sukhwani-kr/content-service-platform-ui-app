@@ -12,7 +12,10 @@ import {DataViewModule} from "primeng/dataview";
 import {DialogModule} from "primeng/dialog";
 import {ProgressBarModule} from "primeng/progressbar";
 import {InputTextModule} from "primeng/primeng";
+import {RadioButtonModule} from 'primeng/radiobutton'
+import {CheckboxModule} from 'primeng/checkbox';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   imports: [
@@ -29,7 +32,10 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     PanelModule,
     DropdownModule,
     ProgressBarModule,
-    TooltipModule
+    TooltipModule,
+    CheckboxModule,
+    TableModule,
+    RadioButtonModule
   ],exports: [
     CspVendorComponent
   ],

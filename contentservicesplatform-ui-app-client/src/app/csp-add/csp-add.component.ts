@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {MessageService, SelectItem} from "primeng/api";
 import {Message} from "primeng/components/common/api";
 import {ImageAddRequest} from "./model/imageAddRequest";
@@ -12,6 +12,7 @@ import {CspAddService} from "./csp-add.service";
 import {AssetDetailResponse} from "./model/assetDetailResponse";
 import {AddImageResponse} from "./model/addImageResponse";
 import {AuthService, User} from "kroger-ng-oauth2";
+import {Router} from "@angular/router";
 
 
 /**
@@ -43,7 +44,7 @@ export class CspAddComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private http: HttpClient,
               private messageService: MessageService, private  addService: CspAddService,
-              private authService: AuthService) {
+              private authService: AuthService,  private router: Router) {
   }
 
   ngOnInit() {
@@ -185,6 +186,8 @@ export class CspAddComponent implements OnInit {
   }
 
   private handleFailure(reason: Object) {
+    if((<HttpErrorResponse>reason).url)
+      this.router.navigate(['/login']);
     this.div_visible = false;
     this.showGtinValidationError('Could not connect to the backend. Please try again later.');
     console.log(reason);
