@@ -1,17 +1,15 @@
 package com.kroger.csp.ui.config;
 
+import brave.Tracer;
+import com.kroger.commons.error.AbstractGlobalExceptionHandler;
+import com.kroger.commons.error.ApiError;
+import com.kroger.commons.error.EnableMissingWebRouteSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-
-import com.kroger.commons.error.AbstractGlobalExceptionHandler;
-import com.kroger.commons.error.ApiError;
-import com.kroger.commons.error.EnableMissingWebRouteSupport;
-
-import brave.Tracer;
 
 @RestControllerAdvice
 @EnableMissingWebRouteSupport

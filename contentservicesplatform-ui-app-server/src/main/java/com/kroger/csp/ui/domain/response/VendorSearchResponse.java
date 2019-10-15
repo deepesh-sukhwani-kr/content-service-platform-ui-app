@@ -14,6 +14,8 @@ public class VendorSearchResponse {
     private List<VendorSearchViewAngleResponse> viewAngleList;
     private String description;
     private String imageType;
+    private String providedSize;
+    private String background;
 
     public String toString(){
          return (this.source + "-" + this.gtin + "-" + this.viewAngleList + "-" + this.description + "-" + this.imageType);

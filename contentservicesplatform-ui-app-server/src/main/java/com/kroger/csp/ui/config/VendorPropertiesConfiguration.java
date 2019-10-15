@@ -10,10 +10,18 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.util.Properties;
 
+/**
+ * Configuration class to read properties to hit vendor API's (Kwikee and Gladson)
+ */
 @Configuration
 @ConfigurationProperties
 public class VendorPropertiesConfiguration {
 
+    /**
+     * Read Kwikee properties
+     * @return
+     * @throws Exception
+     */
     @Bean
     @Qualifier("kwikeeProperties")
     public Properties getKwikeeProperties() throws Exception {
@@ -21,6 +29,11 @@ public class VendorPropertiesConfiguration {
         return PropertiesLoaderUtils.loadProperties(resource);
     }
 
+    /**
+     * Read Gladson properties
+     * @return
+     * @throws Exception
+     */
     @Bean
     @Qualifier("gladsonProperties")
     public Properties getGladsonProperties() throws Exception {

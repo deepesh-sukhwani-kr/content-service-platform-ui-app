@@ -1,12 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CspVendorService} from './csp-vendor.service';
+import {UtilService} from './util.service';
 
-describe('CspVendorService', () => {
+describe('UtilService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CspVendorService = TestBed.get(CspVendorService);
+    const service: UtilService = TestBed.get(UtilService);
     expect(service).toBeTruthy();
   });
 });

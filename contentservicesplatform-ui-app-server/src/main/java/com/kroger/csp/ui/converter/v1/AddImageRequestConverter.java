@@ -23,97 +23,154 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * CSP Add image V1 API request converter class
+ */
 @Component
 public class AddImageRequestConverter {
 
     @Value("${spring.profiles}")
     private String env;
 
-    public AddImageAPIRequest populateAPIRequest(AddImageUIRequest addImageUIRequest) throws Exception {
-        AddImageAPIRequest addImageAPIRequest = new AddImageAPIRequest();
+    /**
+     * To convert API request from UI request
+     * @param uiRequest
+     * @return CSP API request
+     * @throws Exception
+     */
+    public AddImageAPIRequest populateAPIRequest(AddImageUIRequest uiRequest) throws Exception {
+        AddImageAPIRequest request = new AddImageAPIRequest();
+        request.setTransactionRef(populateTransactionRef(uiRequest));
+        request.setAsset(populateAsset(uiRequest));
+        return request;
+    }
 
-        //Populate TransactionRef fields
+    /**
+     * Populate Asset Details List
+     * @param requestList
+     * @return List of AssetDetails object
+     * @throws Exception
+     */
+    private List<AssetDetails> populateAssetDetailsList(List<AssetDetailsUIRequest> requestList) throws Exception {
+        List<AssetDetails> assetDetailsList = new ArrayList<>();
+        for(AssetDetailsUIRequest request : requestList){
+            assetDetailsList.add(populateAssetDetails(request));
+        }
+        return assetDetailsList;
+    }
+
+    /**
+     * Populate Transaction ref
+     * @param request
+     * @return TransactionRef object
+     */
+    private TransactionRef populateTransactionRef(AddImageUIRequest request){
         TransactionRef transactionRef = new TransactionRef();
-        transactionRef.setReferenceID(addImageUIRequest.getReferenceId());
-        transactionRef.setCreationdatetime(addImageUIRequest.getCreationDatetime());
+        transactionRef.setReferenceID(request.getReferenceId());
+        transactionRef.setCreationdatetime(request.getCreationDatetime());
         transactionRef.setEvent("ADDASSET");
         transactionRef.setSource("UI");
         if("stage".equalsIgnoreCase(env))
             transactionRef.setEnvironment("prod");
+        else if("local".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("test");
         else
             transactionRef.setEnvironment(env);
-
-        //Populate Asset Fields
-        Asset asset = new Asset();
-        asset.setImageType(addImageUIRequest.getImageType());
-        asset.setItemType("ProductImages");
-        asset.setGTIN(addImageUIRequest.getAssetIdentifier().getGtin());
-        asset.setAssetDetails(populateAssetDetailsList(addImageUIRequest.getAssetDetails()));
-
-        //Set Transaction Ref and Asset
-        addImageAPIRequest.setTransactionRef(transactionRef);
-        addImageAPIRequest.setAsset(asset);
-
-        return addImageAPIRequest;
+        return transactionRef;
     }
 
-    private List<AssetDetails> populateAssetDetailsList(List<AssetDetailsUIRequest> assetDetailsRequestList) throws Exception {
-        List<AssetDetails> assetDetailsList = new ArrayList<>();
+    /**
+     * Populate individual AssetDetails objects
+     * @param request
+     * @return AssetDetails object
+     * @throws Exception
+     */
+    private AssetDetails populateAssetDetails(AssetDetailsUIRequest request) throws Exception{
+        AssetDetails assetDetails = new AssetDetails();
+        assetDetails.setSequence(request.getSequence());
+        assetDetails.setFileName(request.getFileName());
+        assetDetails.setAttributeMap(populateAttributeMap(request));
+        assetDetails.setAssetInfo(populateAssetInfo(request));
+        return assetDetails;
+    }
 
-        for(AssetDetailsUIRequest assetDetailsUIRequest : assetDetailsRequestList){
+    /**
+     * Populate Asset object
+     * @param request
+     * @return Asset object
+     * @throws Exception
+     */
+    private Asset populateAsset(AddImageUIRequest request) throws Exception{
+        Asset asset = new Asset();
+        asset.setImageType(request.getImageType());
+        asset.setItemType("ProductImages");
+        asset.setGTIN(request.getAssetIdentifier().getGtin());
+        asset.setAssetDetails(populateAssetDetailsList(request.getAssetDetails()));
+        return asset;
+    }
 
-            AssetDetails assetDetails = new AssetDetails();
-            assetDetails.setSequence(assetDetailsUIRequest.getSequence());
-            assetDetails.setFileName(assetDetailsUIRequest.getFileName());
+    /**
+     * Puplate Attribute map
+     * @param request
+     * @return AttributeMap object
+     */
+    private AttributeMap populateAttributeMap(AssetDetailsUIRequest request){
+        AttributeMap attributeMap = new AttributeMap();
+        attributeMap.setIMP_VIEW_ANGLE(request.getViewAngle());
+        attributeMap.setIMP_PROVIDED_SIZE(request.getProvidedSize());
+        attributeMap.setIMP_BACKGROUND(request.getBackground());
+        attributeMap.setIMP_SOURCE(request.getSource());
+        attributeMap.setIMP_IMAGE_LAST_MODIFIED_DT(request.getLastModifiedDate());
+        attributeMap.setIMP_DESCRIPTION(request.getDescription());
+        attributeMap.setIMP_FILE_TYPE_EXT(request.getFileExtension());
+        if(StringUtils.isNotBlank(request.getColorProfile()))
+            attributeMap.setIMP_COLOR_REP(request.getColorProfile());
+        else
+            attributeMap.setIMP_COLOR_REP("RGB");
+        attributeMap.setIMP_UPC10(request.getUpc10());
+        attributeMap.setIMP_UPC12(request.getUpc12());
+        attributeMap.setIMP_UPC13(request.getUpc13());
+        return attributeMap;
+    }
 
-            //Populate Attribute Map
-            AttributeMap attributeMap = new AttributeMap();
-            attributeMap.setIMP_VIEW_ANGLE(assetDetailsUIRequest.getViewAngle());
-            attributeMap.setIMP_PROVIDED_SIZE(assetDetailsUIRequest.getProvidedSize());
+    /**
+     * Populate AssetInfo object
+     * @param request
+     * @return AssetInfo object
+     * @throws Exception
+     */
+    private AssetInfo populateAssetInfo(AssetDetailsUIRequest request) throws Exception{
+        AssetInfo assetInfo = new AssetInfo();
+        assetInfo.setAssetType(request.getAssetType());
+        if (StringUtils.isNotBlank(request.getFilePath())){
+            Path path = Paths.get(request.getFilePath());
+            Optional<Path> filePath = Files.find(path, 1,
+                    (path1, basicFileAttributes) ->
+                            path1.toFile().getName().contains(request.getFileName())).limit(1).findFirst();
+            if (filePath.isPresent())
+                assetInfo.setAsset(getAssetAsString(filePath));
+        }else
+            assetInfo.setAsset(request.getAsset());
+        return assetInfo;
+    }
 
-            attributeMap.setIMP_BACKGROUND(assetDetailsUIRequest.getBackground());
-            attributeMap.setIMP_SOURCE(assetDetailsUIRequest.getSource());
-            attributeMap.setIMP_IMAGE_LAST_MODIFIED_DT(assetDetailsUIRequest.getLastModifiedDate());
-            attributeMap.setIMP_DESCRIPTION(assetDetailsUIRequest.getDescription());
-            attributeMap.setIMP_FILE_TYPE_EXT(assetDetailsUIRequest.getFileExtension());
-            if(StringUtils.isNotBlank(assetDetailsUIRequest.getColorProfile()))
-                attributeMap.setIMP_COLOR_REP(assetDetailsUIRequest.getColorProfile());
-            else
-                attributeMap.setIMP_COLOR_REP("RGB");
-            attributeMap.setIMP_UPC10(assetDetailsUIRequest.getUpc10());
-            attributeMap.setIMP_UPC12(assetDetailsUIRequest.getUpc12());
-            attributeMap.setIMP_UPC13(assetDetailsUIRequest.getUpc13());
-            //Populate AssetInfo
-            AssetInfo assetInfo = new AssetInfo();
-            assetInfo.setAssetType(assetDetailsUIRequest.getAssetType());
-
-            if (StringUtils.isNotBlank(assetDetailsUIRequest.getFilePath())){
-                Path path = Paths.get(assetDetailsUIRequest.getFilePath());
-                Optional<Path> filePath = Files.find(path, 1, (path1, basicFileAttributes) -> path1.toFile().getName().contains(assetDetailsUIRequest.getFileName())).limit(1).findFirst();
-                if (filePath.isPresent()) {
-                     File imageFile = new File(filePath.get().toAbsolutePath().toString());
-                    try (FileInputStream fis = new FileInputStream(imageFile)) {
-                        ByteArrayOutputStream output = new ByteArrayOutputStream();
-                        byte[] buf = new byte[1024];
-                        for (int n; (n = fis.read(buf)) != -1; ) {
-                            output.write(buf, 0, n);
-                        }
-                        byte[] imgBytes = output.toByteArray();
-                        String imgBytesString = Base64.getEncoder().encodeToString(imgBytes);
-                        assetInfo.setAsset(imgBytesString);
-                    }
-                }
-
-            } else{
-                assetInfo.setAsset(assetDetailsUIRequest.getAsset());
+    /**
+     * Get Asset and Base64 encoded string
+     * @param filePath
+     * @return Base 64 encoded asset String
+     * @throws Exception
+     */
+    private String getAssetAsString(Optional<Path> filePath) throws Exception{
+        File imageFile = new File(filePath.get().toAbsolutePath().toString());
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int n; (n = fis.read(buf)) != -1; ) {
+                output.write(buf, 0, n);
             }
-
-            //Set Attribute Map and Asset Info and add to AssetDetailsList
-            assetDetails.setAttributeMap(attributeMap);
-            assetDetails.setAssetInfo(assetInfo);
-            assetDetailsList.add(assetDetails);
+            byte[] imgBytes = output.toByteArray();
+            return Base64.getEncoder().encodeToString(imgBytes);
         }
-        return assetDetailsList;
     }
 
 }

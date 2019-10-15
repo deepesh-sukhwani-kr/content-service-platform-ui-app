@@ -18,6 +18,7 @@ import {CalendarModule} from 'primeng/calendar';
 import {CspAddService} from "./csp-add.service";
 import {ProgressBarModule} from 'primeng/progressbar';
 import {TooltipModule} from 'primeng/tooltip';
+import {UtilService} from "../util/util.service";
 
 @NgModule({
   imports: [
@@ -44,7 +45,7 @@ import {TooltipModule} from 'primeng/tooltip';
   exports: [
     CspAddComponent
   ],
-  providers: [CspAddService],
+  providers: [CspAddService, UtilService],
   declarations: [CspAddComponent]
 })
 export class CspAddModule { }

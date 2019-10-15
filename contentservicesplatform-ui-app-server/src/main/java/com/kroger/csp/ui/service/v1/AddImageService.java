@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ *
+ */
 @Service
 public class AddImageService {
 
@@ -36,6 +39,12 @@ public class AddImageService {
 
     public static final String AUTHORIZATION = "Authorization";
 
+    /**
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
     public AddImageUIResponse addImage(AddImageAPIRequest request) throws Exception {
 
         AddImageUIResponse addImageUIResponse = new AddImageUIResponse();
@@ -65,6 +74,11 @@ public class AddImageService {
         return addImageUIResponse;
     }
 
+    /**
+     *
+     * @param responsePayloadList
+     * @return
+     */
     private List<AssetDetailsUIResponse> populateAssetDetailsList(LinkedList<ResponsePayload> responsePayloadList) {
         List<AssetDetailsUIResponse> assetDetailsUIResponseList = new ArrayList<>();
 

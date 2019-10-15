@@ -1,4 +1,5 @@
 <div class="csvAttrContainer">
+
   <table algin="center" width="100%" border="0px">
     <tr>
       <td>
@@ -58,7 +59,7 @@
                 </tr>
                 <tr>
                   <td colspan="4">
-                    <div *ngIf="div_visible" >
+                    <div *ngIf="div_visible">
                       <p-progressBar mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
                     </div>
                   </td>
@@ -97,6 +98,7 @@
                         <ng-template pTemplate="header">
                 <tr style="white-space:nowrap; position: sticky;">
                   <th>Action</th>
+                  <th>CSP Image ID</th>
                   <th>View Angle</th>
                   <th>URL</th>
                 </tr>
@@ -104,9 +106,10 @@
                 <ng-template pTemplate="body" let-vendorAsset>
                   <tr style="white-space:nowrap;">
                     <td>
-                      <button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
-                              size="10"></button>
+                      <button pButton type="button" label="View and Upload" icon="pi pi-plus-circle"
+                              size="10" (click)="selectImage($event, vendorAsset)"></button>
                     </td>
+                    <td>{{vendorAsset.imageId}}</td>
                     <td>{{vendorAsset.viewAngle}}</td>
                     <td>{{vendorAsset.url}}</td>
                   </tr>
@@ -122,4 +125,119 @@
 </td>
 </tr>
 </table>
+
+<p-dialog header="Upload to CSP" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+          [modal]="true"
+          [width]='1100'>
+  <div *ngIf="selectedAsset">
+    <form [formGroup]="assetForm">
+      <table width="100%" border="0px">
+        <tr>
+          <td align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;color: #7f7f7f">
+            <b>
+              View angle:&nbsp;
+            </b>
+          </td>
+          <td>{{selectedAsset.viewAngle}}</td>
+          <td align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;color: #7f7f7f">
+            <b>Description:&nbsp;</b>
+          </td>
+          <td>
+            <b>{{selectedAsset.description}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+            <b>Background:&nbsp;</b>
+          </td>
+          <td>
+            <b>{{selectedAsset.background}}</b>
+          </td>
+          <td align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+            <b>Provided size:&nbsp;</b>
+          </td>
+          <td>
+            <b>{{selectedAsset.providedSize}}</b>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+            <b>File Name:&nbsp;</b>
+          </td>
+          <td>
+            <b>{{selectedAsset.filename}}</b>
+          </td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="1" align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+            <b>URL:&nbsp;</b>
+          </td>
+          <td>
+            <a href="{{selectedAsset.url}}"
+               target="_blank">Link</a>
+          </td>
+          <td colspan="1" align="right"
+              style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+            <b>Image Id:&nbsp;</b>
+          </td>
+          <td>
+            <a href="{{selectedAsset.cspurl}}"
+               target="_blank">{{selectedAsset.imageId}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <div *ngIf="processed">
+              <p-progressBar mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2">&nbsp;</td>
+          <td>
+            <button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
+                    size="10" (click)="upload()"></button>
+          </td>
+          <td>
+            <button pButton type="button" label="Clear" size="10" icon="pi pi-trash"></button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <p-messages [(value)]="msgs"></p-messages>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</p-dialog>
+<!--
+<button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
+        size="10" (click)="selectImage($event)"></button>-->
 </div>

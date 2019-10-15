@@ -1,5 +1,8 @@
 package com.kroger.csp.ui.config;
 
+import com.kroger.commons.boot.autoconfigure.security.SpoofingCondition;
+import com.kroger.commons.security.KrogerSecurityProperties;
+import com.kroger.commons.security.RethrowExceptionAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
@@ -7,10 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import com.kroger.commons.boot.autoconfigure.security.SpoofingCondition;
-import com.kroger.commons.security.KrogerSecurityProperties;
-import com.kroger.commons.security.RethrowExceptionAuthenticationEntryPoint;
 
 @Order(6)
 @Configuration

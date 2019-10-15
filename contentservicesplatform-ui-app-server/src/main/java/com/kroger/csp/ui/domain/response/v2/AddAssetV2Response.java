@@ -1,4 +1,3 @@
-package com.kroger.csp.ui.domain.response.v2;/*
 package com.kroger.csp.ui.domain.response.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,4 +19,3 @@ public class AddAssetV2Response {
     public AddAssetV2Body addAssetResponse;
 
 }
-*/

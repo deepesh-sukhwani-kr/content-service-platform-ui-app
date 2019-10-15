@@ -1,9 +1,7 @@
-package com.kroger.csp.ui.domain.response.v2;/*
 package com.kroger.csp.ui.domain.response.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.kroger.imp.asset.model.add.response.AddResponsePayload;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,4 +20,3 @@ public class AddAssetV2Body {
     public List<AddResponsePayload> responsePayload;
 
 }
-*/

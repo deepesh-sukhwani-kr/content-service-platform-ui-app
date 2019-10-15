@@ -1,12 +1,12 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CspVendorService} from './csp-vendor.service';
+import {EndpointService} from './endpoint.service';
 
-describe('CspVendorService', () => {
+describe('EndpointService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: CspVendorService = TestBed.get(CspVendorService);
+    const service: EndpointService = TestBed.get(EndpointService);
     expect(service).toBeTruthy();
   });
 });

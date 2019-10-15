@@ -1,8 +1,6 @@
-package com.kroger.csp.ui.domain.request.v2;/*
 package com.kroger.csp.ui.domain.request.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.kroger.imp.asset.model.add.request.Asset;
 import com.kroger.imp.library.domain.TransactionRef;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,4 +17,3 @@ public class AddImageV2APIRequest {
     public Asset addAssetRequest;
 
 }
-*/

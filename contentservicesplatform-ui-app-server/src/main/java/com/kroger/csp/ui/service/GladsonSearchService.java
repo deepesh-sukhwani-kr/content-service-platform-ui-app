@@ -1,70 +1,59 @@
 package com.kroger.csp.ui.service;
 
 import com.kroger.csp.ui.domain.response.VendorSearchResponse;
-import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
+import com.kroger.csp.ui.util.VendorUtil;
 import com.kroger.imp.apm.GladsonUpdatedAPI;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
 
 @Service
+@Slf4j
 public class GladsonSearchService {
 
     @Autowired
     @Qualifier("gladsonProperties")
     Properties properties;
 
+    @Value("${kroger.imagedata.viewangles}")
+    private String[] viewAngles;
+
+    @Value("${kroger.imagedata.size.gladson}")
+    private String providedSize;
+
+    @Value("${kroger.imagedata.background.gladson}")
+    private String background;
+
+    @Value("${kroger.imagedata.imagetype.gladson}")
+    private String imageType;
+
+    @Autowired
+    private VendorUtil vendorUtil;
+
     public VendorSearchResponse getImageDetailsByGtin(String gtin) throws Exception {
-        System.out.println("inside gladsone");
-
         VendorSearchResponse vendorSearchResponse = new VendorSearchResponse();
-        List<VendorSearchViewAngleResponse> viewAngleResponseList = new ArrayList<>();
-
-        Set<String> names = properties.stringPropertyNames();
-        for (String name : names){
-            System.out.println(name+" = "+properties.getProperty(name));
-        }
-
-
         try {
-
-            GladsonUpdatedAPI gladsonUpdatedAPI = new GladsonUpdatedAPI(properties);
-
-            Map<String, String> searchResultsMap = new TreeMap(String.CASE_INSENSITIVE_ORDER);
-            searchResultsMap = gladsonUpdatedAPI.imageSearch(gtin);
-
-            System.out.println("VENDOR GLADSON RESPONSE = "+searchResultsMap);
-
-            for(String viewAngle: searchResultsMap.keySet()){
-                VendorSearchViewAngleResponse vendorSearchViewAngleResponse = new VendorSearchViewAngleResponse();
-                vendorSearchViewAngleResponse.setViewAngle(viewAngle);
-                vendorSearchViewAngleResponse.setUrl(searchResultsMap.get(viewAngle));
-                viewAngleResponseList.add(vendorSearchViewAngleResponse);
-            }
-
-            //vendorSearchResponse.setDescription(description);
-            vendorSearchResponse.setGtin(gtin);
-            vendorSearchResponse.setImageType("jpg");
-            vendorSearchResponse.setSource("Gladson");
-            vendorSearchResponse.setViewAngleList(viewAngleResponseList);
-
+            vendorSearchResponse = populateVendorSearchResponse(gtin);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Exception in Gladson Search Service: " + e.toString());
         }
-        System.out.println("Gladson processing done");
         return vendorSearchResponse;
     }
 
-    private String getBase64OfImageFromPath (String filePath, String fileName){
-        String base64String = null;
-
-        return base64String;
+    private VendorSearchResponse populateVendorSearchResponse(String gtin) throws Exception{
+        VendorSearchResponse response = new VendorSearchResponse();
+        GladsonUpdatedAPI gladsonUpdatedAPI = new GladsonUpdatedAPI(properties);
+        //vendorSearchResponse.setDescription(description);
+        response.setGtin(gtin);
+        response.setImageType(imageType);
+        response.setSource("Gladson");
+        response.setBackground(background);
+        response.setProvidedSize(providedSize);
+        response.setViewAngleList(vendorUtil.getViewAngleList(gladsonUpdatedAPI.imageSearch(gtin)));
+        return response;
     }
 }

@@ -1,10 +1,6 @@
 package com.kroger.csp.ui.config;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
+import com.kroger.commons.security.spoofing.SpoofingConfigurationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
@@ -14,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kroger.commons.security.spoofing.SpoofingConfigurationProperties;
+import java.util.HashMap;
 
 /**
  * Controller for auth related endpoints

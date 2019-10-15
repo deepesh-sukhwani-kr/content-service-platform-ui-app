@@ -2,74 +2,75 @@ package com.kroger.csp.ui.service;
 
 import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
+import com.kroger.csp.ui.util.VendorUtil;
 import com.kroger.imp.apm.KwikeeAPI;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
 
 @Service
+@Slf4j
 public class KwikeeSearchService {
 
     @Autowired
     @Qualifier("kwikeeProperties")
     Properties properties;
 
-    public VendorSearchResponse getImageDetailsByGtin(String gtin) throws Exception {
-        System.out.println("inside kwikee");
+    @Value("${kroger.imagedata.viewangles}")
+    private String[] viewAngles;
 
+    @Value("${kroger.imagedata.size.kwikee}")
+    private String providedSize;
+
+    @Value("${kroger.imagedata.background.kwikee}")
+    private String background;
+
+    @Value("${kroger.imagedata.imagetype.kwikee}")
+    private String imageType;
+
+    @Autowired
+    private VendorUtil vendorUtil;
+
+    public VendorSearchResponse getImageDetailsByGtin(String gtin){
         VendorSearchResponse vendorSearchResponse = new VendorSearchResponse();
-        List<VendorSearchViewAngleResponse> viewAngleResponseList = new ArrayList<>();
-
-        Set<String> names = properties.stringPropertyNames();
-        for (String name : names){
-            System.out.println(name+" = "+properties.getProperty(name));
-        }
-
         try {
-            KwikeeAPI kwikeeAPI = new KwikeeAPI(properties);
-            String kwikeeSearchRespJSON = kwikeeAPI.getItemDataJSON(gtin);
-            System.out.println("VENDOR KWIKEE RESPONSE = "+kwikeeSearchRespJSON);
-            JSONObject jsonAssetObject = new JSONObject(kwikeeSearchRespJSON);
-
-            String description = jsonAssetObject.getJSONArray("customProductName").getJSONObject(0).getString("text").toString();
-            String source = "KWIKEE";
-
-            Map<String, String> searchResults = new TreeMap<String, String>(String.CASE_INSENSITIVE_ORDER);
-            searchResults = kwikeeAPI.imageSearch(gtin);
-            System.out.println("VENDOR KWIKEE RESPONSE = " + searchResults);
-            for(Map.Entry<String, String> entry : searchResults.entrySet()){
-                System.out.println(entry.getKey() + " = " + entry.getValue());
-            }
-            for(String viewAngle: searchResults.keySet()){
-                VendorSearchViewAngleResponse vendorSearchViewAngleResponse = new VendorSearchViewAngleResponse();
-                vendorSearchViewAngleResponse.setViewAngle(viewAngle);
-                //String base64 = kwikeeAPI.getAssetFromURL(searchResults.get(viewAngle));
-                //vendorSearchViewAngleResponse.setBase64(base64);
-                vendorSearchViewAngleResponse.setUrl(searchResults.get(viewAngle));
-                viewAngleResponseList.add(vendorSearchViewAngleResponse);
-            }
-
-            vendorSearchResponse.setDescription(description);
-            vendorSearchResponse.setGtin(gtin);
-            vendorSearchResponse.setImageType("jpg");
-            vendorSearchResponse.setSource(source);
-            vendorSearchResponse.setViewAngleList(viewAngleResponseList);
-
+            vendorSearchResponse = populateVendorSearchResponse(gtin);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Exception in Kwikee Search Service: " + e.toString());
         }
-        System.out.println("Gladson processing done");
         return vendorSearchResponse;
     }
 
 
+    private VendorSearchResponse populateVendorSearchResponse(String gtin)  throws Exception{
+        VendorSearchResponse response = new VendorSearchResponse();
+        response.setDescription(getKwikeeDescription(gtin));
+        response.setGtin(gtin);
+        response.setImageType(imageType);
+        response.setSource("KWIKEE");
+        response.setBackground(background);
+        response.setProvidedSize(providedSize);
+        response.setViewAngleList(getKwikeeImages(gtin));
+        return response;
+    }
+
+    private String getKwikeeDescription(String gtin) throws Exception{
+        KwikeeAPI kwikeeAPI = new KwikeeAPI(properties);
+        String kwikeeSearchRespJSON = kwikeeAPI.getItemDataJSON(gtin);
+        JSONObject jsonAssetObject = new JSONObject(kwikeeSearchRespJSON);
+        return jsonAssetObject.getJSONArray("customProductName").
+                getJSONObject(0).getString("text").toString();
+    }
+
+    private List<VendorSearchViewAngleResponse> getKwikeeImages(String gtin) throws Exception{
+        KwikeeAPI kwikeeAPI = new KwikeeAPI(properties);
+        return vendorUtil.getViewAngleList(kwikeeAPI.imageSearch(gtin));
+    }
 
 }

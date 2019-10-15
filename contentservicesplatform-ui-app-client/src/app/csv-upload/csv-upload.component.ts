@@ -13,12 +13,13 @@ import {CsvUploadConstants} from "./csv-upload-constants";
 import {AuthService, User} from "kroger-ng-oauth2";
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
+import {UtilService} from "../util/util.service";
 
 @Component({
   selector: 'app-csv-upload',
   templateUrl: './csv-upload.component.html',
   styleUrls: ['./csv-upload.component.less'],
-  providers: [CspAddService]
+  providers: [CspAddService, UtilService]
 })
 export class CsvUploadComponent implements OnInit {
 
@@ -32,7 +33,8 @@ export class CsvUploadComponent implements OnInit {
   progressVisible: boolean = false;
   isCompleted: boolean = false
 
-  constructor(private papa: Papa, private addService: CspAddService, private authService: AuthService,
+  constructor(private papa: Papa, private addService: CspAddService,
+              private authService: AuthService, private utilService: UtilService,
               private router: Router) {
   }
 
@@ -88,9 +90,11 @@ export class CsvUploadComponent implements OnInit {
         if (csvAsset.fileProvidedStatus) {
           csvAsset.uploadStatus = 'In Progress';
           document.getElementById(csvAsset.fileName).style.color = '#F8E535';
-          this.addService.addImages(this.buildAddImageRequest(csvAsset))
-            .subscribe(successResponse => this.handleSuccess(successResponse, csvAsset),
-              failureResponse => this.handleFailure(failureResponse, csvAsset));
+          this.utilService.getEndpoint('add').then(endpoint => {
+            this.addService.addImages(this.buildAddImageRequest(csvAsset), endpoint)
+              .subscribe(successResponse => this.handleSuccess(successResponse, csvAsset),
+                failureResponse => this.handleFailure(failureResponse, csvAsset));
+          });
         } else {
           csvAsset.processed = true;
         }

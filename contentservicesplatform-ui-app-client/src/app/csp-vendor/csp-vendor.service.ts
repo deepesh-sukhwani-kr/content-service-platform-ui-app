@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {AuthService, User} from "kroger-ng-oauth2";
+import {AuthService} from "kroger-ng-oauth2";
 import {EndPoints} from "../configuration/endPoints";
 import {VendorResponse} from "./model/vendor-response";
 

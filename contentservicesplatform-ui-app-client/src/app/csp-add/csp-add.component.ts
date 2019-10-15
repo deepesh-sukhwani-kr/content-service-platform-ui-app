@@ -13,6 +13,8 @@ import {AssetDetailResponse} from "./model/assetDetailResponse";
 import {AddImageResponse} from "./model/addImageResponse";
 import {AuthService, User} from "kroger-ng-oauth2";
 import {Router} from "@angular/router";
+import {UtilService} from "../util/util.service";
+import {ViewAngleResponse} from "../util/model/view-angle-response";
 
 
 /**
@@ -22,7 +24,7 @@ import {Router} from "@angular/router";
   selector: 'app-csp-add',
   templateUrl: './csp-add.component.html',
   styleUrls: ['./csp-add.component.less'],
-  providers: [MessageService]
+  providers: [MessageService, UtilService]
 })
 export class CspAddComponent implements OnInit {
 
@@ -41,10 +43,13 @@ export class CspAddComponent implements OnInit {
   fileStrings: string[] = [];
   div_visible: boolean = false;
   ifSubmitted: boolean = false;
+  viewAngleResponse: string[];
 
   constructor(private _formBuilder: FormBuilder, private http: HttpClient,
               private messageService: MessageService, private  addService: CspAddService,
+              private utilService: UtilService,
               private authService: AuthService,  private router: Router) {
+
   }
 
   ngOnInit() {
@@ -62,9 +67,12 @@ export class CspAddComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("submit")).disabled = true;
       this.ifSubmitted = true;
       this.form.disable();
-      this.addService.addImages(request)
-        .subscribe(successResponse => this.handleSuccess(successResponse),
-          failureResponse => this.handleFailure(failureResponse));
+      this.utilService.getEndpoint('add').then(endpoint => {
+        this.addService.addImages(request, endpoint)
+          .subscribe(successResponse => this.handleSuccess(successResponse),
+            failureResponse => this.handleFailure(failureResponse));
+      })
+
     }
   }
 
@@ -208,12 +216,13 @@ export class CspAddComponent implements OnInit {
   }
 
   private initiateViewAngles() {
-    this.viewAngles = [
-      {label: 'Front', value: 'front'},
-      {label: 'Back', value: 'back'},
-      {label: 'Top', value: 'top'},
-      {label: 'Bottom', value: 'bottom'}
-    ];
+    this.utilService.getViewAngels().subscribe(data => {
+      let response = <ViewAngleResponse>data;
+      this.viewAngles = [];
+      response.viewAngles.forEach( data => {
+        this.viewAngles.push({label: data.toUpperCase(), value: data})
+      })
+    });
   }
 
   private initiateBackgrounds() {

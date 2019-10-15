@@ -1,5 +1,11 @@
 package com.kroger.csp.ui.config;
 
+import com.kroger.commons.boot.autoconfigure.security.NonSpoofingCondition;
+import com.kroger.commons.security.KrogerSecurityProperties;
+import com.kroger.commons.security.RethrowExceptionAuthenticationEntryPoint;
+import com.kroger.commons.security.oauth.OAuth2ResourceConfigurationSupport;
+import com.kroger.commons.security.oauth.OAuthSecurity;
+import com.kroger.commons.security.oauth.SessionAwareBearerTokenExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
@@ -8,13 +14,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-
-import com.kroger.commons.boot.autoconfigure.security.NonSpoofingCondition;
-import com.kroger.commons.security.KrogerSecurityProperties;
-import com.kroger.commons.security.RethrowExceptionAuthenticationEntryPoint;
-import com.kroger.commons.security.oauth.OAuth2ResourceConfigurationSupport;
-import com.kroger.commons.security.oauth.OAuthSecurity;
-import com.kroger.commons.security.oauth.SessionAwareBearerTokenExtractor;
 
 @Order(3)
 @Configuration

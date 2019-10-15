@@ -1,5 +1,10 @@
 package com.kroger.csp.ui.config;
 
+import com.kroger.commons.boot.autoconfigure.security.SpoofingCondition;
+import com.kroger.commons.security.KrogerSecurityProperties;
+import com.kroger.commons.security.RequestMatcherConfigurer;
+import com.kroger.commons.security.oauth.OAuthSecurity;
+import com.kroger.commons.security.spoofing.SpoofingConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -7,12 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.kroger.commons.boot.autoconfigure.security.SpoofingCondition;
-import com.kroger.commons.security.KrogerSecurityProperties;
-import com.kroger.commons.security.RequestMatcherConfigurer;
-import com.kroger.commons.security.oauth.OAuthSecurity;
-import com.kroger.commons.security.spoofing.SpoofingConfigurerAdapter;
 
 @Controller
 @Configuration

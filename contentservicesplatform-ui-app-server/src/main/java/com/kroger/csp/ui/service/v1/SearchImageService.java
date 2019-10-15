@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ *
+ */
 @Service
 public class SearchImageService {
 
@@ -27,6 +30,12 @@ public class SearchImageService {
 
     public static final String AUTHORIZATION = "Authorization";
 
+    /**
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
     public SearchResponse searchImage(SearchImageAPIRequest request) throws Exception {
 
         SearchImageAPIResponse searchImageAPIResponse = new SearchImageAPIResponse();
