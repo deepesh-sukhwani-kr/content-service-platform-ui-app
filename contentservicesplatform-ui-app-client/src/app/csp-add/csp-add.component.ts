@@ -165,6 +165,11 @@ export class CspAddComponent implements OnInit {
     console.log('i am here');
     this.setVisibility("gtinMessage", "hidden");
     this.msgs = [];
+    if(res.errorResponse){
+      this.showGtinValidationError(
+        res.errorResponse.statusCode + '-' + res.errorResponse.statusMessage);
+      return;
+    }
     res.assetDetails.forEach(data => {
       this.msgs.push(null);
       this.imageIds.push(null);

@@ -118,6 +118,11 @@ export class CspVendorComponent implements OnInit {
           detail: res.assetDetails[0].statusCode + ' - ' + res.assetDetails[0].errorDetails
         });
       }
+    }else if(res.errorResponse != null){
+      this.msgs.push({
+        severity: 'error', summary: 'FAILURE',
+        detail: res.errorResponse.statusCode + ' - ' + res.errorResponse.statusMessage
+      });
     }
     this.processed = false;
   }

@@ -151,6 +151,9 @@ export class CsvUploadComponent implements OnInit {
         csvAsset.uploadStatus = 'Failed: ' + res.assetDetails[0].statusCode + ' - ' + res.assetDetails[0].errorDetails
         document.getElementById(csvAsset.fileName).style.color = '#f82c25';
       }
+    }else if(res.errorResponse != null){
+      csvAsset.uploadStatus = 'Failed: Error at CSP UI Server';
+      document.getElementById(csvAsset.fileName).style.color = '#f82c25';
     }
     else {
       csvAsset.uploadStatus = 'Failed: Please try again'

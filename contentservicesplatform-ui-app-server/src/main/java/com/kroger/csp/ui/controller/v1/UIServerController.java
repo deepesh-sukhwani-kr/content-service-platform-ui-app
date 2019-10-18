@@ -9,6 +9,7 @@ import com.kroger.csp.ui.domain.response.AddImageUIResponse;
 import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import com.kroger.csp.ui.service.v1.AddImageService;
 import com.kroger.csp.ui.service.v1.SearchImageService;
+import com.kroger.csp.ui.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -35,6 +36,8 @@ public class UIServerController {
     private SearchImageRequestConverter searchImageRequestConverter;
     @Autowired
     private SearchImageService searchImageService;
+    @Autowired
+    private CommonUtils utils;
 
     /**
      * Method for handling API call of /imp/ui/v1/server/addImage
@@ -50,6 +53,7 @@ public class UIServerController {
             addImageUIResponse = addImageService.addImage(addImageAPIRequest);
         } catch (Exception e) {
             log.error("Error in V1 Csp Add - UI : " + e);
+            addImageUIResponse.setErrorResponse(utils.populateErrorResponse(e));
         }
         return addImageUIResponse;
     }

@@ -4,6 +4,7 @@ import com.kroger.csp.ui.converter.v2.AddImageV2RequestConverter;
 import com.kroger.csp.ui.domain.request.AddImageUIRequest;
 import com.kroger.csp.ui.domain.response.AddImageUIResponse;
 import com.kroger.csp.ui.service.v2.AddImageV2Service;
+import com.kroger.csp.ui.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +25,8 @@ public class UIServerControllerV2 {
     private AddImageV2Service addImageV2Service;
     @Autowired
     private AddImageV2RequestConverter addImageV2RequestConverter;
+    @Autowired
+    private CommonUtils utils;
 
     /**
      * Method for handling API call of /imp/ui/v1/server/addImage
@@ -39,6 +42,7 @@ public class UIServerControllerV2 {
         } catch (Exception e) {
             //TODO: Handle UI server specific exceptions
             log.error("Error in V2 Csp Add - UI : " + e);
+            addImageUIResponse.setErrorResponse(utils.populateErrorResponse(e));
         }
         return addImageUIResponse;
     }
