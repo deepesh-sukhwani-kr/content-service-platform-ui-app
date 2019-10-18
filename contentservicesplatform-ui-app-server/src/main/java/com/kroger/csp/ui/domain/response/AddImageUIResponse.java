@@ -13,4 +13,5 @@ public class AddImageUIResponse implements Serializable {
 	private String referenceId;
 	private String creationDatetime;
 	private List<AssetDetailsUIResponse> assetDetails;
+	//TODO: Handle UI server specific exceptions
 }

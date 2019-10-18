@@ -37,6 +37,7 @@ public class UIServerControllerV2 {
         try {
             addImageUIResponse = addImageV2Service.addImage(addImageV2RequestConverter.populateAPIRequest(request));
         } catch (Exception e) {
+            //TODO: Handle UI server specific exceptions
             log.error("Error in V2 Csp Add - UI : " + e);
         }
         return addImageUIResponse;

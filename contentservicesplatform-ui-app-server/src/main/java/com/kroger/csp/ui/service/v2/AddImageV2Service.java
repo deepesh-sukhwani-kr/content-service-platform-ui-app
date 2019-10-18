@@ -31,7 +31,6 @@ public class AddImageV2Service {
 
     @Autowired
     RestTemplate restTemplate;
-
     @Value("${kroger.v2.add.url:}")
     private String addUrl;
     @Value("${kroger.v2.authorization:}")
@@ -46,9 +45,9 @@ public class AddImageV2Service {
      * @return Formatted response from CSP
      */
     public AddImageUIResponse addImage(AddImageV2APIRequest request) {
-        URI uri = UriComponentsBuilder.fromHttpUrl(addUrl).build().encode().toUri();
         ResponseEntity<AddAssetV2Response> responseEntity =
-                restTemplate.postForEntity(uri, buildRequest(request), AddAssetV2Response.class);
+                restTemplate.postForEntity(URI.create(addUrl), buildRequest(request),
+                        AddAssetV2Response.class);
         return populateAddImageUIResponse(responseEntity.getBody());
     }
 
