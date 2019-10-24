@@ -6,29 +6,13 @@ import {Image} from "../model/image";
 import {SelectItem} from "primeng/api";
 import {CspErrorDetails} from "../model/cspErrorDetails";
 import {DomSanitizer} from "@angular/platform-browser";
-import {EndPoints} from "../configuration/endPoints";
+import {UtilService} from "../util/util.service";
 
 @Component({
   selector: 'app-csp-search',
   templateUrl: './csp-search.component.html',
   styleUrls: ['./csp-search.component.less'],
-  styles: [`
-    :host ::ng-deep button {
-      margin-right: .25em;
-    }
-
-    :host ::ng-deep .ui-messages-error {
-      background-color: rgba(248, 183, 189, 0.32);
-    }
-
-    :host ::ng-deep .ui-inputtext {
-      margin-right: .25em;
-    }
-
-    .ui-dialog {
-      width: 600px;
-    }
-  `],
+  providers: [UtilService]
 })
 export class CspSearchComponent implements OnInit {
 
@@ -38,8 +22,8 @@ export class CspSearchComponent implements OnInit {
   error: CspErrorDetails;
   div_visible: boolean = false;
   selectedImage: Image;
-  sortOptions: SelectItem[];
   filterOptions: SelectItem[];
+  sortOptions: SelectItem[];
   sortKey: string;
   sortField: string;
   sortOrder: number;
@@ -48,20 +32,28 @@ export class CspSearchComponent implements OnInit {
   retrievalUrl: string;
 
   constructor(private _formBuilder: FormBuilder, private el: ElementRef,
-              public searchService: CspSearchService, public sanitizer: DomSanitizer) {
+              public searchService: CspSearchService, public sanitizer: DomSanitizer,
+              public utilService: UtilService) {
   }
 
   ngOnInit() {
-    this.retrievalUrl = EndPoints.IMAGE_RETRIEVAL_ENDPOINT;
-    this.form = this._formBuilder.group({
-      gtin: [''],
-      imageId: ['']
+    this.utilService.getEndpoint('retrieval').then(endpoint => {
+      this.retrievalUrl = endpoint;
     });
+    this.buildForm();
+    this.populateSortOptions();
+    this.populateFilterOptions();
+  }
+
+  private populateSortOptions(): void {
     this.sortOptions = [
       {label: 'Newest First', value: '!lastModifiedDate'},
       {label: 'Oldest First', value: 'lastModifiedDate'},
       {label: 'Image ID', value: 'imageId'}
     ];
+  }
+
+  private populateFilterOptions(): void {
     this.filterOptions = [
       {label: 'View Angle', value: 'viewAngle'},
       {label: 'Resolution DPI', value: 'resDpi'},
@@ -69,6 +61,13 @@ export class CspSearchComponent implements OnInit {
       {label: 'Provided Size', value: 'providedSize'},
       {label: 'Source', value: 'source'}
     ];
+  }
+
+  private buildForm(): void {
+    this.form = this._formBuilder.group({
+      gtin: [''],
+      imageId: ['']
+    });
   }
 
   validate(): boolean {
@@ -96,23 +95,7 @@ export class CspSearchComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("search")).disabled = true;
       this.form.disable();
       this.div_visible = true;
-      this.searchService.getImages(this.form.get('imageId').value, this.form.get('gtin').value)
-        .then(data => {
-          this.images = data.images;
-          this.error = data.error;
-          if (!this.error) {
-            document.getElementById("result").style.visibility = "visible";
-          }
-          else {
-            this.showError('System error', this.error.errorCode + ': ' + this.error.errorDescription);
-          }
-          this.div_visible = false;
-        })
-        .catch(reason => {
-          this.showError('System error',
-          'Could not connect to the backend. Please try again later.');
-          this.div_visible = false;
-        });
+      this.utilService.getEndpoint('search').then(endpoint => this.search(endpoint))
     }
   }
 
@@ -160,6 +143,26 @@ export class CspSearchComponent implements OnInit {
       severity: 'error', summary: type,
       detail: description
     });
+  }
+
+  private search(endpoint: string): void{
+    this.searchService.getImages(endpoint, this.form.get('imageId').value, this.form.get('gtin').value)
+      .then(data => {
+        this.images = data.images;
+        this.error = data.error;
+        if (!this.error) {
+          document.getElementById("result").style.visibility = "visible";
+        }
+        else {
+          this.showError('System error', this.error.errorCode + ': ' + this.error.errorDescription);
+        }
+        this.div_visible = false;
+      })
+      .catch(reason => {
+        this.showError('System error',
+          'Could not connect to the backend. Please try again later.');
+        this.div_visible = false;
+      });
   }
 
 }

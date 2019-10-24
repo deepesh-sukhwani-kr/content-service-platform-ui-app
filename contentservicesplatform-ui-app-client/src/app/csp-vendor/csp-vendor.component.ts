@@ -13,7 +13,6 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AssetDetailResponse} from "../csp-add/model/assetDetailResponse";
 import {Message} from "primeng/components/common/api";
-import {EndPoints} from "../configuration/endPoints";
 import {UtilService} from "../util/util.service";
 
 @Component({
@@ -26,7 +25,8 @@ export class CspVendorComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, public vendorService: CspVendorService,
               private addService: CspAddService, private authService: AuthService,
-              private router: Router, private utilService: UtilService) { }
+              private router: Router, private utilService: UtilService) {
+  }
 
   vendor: string = 'Kwikee';
   selectedValues: string = "Front";
@@ -38,6 +38,7 @@ export class CspVendorComponent implements OnInit {
   selectedAsset: VendorAsset;
   processed: boolean = false;
   msgs: Message[];
+  errMsgs: Message[];
   imageId: string = '';
   imageUrl: string = '';
   description: string = '';
@@ -54,27 +55,16 @@ export class CspVendorComponent implements OnInit {
     });
   }
 
-  getImages(){
-    console.log('called search');
-    this.div_visible = true;
-    let id: string = this.form.get('gtin').value;
-    this.vendorService.getImages(this.vendor,id)
-      .then(data => {
-        this.vendorAssets = data.viewAngleList;
-        this.div_visible = false;
-        this.description = data.description;
-        this.vendorAssets.forEach(asset => {
-          asset.gtin = data.gtin;
-          asset.description = data.description;
-          asset.providedSize = data.providedSize;
-          asset.background = data.background;
-          asset.filename = data.gtin+'_'+asset.viewAngle+'.jpeg';
-        })
-      })
-      .catch(reason => {
-        console.log(reason.toString());
-        this.div_visible = false;
+  getImages() {
+    if (!this.validate()) {
+      console.log('called search');
+      this.div_visible = true;
+      let id: string = this.form.get('gtin').value.trim();
+      this.utilService.getEndpoint('vendorSearch').then(endpoint => {
+        this.vendorService.getImages(endpoint, this.vendor, id)
+          .then(data => this.searchVendor(id, endpoint));
       });
+    }
   }
 
   onDialogHide() {
@@ -90,7 +80,7 @@ export class CspVendorComponent implements OnInit {
     event.preventDefault();
   }
 
-  upload(){
+  upload() {
     this.processed = true;
     this.msgs = [];
     this.utilService.getEndpoint('add').then(endpoint => {
@@ -103,28 +93,31 @@ export class CspVendorComponent implements OnInit {
   private handleSuccess(response: Object) {
     let res = <AddImageResponse>response;
     console.log(res);
-    if (res != null && res.assetDetails!= null && res.assetDetails[0]) {
+    if (res != null && res.assetDetails != null && res.assetDetails[0]) {
       if (this.isSequenceSuccess(res.assetDetails[0])) {
         this.selectedAsset.imageId = res.assetDetails[0].imageId;
-        this.selectedAsset.cspurl = EndPoints.IMAGE_RETRIEVAL_ENDPOINT+this.selectedAsset.imageId;
+        this.utilService.getEndpoint('retrieval').then(endpoint => {
+          this.selectedAsset.cspurl = endpoint + this.selectedAsset.imageId;
+        });
         this.msgs.push({
           severity: 'success', summary: 'SUCCESS',
           detail: res.assetDetails[0].statusCode + ' - ' + res.assetDetails[0].statusMessage
         });
-        console.log(this.imageId+'-'+this.imageUrl+'-'+status);
-      }else {
+        console.log(this.imageId + '-' + this.imageUrl + '-' + status);
+      } else {
         this.msgs.push({
           severity: 'error', summary: 'FAILURE',
           detail: res.assetDetails[0].statusCode + ' - ' + res.assetDetails[0].errorDetails
         });
       }
-    }else if(res.errorResponse != null){
+    } else if (res.errorResponse != null) {
       this.msgs.push({
         severity: 'error', summary: 'FAILURE',
         detail: res.errorResponse.statusCode + ' - ' + res.errorResponse.statusMessage
       });
     }
     this.processed = false;
+    this.selectedAsset.isProcessed = true;
   }
 
   private isSequenceSuccess(sequence: AssetDetailResponse) {
@@ -150,8 +143,8 @@ export class CspVendorComponent implements OnInit {
     identifier.gtin = this.selectedAsset.gtin;
 
     var request: ImageAddRequest = new ImageAddRequest();
-    request.referenceId = 'CSP-UI-VENDOR-SEARCH-UPLOAD-'+
-      (<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds()
+    request.referenceId = 'CSP-UI-VENDOR-SEARCH-UPLOAD-' +
+      (<User>this.authService.getUser()).username + '-' + new Date().getMilliseconds()
       + "-" + identifier.gtin;
     request.creationDatetime = new Date().toISOString();
     request.imageType = 'ProductImage';
@@ -170,7 +163,7 @@ export class CspVendorComponent implements OnInit {
     image.background = this.selectedAsset.background;
     image.source = this.vendor.toLowerCase().trim();
     image.description = this.selectedAsset.description;
-    image.lastModifiedDate =  new Date().toISOString();
+    image.lastModifiedDate = new Date().toISOString();
     image.fileName = this.selectedAsset.filename;
     image.fileExtension = this.getFileExtension(image.fileName);
     let source: string = this.vendor.toLowerCase().trim();
@@ -190,6 +183,50 @@ export class CspVendorComponent implements OnInit {
       return array[array.length - 1];
     } else
       return '.jpeg';
+  }
+
+  private validate(): boolean {
+    this.errMsgs = [];
+    if (this.form.get('gtin').value && this.form.get('gtin').value.trim().length != 14) {
+      this.showError('Validation error',
+        'GTIN should be 14 digits long ');
+      return true;
+    }
+    if (this.form.get('gtin').value && isNaN(this.form.get('gtin').value.trim())) {
+      this.showError('Validation error',
+        'GTIN should be in digits ');
+      return true;
+    }
+    return false;
+  }
+
+  private showError(type: string, description: string) {
+    this.errMsgs = [];
+    this.errMsgs.push({
+      severity: 'error', summary: type,
+      detail: description
+    });
+  }
+
+  private searchVendor(id: string, endpoint: string):void{
+    this.vendorService.getImages(endpoint, this.vendor, id)
+      .then(data => {
+        this.vendorAssets = data.viewAngleList;
+        this.div_visible = false;
+        this.description = data.description;
+        this.vendorAssets.forEach(asset => {
+          asset.gtin = data.gtin;
+          asset.description = data.description;
+          asset.providedSize = data.providedSize;
+          asset.background = data.background;
+          asset.filename = data.gtin + '_' + asset.viewAngle + '.jpeg';
+          asset.isProcessed = false;
+        })
+      })
+      .catch(reason => {
+        console.log(reason.toString());
+        this.div_visible = false;
+      });
   }
 
 }

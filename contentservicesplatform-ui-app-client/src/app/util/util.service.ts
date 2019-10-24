@@ -10,16 +10,23 @@ export class UtilService {
   constructor(private http: HttpClient) { }
 
   public getViewAngels(){
-    return this.http.get('/imp/ui/v1/server/viewAngles');
+    return this.http.get('/imp/ui/server/viewAngles');
   }
 
   public getEndpoint(api: string){
     return this.http
-      .get<any>('/imp/ui/v1/server/endpoints')
+      .get<any>('/imp/ui/server/endpoints')
       .toPromise()
       .then(res => <EndpointResponse>res)
       .then(data => {
-        return data.add;
+        if('add'.toLowerCase() == api.toLowerCase().trim())
+          return data.add;
+        if('search'.toLowerCase() == api.toLowerCase().trim())
+          return data.search;
+        if('vendorSearch'.toLowerCase() == api.toLowerCase().trim())
+          return data.vendorSearch;
+        if('retrieval'.toLowerCase() == api.toLowerCase().trim())
+          return data.retrieval;
       });
   }
 }

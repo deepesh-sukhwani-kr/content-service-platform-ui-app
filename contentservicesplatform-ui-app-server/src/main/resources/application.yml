@@ -1,4 +1,3 @@
----
 spring:
   application:
     name: Content Services Platform UI App
@@ -25,35 +24,3 @@ management:
       base-path: /manage
       exposure:
         include: health,info,krypt,keepalive
-
----
-spring:
-  profiles: stage
-  datasource:
-    driver-class-name: ${vcap.services.cspux-db.credentials.driver}
-    url: ${vcap.services.cspux-db.credentials.url}
-    username: ${vcap.services.cspux-db.credentials.username}
-    password: ${vcap.services.cspux-db.credentials.password}
-    initialize: false
-kroger:
-  oauth:
-    default-target-uri: ${vcap.services.cspux-auth.credentials.defaultTargetUri}
-    logout-uri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/logout
-  krypt:
-    aes:
-      encryptedKey: ${vcap.services.cspux-encryptionkey.credentials.encryptedKey}
-
-security:
-  oauth2:
-    client:
-      clientId: ${vcap.services.cspux-auth.credentials.clientId}
-      clientSecret: ${vcap.services.cspux-auth.credentials.clientSecret}
-      accessTokenUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/token
-      userAuthorizationUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/authorize
-    resource:
-      tokenInfoUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/check_token
-add:
-  url: https://imp.kroger.com/imp/asset/v1/images/add
-search:
-  url: https://imp.kroger.com/imp/search/v1/images/search
-authorization: KRYPT(TZEp0MsolJd4pL4H8f59GG3MF00QDa5FZZonTnz1gqDEr813RiO2nnGsuA8Qd2iXOQVjap56dA3MxNvLlmdo066phWedhJM3oxRTHlOhfAA=)

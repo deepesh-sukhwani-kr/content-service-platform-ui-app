@@ -15,7 +15,7 @@ import java.util.HashMap;
  * @author Dhriti Ghosh
  */
 @RestController
-@RequestMapping(value = "/imp/ui/v1/server", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/imp/ui/server", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UtilController {
 
     @Value("${kroger.imagedata.viewangles}")

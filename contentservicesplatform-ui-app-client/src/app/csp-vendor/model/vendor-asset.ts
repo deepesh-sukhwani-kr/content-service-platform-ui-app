@@ -9,4 +9,5 @@ export interface VendorAsset{
   gtin: string;
   imageId: string;
   cspurl: string;
+  isProcessed: boolean;
 }
