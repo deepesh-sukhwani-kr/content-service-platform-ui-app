@@ -10,7 +10,9 @@ export interface Image {
   background;
   height;
   color;
+  colorRep;
   resolutionDpi;
+  resDpi;
   viewAngle;
   upc10;
   source;
