@@ -79,12 +79,12 @@
                       style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;" ></td>
                   <td colspan="1"></td>
                   <td colspan="1" width="25%" align="right">
-                    <button pButton type="button" (click)="getImages()" label="Search" size="10" icon="pi pi-search"
+                    <button pButton type="button" (click)="getImages()" (keyup.enter)="getImages()" label="Search" size="10" icon="pi pi-search"
                             id="search"></button>
                     &nbsp;
                   </td>
-                  <td width="35%" align="center">
-                    <button pButton type="button" label="Clear" size="10" icon="pi pi-trash"></button>
+                  <td width="35%" align="right">
+                    <button pButton type="button" (click)="clear()" label="Clear" size="10" icon="pi pi-trash"></button>
                   </td>
                 </tr>
                 <tr>

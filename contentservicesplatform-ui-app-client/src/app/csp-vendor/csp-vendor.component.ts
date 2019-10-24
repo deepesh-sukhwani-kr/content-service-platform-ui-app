@@ -54,6 +54,7 @@ export class CspVendorComponent implements OnInit {
   }
 
   getImages() {
+    this.vendorAssets = [];
     if (!this.validate()) {
       console.log('called search');
       this.div_visible = true;
@@ -222,6 +223,12 @@ export class CspVendorComponent implements OnInit {
         console.log(reason.toString());
         this.div_visible = false;
       });
+  }
+
+  public clear(): void{
+    this.vendorAssets = [];
+    this.form.get('gtin').reset();
+    this.errMsgs = [];
   }
 
 }
