@@ -109,7 +109,7 @@
                               <button pButton type="button" label="View and Upload" icon="pi pi-plus-circle"
                                 size="10" (click)="selectImage($event, vendorAsset)" [disabled]=vendorAsset.isProcessed ></button>
                             </td>
-                            <td>{{vendorAsset.imageId}}</td>
+                            <td><a href="{{vendorAsset.cspurl}}" target="_blank">{{vendorAsset.imageId}}</a></td>
                             <td>{{vendorAsset.viewAngle}}</td>
                             <td>{{vendorAsset.url}}</td>
                           </tr>
@@ -205,12 +205,9 @@
           </tr>
           <tr>
             <td colspan="2">&nbsp;</td>
-            <td>
+            <td colspan="2">
               <button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
                     size="10" (click)="upload()"></button>
-            </td>
-            <td>
-              <button pButton type="button" label="Clear" size="10" icon="pi pi-trash"></button>
             </td>
           </tr>
           <tr>

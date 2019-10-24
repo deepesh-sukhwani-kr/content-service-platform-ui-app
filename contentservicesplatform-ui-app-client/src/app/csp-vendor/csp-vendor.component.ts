@@ -39,8 +39,6 @@ export class CspVendorComponent implements OnInit {
   processed: boolean = false;
   msgs: Message[];
   errMsgs: Message[];
-  imageId: string = '';
-  imageUrl: string = '';
   description: string = '';
 
   ngOnInit() {
@@ -73,8 +71,6 @@ export class CspVendorComponent implements OnInit {
 
   selectImage(event: Event, vendorAsset: VendorAsset) {
     this.assetForm.reset();
-    this.imageId = '';
-    this.imageUrl = '';
     this.selectedAsset = vendorAsset;
     this.displayDialog = true;
     event.preventDefault();
@@ -103,7 +99,6 @@ export class CspVendorComponent implements OnInit {
           severity: 'success', summary: 'SUCCESS',
           detail: res.assetDetails[0].statusCode + ' - ' + res.assetDetails[0].statusMessage
         });
-        console.log(this.imageId + '-' + this.imageUrl + '-' + status);
       } else {
         this.msgs.push({
           severity: 'error', summary: 'FAILURE',
