@@ -7,7 +7,7 @@ export interface Image {
   fileType;
   description;
   lastModifiedDate;
-  backGround;
+  background;
   height;
   color;
   resolutionDpi;
