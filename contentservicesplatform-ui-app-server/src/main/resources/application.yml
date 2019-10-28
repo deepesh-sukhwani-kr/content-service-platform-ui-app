@@ -23,4 +23,10 @@ management:
     web:
       base-path: /manage
       exposure:
-        include: health,info,krypt,keepalive
+        include: health,info,krypt,keepalive,refresh
+  endpoint:
+    health:
+      show-details: always
+  health:
+    ldap:
+      enabled: false
