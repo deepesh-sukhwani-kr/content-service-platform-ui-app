@@ -12,10 +12,10 @@ spring:
 kroger:
   ldap:
     filter-order: -10
-#  management:
-#    security:
-#      roles: oa-cspux-support-5420
-#      enabled: false
+  management:
+    security:
+      roles: oa-cspux-support-5420
+      enabled: false
   eaf:
     version: 5.0.2
 management:

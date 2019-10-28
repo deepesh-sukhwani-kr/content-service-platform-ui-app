@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, proxyTargetClass = true)
 public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
 {
-    public static final String[] REQUEST_MATCHERS = {"/", "/index.html", "/login", "/relogin", "/logout", "/oauth/logout", "/api/dance"};
+    public static final String[] REQUEST_MATCHERS = {"/", "/index.html", "/login", "/relogin", "/logout", "/oauth/logout", "/api/dance", "/manage/**"};
 
     @Value("${kroger.oauth.default-target-uri}")
     protected String defaultTargetUrl;
@@ -108,7 +108,7 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
     {
         http.csrf().disable();
         // @formatter:off
-        http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout").permitAll()
+        http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout","/manage/**").permitAll()
                 .anyRequest().authenticated();
         // @formatter:on
     }
