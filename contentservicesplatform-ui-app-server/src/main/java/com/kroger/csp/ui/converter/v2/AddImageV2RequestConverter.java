@@ -10,6 +10,7 @@ import com.kroger.csp.ui.domain.request.v2.Association;
 import com.kroger.csp.ui.domain.request.v2.AttributeMap;
 import com.kroger.csp.ui.domain.request.v2.Tag;
 import com.kroger.imp.library.domain.TransactionRef;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,9 @@ import java.util.List;
  */
 @Component
 public class AddImageV2RequestConverter {
+
+    @Value("${spring.profiles}")
+    private String env;
 
     private   static String KROGER_CANONICAL_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
     private static final DateTimeFormatter krogerDtTimeFormatter = DateTimeFormatter.ofPattern(KROGER_CANONICAL_DATE_FORMAT);
@@ -49,7 +53,12 @@ public class AddImageV2RequestConverter {
         transactionRef.setCreationdatetime(LocalDateTime.now().format(krogerDtTimeFormatter));
         transactionRef.setEvent("ADDASSET");
         transactionRef.setSource("UI");
-        transactionRef.setEnvironment("unittest");
+        if("stage".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("prod");
+        else if("local".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("test");
+        else
+            transactionRef.setEnvironment(env);
         return transactionRef;
     }
 
