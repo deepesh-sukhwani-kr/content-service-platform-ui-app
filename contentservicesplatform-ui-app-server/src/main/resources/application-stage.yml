@@ -40,9 +40,9 @@ kroger:
     authorization: KRYPT(TZEp0MsolJd4pL4H8f59GG3MF00QDa5FZZonTnz1gqDEr813RiO2nnGsuA8Qd2iXOQVjap56dA3MxNvLlmdo066phWedhJM3oxRTHlOhfAA=)
   v2:
     add:
-      url: https://imp.kroger.com/imp/asset/v2/images/add
+      url: https://impcore-asset.kroger.com/imp/asset/v2/images/add
     search:
-      url: https://imp.kroger.com/imp/search/v2/images/search
+      url: https://impcore-search.kroger.com/imp/search/v2/images/search
     authorization: KRYPT(TZEp0MsolJd4pL4H8f59GG3MF00QDa5FZZonTnz1gqDEr813RiO2nnGsuA8Qd2iXOQVjap56dA3MxNvLlmdo066phWedhJM3oxRTHlOhfAA=)
 
 security:
