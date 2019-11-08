@@ -33,7 +33,7 @@
                     <td colspan="1" width="15%">
                       <p-fileUpload #csvUpload mode="basic" name="csv[]"
                                     customUpload="true"
-                                    maxFileSize="10000000000" [multiple]="false"
+                                    maxFileSize="10000000000000000" [multiple]="false"
                                     (uploadHandler)="onUpload($event, csvUpload)" [auto]="true"
                                     chooseLabel="Upload CSV" [disabled]=ifSubmitted></p-fileUpload>
                     </td>
@@ -41,7 +41,7 @@
                       <div id="imageUpload" style="visibility: hidden">
                         <p-fileUpload #imageUpload mode="basic" name="images[]"
                                       customUpload="true" accept="image/*"
-                                      maxFileSize="10000000000" [multiple]="true"
+                                      maxFileSize="10000000000000000" [multiple]="true"
                                       (uploadHandler)="onImageUpload($event, imageUpload)" [auto]="true"
                                       chooseLabel="Upload Images" [disabled]=isFinalized> </p-fileUpload>
                       </div>
