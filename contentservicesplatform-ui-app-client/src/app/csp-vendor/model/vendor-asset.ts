@@ -10,4 +10,5 @@ export interface VendorAsset{
   imageId: string;
   cspurl: string;
   isProcessed: boolean;
+  lastModifiedDate: string;
 }

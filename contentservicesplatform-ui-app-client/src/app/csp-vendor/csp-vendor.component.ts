@@ -159,7 +159,7 @@ export class CspVendorComponent implements OnInit {
     image.background = this.selectedAsset.background;
     image.source = this.vendor.toLowerCase().trim();
     image.description = this.selectedAsset.description;
-    image.lastModifiedDate = new Date().toISOString();
+    image.lastModifiedDate = this.selectedAsset.lastModifiedDate;
     image.fileName = this.selectedAsset.filename;
     image.fileExtension = this.getFileExtension(image.fileName);
     let source: string = this.vendor.toLowerCase().trim();

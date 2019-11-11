@@ -4,6 +4,8 @@ import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
 import com.kroger.csp.ui.util.VendorUtil;
 import com.kroger.imp.apm.KwikeeAPI;
+import com.kroger.imp.apm.KwikeeImageAttributes;
+import com.kroger.imp.apm.KwikeeViewAngleMap;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -12,7 +14,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -42,14 +46,18 @@ public class KwikeeSearchService {
      * @throws Exception
      */
     public VendorSearchResponse getImageDetailsByGtin(String gtin) throws Exception {
+
+        KwikeeAPI api = new KwikeeAPI(properties);
+        KwikeeImageAttributes attributes = api.imageSearchReturnsKwikeeImageAttributes(gtin);
+
         VendorSearchResponse response = new VendorSearchResponse();
-        response.setDescription(getKwikeeDescription(gtin));
+        response.setDescription(attributes.getDescription());
         response.setGtin(gtin);
         response.setImageType(imageType);
         response.setSource(KwikeeConstants.KWIKEE.value);
         response.setBackground(background);
         response.setProvidedSize(providedSize);
-        response.setViewAngleList(getKwikeeImages(gtin));
+        response.setViewAngleList(getKwikeeImages(attributes));
         return response;
     }
 
@@ -67,13 +75,24 @@ public class KwikeeSearchService {
     }
 
     /**
-     * @param gtin
+     * @param attributes
      * @return
      * @throws Exception
      */
-    private List<VendorSearchViewAngleResponse> getKwikeeImages(String gtin) throws Exception {
-        KwikeeAPI kwikeeAPI = new KwikeeAPI(properties);
-        return vendorUtil.getViewAngleList(kwikeeAPI.imageSearch(gtin));
+    private List<VendorSearchViewAngleResponse> getKwikeeImages(KwikeeImageAttributes attributes) throws Exception {
+        Map<String, KwikeeViewAngleMap> searchResults = attributes.getViewAngleMap();
+        List<VendorSearchViewAngleResponse> viewAngles = new ArrayList<>();
+        for(String viewAngle: searchResults.keySet()){
+            if(vendorUtil.isSupportedViewAngle(viewAngle)) {
+                VendorSearchViewAngleResponse vendorSearchViewAngleResponse = new VendorSearchViewAngleResponse();
+                vendorSearchViewAngleResponse.setViewAngle(viewAngle);
+                vendorSearchViewAngleResponse.setUrl(searchResults.get(viewAngle).getImageUrl());
+                vendorSearchViewAngleResponse.setLastModifiedDate(searchResults.get(viewAngle).getImageLastModifiedDate());
+                System.out.println("---------------"+searchResults.get(viewAngle).getImageLastModifiedDate());
+                viewAngles.add(vendorSearchViewAngleResponse);
+            }
+        }
+        return viewAngles;
     }
 
     @AllArgsConstructor

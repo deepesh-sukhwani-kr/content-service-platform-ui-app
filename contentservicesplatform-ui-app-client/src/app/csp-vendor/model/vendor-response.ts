@@ -8,5 +8,5 @@ export interface VendorResponse{
   imageType: string;
   providedSize: string;
   background: string;
-
+  lastModifiedDate: string;
 }

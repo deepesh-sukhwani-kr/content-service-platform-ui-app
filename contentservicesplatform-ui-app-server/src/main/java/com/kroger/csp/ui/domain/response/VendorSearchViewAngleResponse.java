@@ -10,4 +10,5 @@ public class VendorSearchViewAngleResponse {
     private String viewAngle;
     private String base64;
     private String url;
+    private String lastModifiedDate;
 }
