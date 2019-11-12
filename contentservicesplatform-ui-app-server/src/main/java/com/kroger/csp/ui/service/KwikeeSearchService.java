@@ -8,6 +8,7 @@ import com.kroger.imp.apm.KwikeeImageAttributes;
 import com.kroger.imp.apm.KwikeeViewAngleMap;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -87,13 +88,19 @@ public class KwikeeSearchService {
                 VendorSearchViewAngleResponse vendorSearchViewAngleResponse = new VendorSearchViewAngleResponse();
                 vendorSearchViewAngleResponse.setViewAngle(viewAngle);
                 vendorSearchViewAngleResponse.setUrl(searchResults.get(viewAngle).getImageUrl());
-                vendorSearchViewAngleResponse.setLastModifiedDate(searchResults.get(viewAngle).getImageLastModifiedDate());
-                System.out.println("---------------"+searchResults.get(viewAngle).getImageLastModifiedDate());
+                String timeStamp = searchResults.get(viewAngle).getImageLastModifiedDate();
+                if(StringUtils.isNotBlank(timeStamp) && timeStamp.trim().length() == 20){
+                    timeStamp = timeStamp.substring(0, 18)+ ".000Z";
+                }
+                vendorSearchViewAngleResponse.setLastModifiedDate(timeStamp);
                 viewAngles.add(vendorSearchViewAngleResponse);
             }
         }
         return viewAngles;
     }
+
+
+
 
     @AllArgsConstructor
     public enum KwikeeConstants {
