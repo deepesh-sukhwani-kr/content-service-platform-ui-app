@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Properties;
 
+/**
+ * Service class to support Gladson vendor search
+ */
 @Service
 @Slf4j
 public class GladsonSearchService {

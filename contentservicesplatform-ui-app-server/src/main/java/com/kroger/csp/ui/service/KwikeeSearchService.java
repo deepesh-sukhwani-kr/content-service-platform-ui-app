@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- *
+ * Service class to support Kwikee vendor search
  */
 @Service
 @Slf4j
