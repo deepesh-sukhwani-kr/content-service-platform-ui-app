@@ -9,6 +9,7 @@ import com.kroger.imp.apm.KwikeeViewAngleMap;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -63,24 +64,11 @@ public class KwikeeSearchService {
     }
 
     /**
-     * @param gtin
-     * @return
-     * @throws Exception
-     */
-    private String getKwikeeDescription(String gtin) throws Exception {
-        KwikeeAPI kwikeeAPI = new KwikeeAPI(properties);
-        String kwikeeSearchRespJSON = kwikeeAPI.getItemDataJSON(gtin);
-        JSONObject jsonAssetObject = new JSONObject(kwikeeSearchRespJSON);
-        return jsonAssetObject.getJSONArray(KwikeeConstants.CUSTOM_PRODUCT_NAME.value).
-                getJSONObject(0).getString(KwikeeConstants.TEXT.value);
-    }
-
-    /**
      * @param attributes
      * @return
      * @throws Exception
      */
-    private List<VendorSearchViewAngleResponse> getKwikeeImages(KwikeeImageAttributes attributes) throws Exception {
+    private List<VendorSearchViewAngleResponse> getKwikeeImages(KwikeeImageAttributes attributes){
         Map<String, KwikeeViewAngleMap> searchResults = attributes.getViewAngleMap();
         List<VendorSearchViewAngleResponse> viewAngles = new ArrayList<>();
         for(String viewAngle: searchResults.keySet()){
@@ -99,6 +87,10 @@ public class KwikeeSearchService {
         return viewAngles;
     }
 
+
+    public byte[] getRawImage(String url) throws Exception{
+        return Base64.decodeBase64(new KwikeeAPI(properties).getAssetFromURL(url));
+    }
 
 
 

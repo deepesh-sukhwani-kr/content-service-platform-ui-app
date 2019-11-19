@@ -9,11 +9,14 @@ import {AssetType} from "../csp-add/constants/assetType";
 import {AssetIdentifier} from "../csp-add/model/AssetIdentifier";
 import {ImageAddRequest} from "../csp-add/model/imageAddRequest";
 import {AddImageResponse} from "../csp-add/model/addImageResponse";
-import {HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AssetDetailResponse} from "../csp-add/model/assetDetailResponse";
 import {Message} from "primeng/components/common/api";
 import {UtilService} from "../util/util.service";
+import {RawAsset} from "./model/raw-asset";
+import * as FileSaver from "file-saver";
+import {tap} from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-csp-vendor',
@@ -25,7 +28,7 @@ export class CspVendorComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, public vendorService: CspVendorService,
               private addService: CspAddService, private authService: AuthService,
-              private router: Router, private utilService: UtilService) {
+              private router: Router, private utilService: UtilService, private http: HttpClient) {
   }
 
   vendor: string = 'Kwikee';
@@ -229,6 +232,40 @@ export class CspVendorComponent implements OnInit {
     this.vendorAssets = [];
     this.form.get('gtin').reset();
     this.errMsgs = [];
+  }
+
+  public getRawImage(asset: VendorAsset){
+    let request: RawAsset;
+    request = new RawAsset();
+    request.url = asset.url;
+    request.vendor = this.vendor;
+    const httpOptions: {
+      headers?: HttpHeaders | {
+        [header: string]: string | string[];
+      };
+      observe: 'response';
+      params?: HttpParams | {
+        [param: string]: string | string[];
+      };
+      reportProgress?: boolean;
+      responseType: 'blob';
+      withCredentials?: boolean;
+    } = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Accept' : 'image/jpeg'
+      }),
+      observe: 'response',
+      responseType: 'blob'
+    };
+    if(this.vendor.toUpperCase().trim() === 'KWIKEE')
+      this.http.post('/imp/ui/v1/server/getAssset', request, httpOptions).subscribe((data) => {
+
+        let blob: Blob;
+        blob = new Blob([data.body], {type: 'image/jpeg'});
+        FileSaver.saveAs(blob, asset.gtin+'_'+asset.viewAngle+'.jpeg');
+      });
+
   }
 
 }
