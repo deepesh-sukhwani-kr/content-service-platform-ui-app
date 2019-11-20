@@ -55,8 +55,10 @@ public class VendorSearchController {
     public ResponseEntity<byte[]> getImage(@RequestBody RawAssetRequest request){
         byte[] image = null;
         try {
-            if(request.getVendor().trim().equalsIgnoreCase("KWIKEE"))
+            if(request.getVendor().trim().equalsIgnoreCase(Vendor.KWIKEE.name()))
                 image = kwikeeService.getRawImage(request.getUrl());
+            if(request.getVendor().trim().equalsIgnoreCase(Vendor.GLADSON.name()))
+                image = gladsonService.getRawImage(request.getUrl());
         }catch (Exception ex){
             log.error("Error in Vendor Search - UI : " + ex);
         }

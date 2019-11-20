@@ -4,6 +4,7 @@ import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.util.VendorUtil;
 import com.kroger.imp.apm.GladsonUpdatedAPI;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,6 +43,10 @@ public class GladsonSearchService {
         response.setProvidedSize(providedSize);
         response.setViewAngleList(vendorUtil.getViewAngleList(gladsonUpdatedAPI.imageSearch(gtin)));
         return response;
+    }
+
+    public byte[] getRawImage(String url) throws Exception{
+        return Base64.decodeBase64(new GladsonUpdatedAPI(properties).getAssetFromURL(url));
     }
 
 }

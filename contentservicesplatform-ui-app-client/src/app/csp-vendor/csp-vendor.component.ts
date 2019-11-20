@@ -161,7 +161,8 @@ export class CspVendorComponent implements OnInit {
     image.providedSize = this.selectedAsset.providedSize;
     image.background = this.selectedAsset.background;
     image.source = this.vendor.toLowerCase().trim();
-    image.description = this.selectedAsset.description;
+    if(this.vendor.trim().toUpperCase() === 'KWIKEE')
+      image.description = this.selectedAsset.description;
     image.lastModifiedDate = this.selectedAsset.lastModifiedDate;
     image.fileName = this.selectedAsset.filename;
     image.fileExtension = this.getFileExtension(image.fileName);
@@ -214,6 +215,9 @@ export class CspVendorComponent implements OnInit {
         this.div_visible = false;
         this.description = data.description;
         this.vendorAssets.forEach(asset => {
+          if(this.vendor.trim().toUpperCase() === 'GLADSON'){
+            asset.lastModifiedDate = (new Date()).toISOString();
+          }
           asset.gtin = data.gtin;
           asset.description = data.description;
           asset.providedSize = data.providedSize;
@@ -258,13 +262,12 @@ export class CspVendorComponent implements OnInit {
       observe: 'response',
       responseType: 'blob'
     };
-    if(this.vendor.toUpperCase().trim() === 'KWIKEE')
-      this.http.post('/imp/ui/v1/server/getAssset', request, httpOptions).subscribe((data) => {
+    this.http.post('/imp/ui/v1/server/getAssset', request, httpOptions).subscribe((data) => {
 
-        let blob: Blob;
-        blob = new Blob([data.body], {type: 'image/jpeg'});
-        FileSaver.saveAs(blob, asset.gtin+'_'+asset.viewAngle+'.jpeg');
-      });
+      let blob: Blob;
+      blob = new Blob([data.body], {type: 'image/jpeg'});
+      FileSaver.saveAs(blob, asset.gtin+'_'+asset.viewAngle+'.jpeg');
+    });
 
   }
 
