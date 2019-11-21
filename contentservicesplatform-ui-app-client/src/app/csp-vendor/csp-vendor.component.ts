@@ -160,9 +160,12 @@ export class CspVendorComponent implements OnInit {
     image.viewAngle = this.selectedAsset.viewAngle;
     image.providedSize = this.selectedAsset.providedSize;
     image.background = this.selectedAsset.background;
-    image.source = this.vendor.toLowerCase().trim();
-    if(this.vendor.trim().toUpperCase() === 'KWIKEE')
+    if(this.vendor.trim().toUpperCase() === 'KWIKEE') {
       image.description = this.selectedAsset.description;
+      image.source = 'IMP-SUPPORT-KWIKEE-DS';
+    } else {
+      image.source = 'IMP-SUPPORT-GLADSON-DS';
+    }
     image.lastModifiedDate = this.selectedAsset.lastModifiedDate;
     image.fileName = this.selectedAsset.filename;
     image.fileExtension = this.getFileExtension(image.fileName);
