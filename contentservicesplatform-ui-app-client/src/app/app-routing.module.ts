@@ -27,18 +27,22 @@ const routes: Routes = [
   {
     path: 'add',
     component: CspAddComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'csvupload',
     component: CsvUploadComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'search',
-    component: CspSearchComponent
+    component: CspSearchComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'vendor',
-    component: CspVendorComponent
+    component: CspVendorComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',
