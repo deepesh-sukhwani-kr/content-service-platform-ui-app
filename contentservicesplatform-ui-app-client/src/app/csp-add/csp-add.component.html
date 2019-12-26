@@ -203,7 +203,7 @@
                             <tr>
                               <td colspan="4" style="visibility: hidden;" id="fileUpload{{i}}">
                                 <p-fileUpload name="image[]" customUpload="true" multiple="false"
-                                              accept="image/*" maxFileSize="1000000"
+                                              accept="image/*" maxFileSize="10000000"
                                               [style]="{'max-width':'720px; overflow-y: scroll;'}"
                                               (uploadHandler)="onUpload($event, i)"
                                               widgetVar="myFileUpload" [disabled]="ifSubmitted" >
