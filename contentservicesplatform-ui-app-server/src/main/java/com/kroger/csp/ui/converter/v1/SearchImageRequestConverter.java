@@ -46,6 +46,8 @@ public class SearchImageRequestConverter {
         transactionRef.setSource("UI");
         if ("stage".equalsIgnoreCase(env))
             transactionRef.setEnvironment("prod");
+        else if("local".equalsIgnoreCase(env))
+        transactionRef.setEnvironment("test");
         else
             transactionRef.setEnvironment(env);
         return transactionRef;
