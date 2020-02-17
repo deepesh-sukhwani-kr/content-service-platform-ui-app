@@ -1,12 +1,12 @@
 package com.kroger.csp.ui.controller;
 
+import com.kroger.csp.ui.domain.response.AuthorizedRolesResponse;
 import com.kroger.csp.ui.domain.response.ViewAngleResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -28,6 +28,8 @@ public class UtilController {
     private String vendorSearch;
     @Value("${kroger.serverendpoints.retrieval:}")
     private String retrieval;
+    @Value("${kroger.authorizedRoles.addImage}")
+    private String[] addImageAuthorizedRoles;
 
     /**
      * Get the view angles supported
@@ -54,5 +56,11 @@ public class UtilController {
         return endpoints;
     }
 
+    @GetMapping(path = "/addImageRoles")
+    public AuthorizedRolesResponse getAddImageAuthorizedRoles(){
+        AuthorizedRolesResponse response = new AuthorizedRolesResponse();
+        response.setAddImageAuthorizedRoles(Arrays.asList(this.addImageAuthorizedRoles));
+        return response;
+    }
 
 }

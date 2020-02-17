@@ -42,5 +42,9 @@ export class AppComponent {
           {label: 'Vendor Search', icon: 'pi pi-fw pi-cloud-upload', routerLink: '/vendor'}
         ]
       }];
+
+    if(!(this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420"))){
+      this.items = this.items.slice(1,2);
+    }
   }
 }

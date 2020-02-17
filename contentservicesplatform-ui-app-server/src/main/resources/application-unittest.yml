@@ -23,6 +23,8 @@ kroger:
     search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://impcoremgtdev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/
+  authorizedRoles:
+    addImage: oa-cspux-support-5420, oa-cspux-supp-center-5420, oa-cspux-taxonomy-5420
   v1:
     add:
       url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add

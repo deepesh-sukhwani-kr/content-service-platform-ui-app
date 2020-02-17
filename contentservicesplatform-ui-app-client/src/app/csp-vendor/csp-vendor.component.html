@@ -211,7 +211,7 @@
             <td colspan="2">&nbsp;</td>
             <td colspan="2">
               <button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
-                    size="10" (click)="upload()"></button>
+                    size="10" (click)="upload()" [disabled]= "disableAddButton"></button>
             </td>
           </tr>
           <tr>

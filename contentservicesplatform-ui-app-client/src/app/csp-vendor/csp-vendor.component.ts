@@ -38,6 +38,7 @@ export class CspVendorComponent implements OnInit {
   vendorAssets: VendorAsset[];
   div_visible: boolean = false;
   displayDialog: boolean = false;
+  disableAddButton: boolean = true;
   selectedAsset: VendorAsset;
   processed: boolean = false;
   msgs: Message[];
@@ -54,6 +55,9 @@ export class CspVendorComponent implements OnInit {
       providedSize: [''],
       filename: ['']
     });
+    if(!(this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420"))){
+      this.disableAddButton = false;
+    }
   }
 
   getImages() {
