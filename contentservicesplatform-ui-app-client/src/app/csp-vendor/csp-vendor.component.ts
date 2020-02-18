@@ -16,7 +16,6 @@ import {Message} from "primeng/components/common/api";
 import {UtilService} from "../util/util.service";
 import {RawAsset} from "./model/raw-asset";
 import * as FileSaver from "file-saver";
-import {tap} from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-csp-vendor',
@@ -55,7 +54,7 @@ export class CspVendorComponent implements OnInit {
       providedSize: [''],
       filename: ['']
     });
-    if(!(this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420"))){
+    if((this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420"))){
       this.disableAddButton = false;
     }
   }
