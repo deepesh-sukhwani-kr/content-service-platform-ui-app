@@ -34,13 +34,13 @@ kroger:
       url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
     search:
       url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
-    authorization: U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
+    authorization: KRYPT(jy42tCtTnX7YfiW2aMCnN8A9EUC6kun4XYVJ2D6rRn/5wNfA2e85CxG8PJD1vyt7xv7tj6EDV0uoqZCoUL3/Rg==)
   v2:
     add:
       url: https://impcore-asset-dev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/add
     search:
       url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v2/images/search
-    authorization: U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
+    authorization: KRYPT(jy42tCtTnX7YfiW2aMCnN8A9EUC6kun4XYVJ2D6rRn/5wNfA2e85CxG8PJD1vyt7xv7tj6EDV0uoqZCoUL3/Rg==)
 
 security:
   oauth2:

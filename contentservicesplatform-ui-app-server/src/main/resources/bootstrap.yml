@@ -1,5 +1,18 @@
 ---
 spring:
+  profiles: test
+  cloud:
+    config:
+      failFast: true
+      server:
+        bootstrap: true
+        git:
+          uri: https://github.kroger.com/kt/impcore-configuration.git
+          searchPaths: csp-ui-config
+      uri: http://localhost:8080
+      enabled: true
+---
+spring:
   profiles: stage
   cloud:
     config:
