@@ -1,0 +1,146 @@
+<div class="csvAttrContainer">
+  <table algin="center" width="100%" border="0px">
+    <tr>
+      <td>
+        <form><br/>
+          <table algin="center" width="100%" border="0px">
+            <tr>
+              <td colspan="7" align="right">
+                <a href="https://confluence.kroger.com/confluence/display/IMP/Utility%3A+CSP+Bulk+Upload+%28V1%29+-+User+Guide"
+                   target="_blank">
+                  <button pButton type="button" icon="pi pi-question" pTooltip="Help"></button>
+                </a>
+                <a href="../../assets/IMP-116987299-280819-0350-42.pdf" target="_blank">
+                  <button pButton type="button" icon="pi pi-download" pTooltip="Download Help"></button>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="7" align="center">
+                <table border="0px" width="80%">
+                  <tr>
+                    <td width="10%"  colspan="4">
+                      <h2 style="text-align:center; font-family: Segoe UI, Arial, sans-serif; color: #0c467c;">
+                        <strong>CSP Bulk(CSV) Upload </strong>
+                        <img src="../../assets/csv.png" height="60px">
+                      </h2>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="1" width="15%">
+                      <p-fileUpload #csvUpload mode="basic" name="csv[]"
+                                    customUpload="true"
+                                    maxFileSize="10000000000000000" [multiple]="false"
+                                    (uploadHandler)="onUpload($event, csvUpload)" [auto]="true"
+                                    chooseLabel="Upload CSV" [disabled]=ifSubmitted></p-fileUpload>
+                    </td>
+                    <td colspan="1" width="25%" align="left">
+                      <div id="imageUpload" style="visibility: hidden">
+                        <p-fileUpload #imageUpload mode="basic" name="images[]"
+                                      customUpload="true" accept="image/*"
+                                      maxFileSize="10000000000000000" [multiple]="true"
+                                      (uploadHandler)="onImageUpload($event, imageUpload)" [auto]="true"
+                                      chooseLabel="Upload Images" [disabled]=isFinalized> </p-fileUpload>
+                      </div>
+                    </td>
+                    <td colspan="1" width="45%"  align="right">
+                      <button pButton (click)="submit()" type="button" label="Submit"
+                              icon="pi pi-upload" id="submit"></button>
+                    </td>
+                    <td colspan="1" width="15%" align="right">
+                      <button pButton (click)="reset()" type="button" label="Clear" size="10"
+                              icon="pi pi-trash"></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">
+                      <p-messages [(value)]="msgs"></p-messages>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">
+                      <div *ngIf="progressVisible" >
+                        <p-progressBar mode="indeterminate" [style]="{'height': '10px'}"></p-progressBar>
+                      </div>
+                      <div *ngIf="isCompleted" align="right">
+                        <button pButton type="button" icon="pi pi-download" pTooltip="Download Report" (click)="download()"></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">
+                      <div id="csvTable" style="overflow-x: scroll; overflow-scrolling: auto; max-width: 1090px; max-height: 300px; visibility: hidden">
+                        <p-table [value]="csvAssets">
+                          <ng-template pTemplate="header">
+                  <tr style="white-space:nowrap; position: sticky;">
+                    <th>File Provided</th>
+                    <th>Upload Status</th>
+                    <th>Image Id</th>
+                    <th>File Name</th>
+                    <th>GTIN</th>
+                    <th>View Angle</th>
+                    <th>Size</th>
+                    <th>Background</th>
+                    <th>Last Modified Date</th>
+                    <th>Description</th>
+                    <th>UPC10</th>
+                    <th>UPC12</th>
+                    <th>UPC13</th>
+                    <th>Source</th>
+                    <th>Image Type</th>
+                    <th>Color Profile</th>
+                  </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-csvAsset>
+                    <tr style="white-space:nowrap;" id="{{csvAsset.fileName}}_tr">
+                      <td align="center"><img src="{{csvAsset.fileProvided}}" height="15px"/></td>
+                      <td> <div id="{{csvAsset.fileName}}" style="color: #4858f8">{{csvAsset.uploadStatus}}</div></td>
+                      <td>
+                        <a href="{{csvAsset.url}}" target="_blank">
+                          {{csvAsset.imageId}}
+                        </a>
+                      </td>
+                      <td>{{csvAsset.fileName}}</td>
+                      <td>{{csvAsset.gtin}}</td>
+                      <td>{{csvAsset.viewAngle}}</td>
+                      <td>{{csvAsset.size}}</td>
+                      <td>{{csvAsset.background}}</td>
+                      <td>{{csvAsset.lastModifiedDate}}</td>
+                      <td>{{csvAsset.description}}</td>
+                      <td>{{csvAsset.upc10}}</td>
+                      <td>{{csvAsset.upc12}}</td>
+                      <td>{{csvAsset.upc13}}</td>
+                      <td>{{csvAsset.source}}</td>
+                      <td>{{csvAsset.imageType}}</td>
+                      <td>{{csvAsset.colorProfile}}</td>
+                    </tr>
+                  </ng-template>
+                  </p-table>
+</div>
+</td>
+</tr>
+<tr>
+  <td colspan="4">&nbsp;</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+</td>
+</tr>
+</table>
+</div>
+

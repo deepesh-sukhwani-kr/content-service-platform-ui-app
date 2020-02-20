@@ -1,0 +1,25 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {
+            url "http://artifactory.kroger.com/artifactory/plugins-release"
+        }
+    }
+
+    dependencies {
+        classpath 'com.kroger.initomatic.cfdeploy:cf-deploy:0.2.3'
+    }
+}
+
+apply plugin: 'com.kroger.initomatic.cfdeploy'
+
+/*
+ * USAGE:
+ *
+ * % gradle -b cf-config.gradle -Pusername=[user] -Ppassword=pass --env=[env]
+ *
+ * OVERVIEW:
+ *
+ * Default usage expects that you will provide a json configuration file that will map the environment
+ *
+ */

@@ -1,0 +1,23 @@
+export interface Image {
+  gtin;
+  itemType;
+  encodedURL;
+  approvalStatus;
+  imageId;
+  fileType;
+  description;
+  lastModifiedDate;
+  background;
+  height;
+  color;
+  colorRep;
+  resolutionDpi;
+  resDpi;
+  viewAngle;
+  upc10;
+  source;
+  upc12;
+  width;
+  upc13;
+  providedSize;
+}

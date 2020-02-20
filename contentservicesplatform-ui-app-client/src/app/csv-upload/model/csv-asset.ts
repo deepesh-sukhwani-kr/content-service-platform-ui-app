@@ -1,0 +1,22 @@
+export class CsvAsset{
+  public gtin: string;
+  public viewAngle: string;
+  public size: string;
+  public background: string;
+  public lastModifiedDate: string;
+  public description: string;
+  public upc10: string;
+  public upc12: string;
+  public upc13: string;
+  public source: string;
+  public imageType: string;
+  public fileName: string;
+  public colorProfile: string;
+  public asset: string;
+  public fileProvided: string;
+  public fileProvidedStatus: boolean;
+  public uploadStatus: string;
+  public imageId: string;
+  public url: string;
+  public processed: boolean;
+}

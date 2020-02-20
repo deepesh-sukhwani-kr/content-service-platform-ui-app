@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: Content Services Platform UI App
+  output:
+    ansi:
+      enabled: detect
+  profiles:
+    active: local,SPOOFING
+  mvc:
+    view:
+      suffix: .html
+kroger:
+  ldap:
+    filter-order: -10
+  management:
+    security:
+      roles: oa-cspux-support-5420
+      enabled: false
+  eaf:
+    version: 5.0.2
+management:
+  endpoints:
+    web:
+      base-path: /manage
+      exposure:
+        include: health,info,krypt,keepalive,refresh
+  endpoint:
+    health:
+      show-details: always
+  health:
+    ldap:
+      enabled: false

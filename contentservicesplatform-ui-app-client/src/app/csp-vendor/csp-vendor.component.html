@@ -1,0 +1,229 @@
+<div class="csvAttrContainer">
+  <table algin="center" width="100%" border="0px">
+    <tr>
+      <td>
+        <br/>
+        <table algin="center" width="100%" border="0px">
+          <tr>
+            <td colspan="7" align="right">
+              <a
+                href="https://confluence.kroger.com/confluence/pages/viewpage.action?pageId=124781903"
+                target="_blank">
+                <button pButton type="button" icon="pi pi-question" pTooltip="Help"></button>
+              </a>
+              <a href="../../assets/IMP-124781903-111119-0922-58.pdf" target="_blank">
+                <button pButton type="button" icon="pi pi-download" pTooltip="Download Help"></button>
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="7" align="center">
+              <table border="0px" width="80%">
+                <tr>
+                  <td width="10%" colspan="4">
+                    <h2 style="text-align:center; font-family: Segoe UI, Arial, sans-serif; color: #0c467c;">
+                      <strong>Vendor Image Search </strong>
+                      <img src="../../assets/vendor_search.png" height="60px"/>
+                    </h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <p-messages [(value)]="errMsgs"></p-messages>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="1" width="10%" align="right"
+                      style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                    GTIN:&nbsp;&nbsp;
+                  </td>
+                  <td colspan="1" width="35%">
+                    <form [formGroup]="form">
+                      <input id="gtin" type="text" size="18px" placeholder="GTIN" size="22px"
+                             pInputText formControlName="gtin"/>
+                    </form>
+                  </td>
+                  <td colspan="1" width="25%" align="right"
+                      style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
+                    Vendor:&nbsp;&nbsp;
+                  </td>
+                  <td width="35%">
+                    <p-radioButton name="vendorGroup" value="Kwikee" label="Kwikee" [(ngModel)]="vendor"
+                                   inputId="Kwikee"></p-radioButton>
+                    &nbsp;
+                    <p-radioButton name="vendorGroup" value="Gladson" label="Gladson"
+                                   [(ngModel)]="vendor" inputId="Gladson"></p-radioButton>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <div *ngIf="div_visible">
+                      <p-progressBar mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="1" width="10%" align="right"
+                      style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;" ></td>
+                  <td colspan="1"></td>
+                  <td colspan="1" width="25%" align="right">
+                    <button pButton type="button" (click)="getImages()" (keyup.enter)="getImages()" label="Search" size="10" icon="pi pi-search"
+                            id="search"></button>
+                    &nbsp;
+                  </td>
+                  <td width="35%" align="right">
+                    <button pButton type="button" (click)="clear()" label="Clear" size="10" icon="pi pi-trash"></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <div id="csvTable"
+                         style="overflow-x: scroll; overflow-scrolling: auto; max-width: 1090px; max-height: 300px; ">
+                      <p-table [value]="vendorAssets">
+                        <ng-template pTemplate="header">
+                          <tr style="white-space:nowrap; position: sticky;">
+                            <th>Action</th>
+                            <th>CSP Image ID</th>
+                            <th>View Angle</th>
+                            <th>Description</th>
+                            <th>Last Modified Date</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-vendorAsset>
+                          <tr style="white-space:nowrap;">
+                            <td>
+                              <button pButton type="button" label="Review and Upload" icon="pi pi-plus-circle"
+                                size="10" (click)="selectImage($event, vendorAsset)" [disabled]=vendorAsset.isProcessed ></button>
+                            </td>
+                            <td><a href="{{vendorAsset.cspurl}}" target="_blank">{{vendorAsset.imageId}}</a></td>
+                            <td>{{vendorAsset.viewAngle}}</td>
+                            <td>{{vendorAsset.description}}</td>
+                            <td>{{vendorAsset.lastModifiedDate}}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <p-dialog header="Upload to CSP" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"
+          [modal]="true"
+          [width]='1100'>
+    <div *ngIf="selectedAsset">
+      <form [formGroup]="assetForm">
+        <table width="100%" border="0px">
+          <tr>
+            <td align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;color: #7f7f7f">
+              <b>View angle:&nbsp;</b>
+            </td>
+            <td>{{selectedAsset.viewAngle}}</td>
+            <td align="right"style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;color: #7f7f7f">
+              <b>Description:&nbsp;</b>
+            </td>
+            <td>
+              <b>{{selectedAsset.description}}</b>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+              <b>Background:&nbsp;</b>
+            </td>
+            <td>
+              <b>{{selectedAsset.background}}</b>
+            </td>
+            <td align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+              <b>Provided size:&nbsp;</b>
+            </td>
+            <td>
+              <b>{{selectedAsset.providedSize}}</b>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+              <b>File Name:&nbsp;</b>
+            </td>
+            <td>
+              <b>{{selectedAsset.filename}}</b>
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="1" align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+              <a (click)="getRawImage(selectedAsset)" target="_blank">
+                Download and View Image
+              </a>
+            </td>
+            <td>
+              &nbsp;
+            </td>
+            <td colspan="1" align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
+              <b>Image Id:&nbsp;</b>
+            </td>
+            <td>
+              <a href="{{selectedAsset.cspurl}}" target="_blank">{{selectedAsset.imageId}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <div *ngIf="processed">
+                <p-progressBar mode="indeterminate" [style]="{'height': '8px'}"></p-progressBar>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="2">&nbsp;</td>
+            <td colspan="2">
+              <button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
+                    size="10" (click)="upload()"></button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">&nbsp;</td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              <p-messages [(value)]="msgs"></p-messages>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </p-dialog>
+</div>

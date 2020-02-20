@@ -1,0 +1,17 @@
+
+${AnsiColor.RED}            (
+${AnsiColor.RED}      (     )\ )
+${AnsiColor.RED} (    )\   (()/(
+${AnsiColor.RED} )\((((_)(  /(_))
+${AnsiColor.RED}((${AnsiColor.BLUE}_${AnsiColor.RED}))\ ${AnsiColor.BLUE}_${AnsiColor.RED} )\(${AnsiColor.BLUE}_${AnsiColor.RED}))${AnsiColor.BLUE}_${AnsiColor.RED}|
+${AnsiColor.BLUE}| __${AnsiColor.RED}(_)${AnsiColor.BLUE}_\${AnsiColor.RED}(_)${AnsiColor.BLUE} |_
+${AnsiColor.BLUE}| _| / _ \ | __|
+${AnsiColor.BLUE}|___/_/ \_\|_|
+
+${AnsiColor.GREEN}
+:: EAF v${kroger.eaf.version}
+:: Running Spring Boot v${spring-boot.version}
+:: Generate - http://kic.kroger.com
+:: Learn - https://confluence.kroger.com/confluence/x/2AE
+:: Contribute - https://confluence.kroger.com/confluence/x/iUrqAQ
+${AnsiColor.BLACK}

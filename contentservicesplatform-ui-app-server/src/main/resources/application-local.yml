@@ -1,0 +1,55 @@
+spring:
+  profiles: local
+
+kroger:
+#to be used as a master switch
+  cspVersionSwitch: v1
+  oauth:
+    default-target-uri: http://localhost:8080
+    logout-uri: https://federation.kroger.com/identity/logout
+  krypt:
+    aes:
+      #encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
+      encryptedKey: uY266kD0KlmVxQxa1gLAvSCFdAFtS4OBh/kT4oQsAEO1ujL/BlkhpqXohd8HDDW8
+  imagedata:
+    viewangles: front, back, top, bottom, left, right
+    size:
+      kwikee: 1000x1000
+      gladson: 1000x1000
+    background:
+      kwikee: white
+      gladson: transparent
+    #placeholder for image type
+    imagetype:
+      kwikee: jpeg
+      gladson: jpeg
+  serverendpoints:
+    add: /imp/ui/v2/server/addImage
+    search: /imp/ui/v1/server/cspSearch
+    vendorsearch: /imp/ui/v1/server/vendorSearch
+    retrieval: https://impcoremgtdev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/
+  v1:
+    add:
+      url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
+    search:
+      url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
+    authorization: U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
+  v2:
+    add:
+      #url: https://impcore-asset.kroger.com/imp/asset/v2/images/add
+      url: https://impcore-asset-dev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/add
+    search:
+      #url: https://imp.kroger.com/imp/search/v2/images/search
+      url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
+    #authorization: KRYPT(TZEp0MsolJd4pL4H8f59GG3MF00QDa5FZZonTnz1gqDEr813RiO2nnGsuA8Qd2iXOQVjap56dA3MxNvLlmdo066phWedhJM3oxRTHlOhfAA=)
+    authorization: U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
+
+security:
+  oauth2:
+    client:
+      clientId: 5420-cspux-local
+      clientSecret: secret
+      accessTokenUri: https://federation.kroger.com/identity/oauth/token
+      userAuthorizationUri: https://federation.kroger.com/identity/oauth/authorize
+    resource:
+      tokenInfoUri: https://federation.kroger.com/identity/oauth/check_token
