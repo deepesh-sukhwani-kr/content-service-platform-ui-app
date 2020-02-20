@@ -54,7 +54,7 @@ export class CspVendorComponent implements OnInit {
       providedSize: [''],
       filename: ['']
     });
-    if((this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420"))){
+    if((this.authService.hasRole("oa-dap-vendoradd-user-5420")/* || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420")*/)){
       this.disableAddButton = false;
     }
   }

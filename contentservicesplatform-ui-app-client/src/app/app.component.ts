@@ -26,7 +26,7 @@ export class AppComponent {
         this.notify.error(data.authData.error.status.toString(), data.authData.error.message);
       }
       if (data.authData.authenticated) {
-        if (this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420")) {
+        if (this.authService.hasRole("oa-dap-add-user-5420")/* || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420")*/) {
           this.items.unshift(
             {
               label: 'Add',
@@ -42,21 +42,11 @@ export class AppComponent {
   }
   ngOnInit() {
     this.items = [{
- /*     label: 'Add',
-      items: [
-        {label: 'Add new Images', icon: 'pi pi-fw pi-plus', routerLink: '/add'},
-        {label: 'Upload From CSV', icon: 'pi pi-fw pi-folder-open', routerLink: '/csvupload'}
-      ]
-    },
-      {*/
         label: 'Search',
         items: [
           {label: 'CSP Search', icon: 'pi pi-fw pi-search', routerLink: '/search'},
           {label: 'Vendor Search', icon: 'pi pi-fw pi-cloud-upload', routerLink: '/vendor'}
         ]
       }];
-/*    if(!(this.authService.hasRole("oa-cspux-support-5420") || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420"))){
-      this.items = this.items.slice(1,2);
-    }*/
   }
 }

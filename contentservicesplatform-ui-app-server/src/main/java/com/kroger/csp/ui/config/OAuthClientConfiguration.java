@@ -109,6 +109,8 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
         http.csrf().disable();
         // @formatter:off
         http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout","/manage/**").permitAll()
+                .antMatchers("/add").access("hasRole('oa-dap-add-user-5420')")
+                .antMatchers("/csvupload").access("hasRole('oa-dap-add-user-5420')")
                 .anyRequest().authenticated();
         // @formatter:on
     }
