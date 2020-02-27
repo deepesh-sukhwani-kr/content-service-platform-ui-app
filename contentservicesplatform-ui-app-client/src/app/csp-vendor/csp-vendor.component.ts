@@ -38,6 +38,7 @@ export class CspVendorComponent implements OnInit {
   div_visible: boolean = false;
   displayDialog: boolean = false;
   disableAddButton: boolean = true;
+  showGladson: boolean = true;
   selectedAsset: VendorAsset;
   processed: boolean = false;
   msgs: Message[];
@@ -54,9 +55,23 @@ export class CspVendorComponent implements OnInit {
       providedSize: [''],
       filename: ['']
     });
-    if((this.authService.hasRole("oa-dap-vendoradd-user-5420")/* || this.authService.hasRole("oa-cspux-supp-center-5420") || this.authService.hasRole("oa-cspux-taxonomy-5420")*/)){
-      this.disableAddButton = false;
-    }
+    this.authService.auth.subscribe((data) => {
+      if (data.authData.authenticated) {
+        this.utilService.getRbacConfig().then(rbac => {
+            if (rbac.checkRbac) {
+              rbac.vendorAddRoles.forEach(role => {
+                if (this.authService.hasRole(role))
+                  this.disableAddButton = false;
+              });
+              rbac.krogerExternalRoles.forEach(role => {
+                if (this.authService.hasRole(role))
+                  this.showGladson = false;
+              });
+            }
+          }
+        );
+      }
+    });
   }
 
   getImages() {
@@ -93,7 +108,9 @@ export class CspVendorComponent implements OnInit {
     });
   }
 
-  private handleSuccess(response: Object) {
+  private
+
+  handleSuccess(response: Object) {
     let res = <AddImageResponse>response;
     console.log(res);
     if (res != null && res.assetDetails != null && res.assetDetails[0]) {
@@ -163,7 +180,7 @@ export class CspVendorComponent implements OnInit {
     image.viewAngle = this.selectedAsset.viewAngle;
     image.providedSize = this.selectedAsset.providedSize;
     image.background = this.selectedAsset.background;
-    if(this.vendor.trim().toUpperCase() === 'KWIKEE') {
+    if (this.vendor.trim().toUpperCase() === 'KWIKEE') {
       image.description = this.selectedAsset.description;
       image.source = 'IMP-SUPPORT-KWIKEE-DS';
     } else {
@@ -214,14 +231,14 @@ export class CspVendorComponent implements OnInit {
     });
   }
 
-  private searchVendor(id: string, endpoint: string):void{
+  private searchVendor(id: string, endpoint: string): void {
     this.vendorService.getImages(endpoint, this.vendor, id)
       .then(data => {
         this.vendorAssets = data.viewAngleList;
         this.div_visible = false;
         this.description = data.description;
         this.vendorAssets.forEach(asset => {
-          if(this.vendor.trim().toUpperCase() === 'GLADSON'){
+          if (this.vendor.trim().toUpperCase() === 'GLADSON') {
             asset.lastModifiedDate = (new Date()).toISOString();
           }
           asset.gtin = data.gtin;
@@ -238,13 +255,13 @@ export class CspVendorComponent implements OnInit {
       });
   }
 
-  public clear(): void{
+  public clear(): void {
     this.vendorAssets = [];
     this.form.get('gtin').reset();
     this.errMsgs = [];
   }
 
-  public getRawImage(asset: VendorAsset){
+  public getRawImage(asset: VendorAsset) {
     let request: RawAsset;
     request = new RawAsset();
     request.url = asset.url;
@@ -262,8 +279,8 @@ export class CspVendorComponent implements OnInit {
       withCredentials?: boolean;
     } = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Accept' : 'image/jpeg'
+        'Content-Type': 'application/json',
+        'Accept': 'image/jpeg'
       }),
       observe: 'response',
       responseType: 'blob'
@@ -272,7 +289,7 @@ export class CspVendorComponent implements OnInit {
 
       let blob: Blob;
       blob = new Blob([data.body], {type: 'image/jpeg'});
-      FileSaver.saveAs(blob, asset.gtin+'_'+asset.viewAngle+'.jpeg');
+      FileSaver.saveAs(blob, asset.gtin + '_' + asset.viewAngle + '.jpeg');
     });
 
   }

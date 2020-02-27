@@ -30,7 +30,7 @@ kroger:
         initials: J
         hq-division-number: 821
         job-code: 12345
-        groups: cn=oa-app-support^oa-app-admin^oa-cspux-support-5420^oa-dap-add-user-5420
+        groups: cn=oa-app-support^oa-app-admin^oa-cspux-support-5420^oa-dap-add-user-5420^oa-cspux-krogerExternalUse-5420
         title: Application Support
         full-name: Application Support
         first-name: Support

@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {EndpointResponse} from "./model/endpoint-response";
-import {AuthService} from "kroger-ng-oauth2";
+import {AuthService, User} from "kroger-ng-oauth2";
 import {AuthorizedRolesResponse} from "./model/authorized-roles-response";
+import {CspSearchResponse} from "../model/cspSearchResponse";
+import {RbacConfig} from "./model/rbac-config";
 
 @Injectable({
   providedIn: 'root'
@@ -42,15 +44,16 @@ export class UtilService {
         this.authorizedRoles.push(data as string)
       });
       return this.authorizedRoles;
-
-      /*this.authorizedRoles.forEach( (data) => {
-        if (this.authService.hasRole(data)){
-          return true;
-        }
-      });
-      console.log('array list addImageAuthorizedRoles++++++++++: ' + this.authorizedRoles)
-      return false;*/
     });
+  }
 
+  public getRbacConfig(){
+    return this.http
+      .get<any>('/imp/ui/server/rbacConfig')
+      .toPromise()
+      .then(res => <RbacConfig>res)
+      .then(data => {
+        return data;
+      });
   }
 }

@@ -45,7 +45,19 @@ kroger:
       url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v1/images/search
     #authorization: KRYPT(TZEp0MsolJd4pL4H8f59GG3MF00QDa5FZZonTnz1gqDEr813RiO2nnGsuA8Qd2iXOQVjap56dA3MxNvLlmdo066phWedhJM3oxRTHlOhfAA=)
     authorization: U2NtYWRtaW46UTVwWUFmYVgyM1ZJMmhyZDJ1
-
+  rbac:
+    checkRbac: true
+    addRoles:
+     - oa-dap-add-user-5420
+    vendorAddRoles:
+     - oa-dap-vendoradd-user-5420
+    searchRoles:
+     - oa-dap-search-user-5420
+    krogerExternalRoles:
+     - oa-cspux-krogerExternalUse-5420
+    externalSources:
+     - gladson
+     - test
 security:
   oauth2:
     client:
