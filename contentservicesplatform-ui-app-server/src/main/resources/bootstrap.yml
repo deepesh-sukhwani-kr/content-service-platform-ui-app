@@ -1,6 +1,6 @@
-spring:
-  profiles:
-    active: test,spoofing
+#spring:
+  #profiles:
+    #active: test,spoofing
 ---
 spring:
   profiles: test
