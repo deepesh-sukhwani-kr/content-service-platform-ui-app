@@ -1,10 +1,8 @@
-spring:
-  profiles:
-    active: test
+#spring:
+  #profiles:
+    #active: test,spoofing
 ---
 spring:
-  application:
-    name: CSPUIApp
   profiles: test
   cloud:
     config:
@@ -21,8 +19,6 @@ kroger:
       encryptedKey: jvbwMTjvlCaWZWuXQsZm18GfCpjA9UZzgbcArZzY4k8BT0P0+ubtWVu/wMpzrBgu
 ---
 spring:
-  application:
-    name: CSPUIApp
   profiles: stage
   cloud:
     config:
@@ -39,8 +35,6 @@ kroger:
       encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
 ---
 spring:
-  application:
-    name: CSPUIApp
   profiles: prod
   cloud:
     config:
