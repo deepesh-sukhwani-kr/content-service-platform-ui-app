@@ -3,6 +3,7 @@ package com.kroger.csp.ui.util;
 import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Map;
  * @author Dhriti Ghosh
  */
 @Component
+@RefreshScope
 public class VendorUtil {
 
     @Value("${kroger.imagedata.viewangles}")

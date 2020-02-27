@@ -10,6 +10,7 @@ import com.kroger.imp.assetmanagement.domain.AttributeMap;
 import com.kroger.imp.library.domain.TransactionRef;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
@@ -27,6 +28,7 @@ import java.util.Optional;
  * CSP Add image V1 API request converter class
  */
 @Component
+@RefreshScope
 public class AddImageRequestConverter {
 
     @Value("${spring.profiles}")

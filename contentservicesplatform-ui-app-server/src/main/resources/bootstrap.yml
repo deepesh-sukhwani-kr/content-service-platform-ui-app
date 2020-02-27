@@ -8,7 +8,7 @@ spring:
         bootstrap: true
         git:
           uri: https://github.kroger.com/kt/impcore-configuration.git
-          searchPaths: non-prod/csp-ui-config
+          searchPaths: csp-ui-config/test
       uri: http://localhost:8080
       enabled: true
 ---
@@ -21,6 +21,19 @@ spring:
         bootstrap: true
         git:
           uri: https://github.kroger.com/kt/impcore-configuration.git
-          searchPaths: csp-ui-config
+          searchPaths: csp-ui-config/stage
+      uri: http://localhost:8080
+      enabled: true
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      failFast: true
+      server:
+        bootstrap: true
+        git:
+          uri: https://github.kroger.com/kt/impcore-configuration.git
+          searchPaths: csp-ui-config/prod
       uri: http://localhost:8080
       enabled: true

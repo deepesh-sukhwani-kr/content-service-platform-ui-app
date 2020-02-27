@@ -20,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @Configuration
 @Conditional(NonSpoofingCondition.class)
@@ -107,15 +109,22 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
      */
     private void configureAuthRules(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        System.out.println("-----------" + checkRbac);
-        System.out.println("----------" + rbacConfig.isCheckRbac());
         if (checkRbac)
             http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout", "/manage/**").permitAll()
-                    .antMatchers("/add").access("hasRole('oa-dap-add-user-5420')")
-                    .antMatchers("/csvupload").access("hasRole('oa-dap-add-user-5420')")
+                    .antMatchers("/add").access(getAntMatchersRoles(rbacConfig.getAddRoles()))
+                    .antMatchers("/csvupload").access(getAntMatchersRoles(rbacConfig.getAddRoles()))
+                    .antMatchers("/search").access(getAntMatchersRoles(rbacConfig.getSearchRoles()))
                     .anyRequest().authenticated();
         else
             http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout", "/manage/**").permitAll()
                     .anyRequest().authenticated();
+    }
+
+    private String getAntMatchersRoles(List<String> roles){
+        StringBuffer sb = new StringBuffer();
+        roles.forEach(role -> {
+            sb.append("hasRole('"+role+"') or ");
+        });
+        return sb.substring(0, sb.length()- 3);
     }
 }

@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @Configuration
 @Conditional(SpoofingCondition.class)
@@ -54,11 +56,20 @@ public class SpoofingClientConfiguration extends SpoofingConfigurerAdapter {
         http.csrf().disable();
         if (checkRbac)
             http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout", "/manage/**").permitAll()
-                    .antMatchers("/add").access("hasRole('oa-dap-add-user-5420')")
-                    .antMatchers("/csvupload").access("hasRole('oa-dap-add-user-5420')")
+                    .antMatchers("/add").access(getAntMatchersRoles(rbacConfig.getAddRoles()))
+                    .antMatchers("/csvupload").access(getAntMatchersRoles(rbacConfig.getAddRoles()))
+                    .antMatchers("/search").access(getAntMatchersRoles(rbacConfig.getSearchRoles()))
                     .anyRequest().authenticated();
         else
             http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout", "/manage/**").permitAll()
                     .anyRequest().authenticated();
+    }
+
+    private String getAntMatchersRoles(List<String> roles){
+        StringBuffer sb = new StringBuffer();
+        roles.forEach(role -> {
+            sb.append("hasRole('"+role+"') or ");
+        });
+        return sb.substring(0, sb.length()- 3);
     }
 }

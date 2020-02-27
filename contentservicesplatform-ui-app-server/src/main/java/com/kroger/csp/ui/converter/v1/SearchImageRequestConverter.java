@@ -5,6 +5,7 @@ import com.kroger.imp.library.domain.TransactionRef;
 import com.kroger.imp.search.domain.SearchFilter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  * Converter class to convert UI search request into CSP Search API request
  */
 @Component
+@RefreshScope
 public class SearchImageRequestConverter {
 
     @Value("${spring.profiles}")

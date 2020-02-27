@@ -47,7 +47,7 @@ kroger:
         initials: J
         hq-division-number: 821
         job-code: 12345
-        groups: cn=oa-app-admin^oa-cspux-support-5420
+        groups: cn=oa-app-admin^oa-cspux-support-5420^oa-dap-add-user-5420^oa-cspux-krogerExternalUse-5420^oa-dap-search-user-5420
         title: Application Admin
         full-name: Application Admin
         first-name: Admin
@@ -64,7 +64,7 @@ kroger:
         initials: J
         hq-division-number: 011
         job-code: 12345
-        groups: cn=oa-app-user
+        groups: cn=oa-app-user^oa-dap-add-user-5420^oa-dap-search-user-5420
         title: Application User
         full-name: Application User
         first-name: User

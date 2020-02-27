@@ -8,6 +8,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 
 import java.util.Properties;
@@ -17,6 +18,7 @@ import java.util.Properties;
  */
 @Service
 @Slf4j
+@RefreshScope
 public class GladsonSearchService {
 
     @Autowired
