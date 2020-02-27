@@ -1,8 +1,10 @@
-#spring:
-  #profiles:
-    #active: test,spoofing
+spring:
+  profiles:
+    active: test
 ---
 spring:
+  application:
+    name: CSPUIApp
   profiles: test
   cloud:
     config:
@@ -13,13 +15,14 @@ spring:
           uri: https://github.kroger.com/kt/impcore-configuration.git
           searchPaths: csp-ui-config/test
       uri: http://localhost:8080
-      enabled: true
 kroger:
   krypt:
     aes:
       encryptedKey: jvbwMTjvlCaWZWuXQsZm18GfCpjA9UZzgbcArZzY4k8BT0P0+ubtWVu/wMpzrBgu
 ---
 spring:
+  application:
+    name: CSPUIApp
   profiles: stage
   cloud:
     config:
@@ -30,13 +33,14 @@ spring:
           uri: https://github.kroger.com/kt/impcore-configuration.git
           searchPaths: csp-ui-config/stage
       uri: http://localhost:8080
-      enabled: true
 kroger:
   krypt:
     aes:
       encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
 ---
 spring:
+  application:
+    name: CSPUIApp
   profiles: prod
   cloud:
     config:
@@ -47,7 +51,6 @@ spring:
           uri: https://github.kroger.com/kt/impcore-configuration.git
           searchPaths: csp-ui-config/prod
       uri: http://localhost:8080
-      enabled: true
 kroger:
   krypt:
     aes:
