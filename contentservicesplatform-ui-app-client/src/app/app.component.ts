@@ -28,6 +28,7 @@ export class AppComponent {
         if (data.authData.authenticated) {
           this.utilService.getRbacConfig().then(rbac => {
               if (rbac.checkRbac) {
+
                 rbac.searchRoles.forEach(role => {
                   if (this.authService.hasRole(role))
                     this.flag = true;
