@@ -58,7 +58,7 @@
                                    inputId="Kwikee"></p-radioButton>
                     &nbsp;
                     <p-radioButton name="vendorGroup" value="Gladson" label="Gladson"
-                                   [(ngModel)]="vendor" inputId="Gladson"></p-radioButton>
+                                   [(ngModel)]="vendor" inputId="Gladson" *ngIf=showGladson></p-radioButton>
                   </td>
                 </tr>
                 <tr>
@@ -181,7 +181,7 @@
           <tr>
             <td colspan="1" align="right" style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;;color: #7f7f7f">
               <a (click)="getRawImage(selectedAsset)" target="_blank">
-                Download and View Image
+                Download and View Asset
               </a>
             </td>
             <td>
@@ -211,7 +211,7 @@
             <td colspan="2">&nbsp;</td>
             <td colspan="2">
               <button pButton type="button" label="Upload to CSP" icon="pi pi-plus-circle"
-                    size="10" (click)="upload()"></button>
+                    size="10" (click)="upload()" [disabled]= "disableAddButton"></button>
             </td>
           </tr>
           <tr>

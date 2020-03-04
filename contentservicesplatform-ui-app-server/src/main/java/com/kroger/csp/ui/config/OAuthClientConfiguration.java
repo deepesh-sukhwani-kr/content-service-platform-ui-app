@@ -4,6 +4,7 @@ import com.kroger.commons.boot.autoconfigure.security.NonSpoofingCondition;
 import com.kroger.commons.security.oauth.OAuth2ClientConfigurationSupport;
 import com.kroger.commons.security.oauth.OAuthSecurity;
 import com.kroger.commons.security.oauth.OAuthUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -19,12 +20,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @Configuration
 @Conditional(NonSpoofingCondition.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, proxyTargetClass = true)
-public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
-{
+public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
     public static final String[] REQUEST_MATCHERS = {"/", "/index.html", "/login", "/relogin", "/logout", "/oauth/logout", "/api/dance", "/manage/**"};
 
     @Value("${kroger.oauth.default-target-uri}")
@@ -32,6 +34,12 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
 
     @Value("${kroger.oauth.logout-uri}")
     protected String logoutUrl;
+
+    @Value("${kroger.rbac.checkRbac}")
+    private boolean checkRbac;
+
+    @Autowired
+    private RBACConfiguration rbacConfig;
 
     protected OAuth2RestOperations oauth2RestOperations;
 
@@ -44,8 +52,7 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
      */
     @Bean
     public OAuth2RestOperations oauth2RestOperations(
-            OAuth2ProtectedResourceDetails resource, OAuth2ClientContext context)
-    {
+            OAuth2ProtectedResourceDetails resource, OAuth2ClientContext context) {
         oauth2RestOperations = new OAuth2RestTemplate(resource, context);
         return oauth2RestOperations;
     }
@@ -58,10 +65,8 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
      */
     @RequestMapping("/oauth/logout")
     public String logout(
-            @RequestParam(required = false, value = "targetUrl") String targetUrl)
-    {
-        if (targetUrl == null || targetUrl.isEmpty())
-        {
+            @RequestParam(required = false, value = "targetUrl") String targetUrl) {
+        if (targetUrl == null || targetUrl.isEmpty()) {
             targetUrl = defaultTargetUrl;
         }
         return OAuthUtil.logout(oauth2RestOperations, logoutUrl, targetUrl);
@@ -71,20 +76,18 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
      * Override logout handler so that we redirect back into the application
      */
     @Bean
-    protected LogoutSuccessHandler logoutSuccessHandler()
-    {
+    protected LogoutSuccessHandler logoutSuccessHandler() {
         return OAuthUtil.logoutSuccessHandler(true, defaultTargetUrl);
     }
 
     /**
      * This application is a stand-alone web application (as opposed to a micro-service
      * design behind an API gateway).
-     *
+     * <p>
      * Being an OAuth2 Client, we support login and logout URLs.
      */
     @Override
-    protected void configure(OAuthSecurity oAuthSecurity) throws Exception
-    {
+    protected void configure(OAuthSecurity oAuthSecurity) throws Exception {
         // @formatter:off
         oAuthSecurity.http().requestMatcher(OAuthSecurity.createFrontEndMatchers(REQUEST_MATCHERS));
 
@@ -104,12 +107,24 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport
      * @param http
      * @throws Exception
      */
-    public static void configureAuthRules(HttpSecurity http) throws Exception
-    {
+    private void configureAuthRules(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        // @formatter:off
-        http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout","/manage/**").permitAll()
-                .anyRequest().authenticated();
-        // @formatter:on
+        if (checkRbac)
+            http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout", "/manage/**").permitAll()
+                    .antMatchers("/add").access(getAntMatchersRoles(rbacConfig.getAddRoles()))
+                    .antMatchers("/csvupload").access(getAntMatchersRoles(rbacConfig.getAddRoles()))
+                    .antMatchers("/search").access(getAntMatchersRoles(rbacConfig.getSearchRoles()))
+                    .anyRequest().authenticated();
+        else
+            http.authorizeRequests().antMatchers("/login", "/logout", "/oauth/logout", "/manage/**").permitAll()
+                    .anyRequest().authenticated();
+    }
+
+    private String getAntMatchersRoles(List<String> roles){
+        StringBuffer sb = new StringBuffer();
+        roles.forEach(role -> {
+            sb.append("hasRole('"+role+"') or ");
+        });
+        return sb.substring(0, sb.length()- 3);
     }
 }

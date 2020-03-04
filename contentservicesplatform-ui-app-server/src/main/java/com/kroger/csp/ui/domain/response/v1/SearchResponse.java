@@ -20,37 +20,41 @@ public class SearchResponse {
 
     public SearchResponse(SearchImageAPIResponse apiResponse) {
         if (apiResponse != null && apiResponse.getBody() != null) {
-            if(apiResponse.getBody().getErrorDetails() != null){
+            if (apiResponse.getBody().getErrorDetails() != null) {
                 error = apiResponse.getBody().getErrorDetails();
             }
             if (apiResponse.getBody().getImageList() != null) {
                 images = new ArrayList<>();
                 for (SearchAsset asset : apiResponse.getBody().getImageList()) {
-                    Image image = new Image();
-                    image.setGtin(asset.getGtin());
-                    image.setItemType(asset.getItemType());
-                    image.setEncodedURL(asset.getEncodedURL());
-                    image.setApprovalStatus(asset.getApprovalStatus());
-                    if (asset.getAttributeMap() != null) {
-                        image.setImageId(asset.getAttributeMap().get("IMP_IMAGE_ID"));
-                        image.setFileType(asset.getAttributeMap().get("IMP_FILE_TYPE_EXT"));
-                        image.setDescription(asset.getAttributeMap().get("IMP_DESCRIPTION"));
-                        image.setLastModifiedDate(asset.getAttributeMap().get("IMP_IMAGE_LAST_MODIFIED_DT"));
-                        image.setBackground(asset.getAttributeMap().get("IMP_BACKGROUND"));
-                        image.setHeight(asset.getAttributeMap().get("IMP_HEIGHT_PX"));
-                        image.setColorRep(asset.getAttributeMap().get("IMP_COLOR_REP"));
-                        image.setResDpi(asset.getAttributeMap().get("IMP_RES_DPI"));
-                        image.setViewAngle(asset.getAttributeMap().get("IMP_VIEW_ANGLE"));
-                        image.setUpc10(asset.getAttributeMap().get("IMP_UPC10"));
-                        image.setUpc12(asset.getAttributeMap().get("IMP_UPC12"));
-                        image.setUpc13(asset.getAttributeMap().get("IMP_UPC13"));
-                        image.setSource(asset.getAttributeMap().get("IMP_SOURCE"));
-                        image.setWidth(asset.getAttributeMap().get("IMP_WIDTH_PX"));
-                        image.setProvidedSize(asset.getAttributeMap().get("IMP_PROVIDED_SIZE"));
-                    }
-                    images.add(image);
+                    images.add(populateImage(asset));
                 }
             }
         }
+    }
+
+    private Image populateImage(SearchAsset asset) {
+        Image image = new Image();
+        image.setGtin(asset.getGtin());
+        image.setItemType(asset.getItemType());
+        image.setEncodedURL(asset.getEncodedURL());
+        image.setApprovalStatus(asset.getApprovalStatus());
+        if (asset.getAttributeMap() != null) {
+            image.setImageId(asset.getAttributeMap().get("IMP_IMAGE_ID"));
+            image.setFileType(asset.getAttributeMap().get("IMP_FILE_TYPE_EXT"));
+            image.setDescription(asset.getAttributeMap().get("IMP_DESCRIPTION"));
+            image.setLastModifiedDate(asset.getAttributeMap().get("IMP_IMAGE_LAST_MODIFIED_DT"));
+            image.setBackground(asset.getAttributeMap().get("IMP_BACKGROUND"));
+            image.setHeight(asset.getAttributeMap().get("IMP_HEIGHT_PX"));
+            image.setColorRep(asset.getAttributeMap().get("IMP_COLOR_REP"));
+            image.setResDpi(asset.getAttributeMap().get("IMP_RES_DPI"));
+            image.setViewAngle(asset.getAttributeMap().get("IMP_VIEW_ANGLE"));
+            image.setUpc10(asset.getAttributeMap().get("IMP_UPC10"));
+            image.setUpc12(asset.getAttributeMap().get("IMP_UPC12"));
+            image.setUpc13(asset.getAttributeMap().get("IMP_UPC13"));
+            image.setSource(asset.getAttributeMap().get("IMP_SOURCE"));
+            image.setWidth(asset.getAttributeMap().get("IMP_WIDTH_PX"));
+            image.setProvidedSize(asset.getAttributeMap().get("IMP_PROVIDED_SIZE"));
+        }
+        return image;
     }
 }

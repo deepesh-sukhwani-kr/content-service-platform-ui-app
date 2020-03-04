@@ -16,6 +16,7 @@
                         "clientSecret": "KRYPT(gHcuX1w6YU/o+SIEfI9thcKl8hYd8bDo6pgp66dBDlSfjv+LOIKKYtvjTHZuOkWPd70e2rwcc8farKF8IMWOFw==)",
                         "defaultTargetUri": "https://implivedev.kroger.com",
                         "identityServerUri": "https://identity.kroger.com"
+
                     }
                 },
                 {

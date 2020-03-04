@@ -11,6 +11,7 @@ import com.kroger.csp.ui.domain.request.v2.AttributeMap;
 import com.kroger.csp.ui.domain.request.v2.Tag;
 import com.kroger.imp.library.domain.TransactionRef;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ import java.util.List;
  *
  */
 @Component
+@RefreshScope
 public class AddImageV2RequestConverter {
 
     @Value("${spring.profiles}")

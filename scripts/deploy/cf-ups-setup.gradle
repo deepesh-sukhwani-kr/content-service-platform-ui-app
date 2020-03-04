@@ -20,7 +20,6 @@ import org.cloudfoundry.reactor.uaa.ReactorUaaClient
 import reactor.core.publisher.Mono
 import org.gradle.logging.internal.*
 import org.gradle.logging.internal.progress.*
-
 import java.lang.reflect.Method
 
 apply plugin: 'java'

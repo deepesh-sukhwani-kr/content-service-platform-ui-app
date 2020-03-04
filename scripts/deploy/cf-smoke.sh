@@ -7,6 +7,7 @@ set -o nounset
 
 SCRIPT_NAME=$(basename "$0")
 
+
 ##
 ## Global error handling method to assist with debugging if an error would
 ## occur.
