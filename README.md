@@ -1,5 +1,5 @@
-${artifactId}
-======
+Digital Asset Platform UI Utility
+=================================
 
 Purpose
 -----------------
