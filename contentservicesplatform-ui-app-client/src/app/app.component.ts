@@ -63,6 +63,23 @@ export class AppComponent {
                 });
 
               }
+              else {
+                this.items = [
+                  {
+                    label: 'Add',
+                    items: [
+                      {label: 'Add new Images', icon: 'pi pi-fw pi-plus', routerLink: '/add'},
+                      {label: 'Upload From CSV', icon: 'pi pi-fw pi-folder-open', routerLink: '/csvupload'}
+                    ]
+                  },
+                  {
+                    label: 'Search',
+                    items: [
+                      {label: 'CSP Search', icon: 'pi pi-fw pi-search', routerLink: '/search'},
+                      {label: 'Vendor Search', icon: 'pi pi-fw pi-cloud-upload', routerLink: '/vendor'}
+                    ]
+                  }];
+              }
             }
           );
         }
