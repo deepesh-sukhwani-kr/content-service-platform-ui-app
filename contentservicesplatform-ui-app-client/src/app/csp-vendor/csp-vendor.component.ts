@@ -155,7 +155,7 @@ export class CspVendorComponent implements OnInit {
     identifier.gtin = this.selectedAsset.gtin;
 
     var request: ImageAddRequest = new ImageAddRequest();
-    request.referenceId = 'CSP-UI-VENDOR-SEARCH-UPLOAD-' +
+    request.referenceId = 'DAP-UI-VENDOR-SEARCH-UPLOAD-' +
       (<User>this.authService.getUser()).username + '-' + new Date().getMilliseconds()
       + "-" + identifier.gtin;
     request.creationDatetime = new Date().toISOString();

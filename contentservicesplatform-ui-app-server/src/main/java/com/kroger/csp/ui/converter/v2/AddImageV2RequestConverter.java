@@ -51,7 +51,7 @@ public class AddImageV2RequestConverter {
      */
     private TransactionRef populateTransactionRef(String referenceId){
         TransactionRef transactionRef = new TransactionRef();
-        transactionRef.setReferenceID(referenceId);
+        transactionRef.setReferenceID(referenceId+"-"+env);
         transactionRef.setCreationdatetime(LocalDateTime.now().format(krogerDtTimeFormatter));
         transactionRef.setEvent("ADDASSET");
         transactionRef.setSource("UI");

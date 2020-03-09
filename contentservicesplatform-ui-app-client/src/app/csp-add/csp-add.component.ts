@@ -378,7 +378,7 @@ export class CspAddComponent implements OnInit {
     identifier.gtin = this.form.get('gtin').value;
 
     var request: ImageAddRequest = new ImageAddRequest();
-    request.referenceId = "CSP-UI-ADD-"
+    request.referenceId = "DAP-UI-ADD-"
       +(<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds();
     request.creationDatetime = new Date().toISOString();
     request.imageType = IMAGE_TYPE;

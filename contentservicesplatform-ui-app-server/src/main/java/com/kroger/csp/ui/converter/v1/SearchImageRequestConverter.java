@@ -42,7 +42,7 @@ public class SearchImageRequestConverter {
      */
     private TransactionRef populateTransactionRef(String referenceId) {
         TransactionRef transactionRef = new TransactionRef();
-        transactionRef.setReferenceID(referenceId);
+        transactionRef.setReferenceID(referenceId+"-"+env);
         transactionRef.setCreationdatetime(Instant.now().toString());
         transactionRef.setEvent("SEARCH");
         transactionRef.setSource("UI");
