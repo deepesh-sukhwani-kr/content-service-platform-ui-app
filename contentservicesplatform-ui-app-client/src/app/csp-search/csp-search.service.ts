@@ -19,7 +19,7 @@ export class CspSearchService {
       param = param + '&gtin=' + gtin;
     return this.http
       .get<any>(endpoint +
-        '?referenceId=CSP-Search-'+(<User>this.authService.getUser()).username+'-'+new Date().getMilliseconds()+param)
+        '?referenceId=DAP-UI-'+(<User>this.authService.getUser()).username+'-'+new Date().getMilliseconds()+param)
       .toPromise()
       .then(res => <CspSearchResponse>res)
       .then(data => {

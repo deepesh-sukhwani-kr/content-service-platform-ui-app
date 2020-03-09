@@ -1,5 +1,5 @@
 export enum CsvUploadConstants {
-  REFERENCE_ID_PREFIX = 'CSP-UI-BULK-UPLOAD-',
+  REFERENCE_ID_PREFIX = 'DAP-UI-BULK-UPLOAD-',
   VALIDATION_PREFIX_ROW_NO = 'Validation error Row No.',
   VALIDATION_ERR_GTIN_LENGTH = '[Length of GTIN should be 14 characters] ',
   VALIDATION_ERR_GTIN_TYPE = '[GTIN should be in digits] ',
