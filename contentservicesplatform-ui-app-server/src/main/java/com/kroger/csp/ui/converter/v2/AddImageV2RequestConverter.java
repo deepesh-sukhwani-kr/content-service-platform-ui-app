@@ -140,7 +140,10 @@ public class AddImageV2RequestConverter {
         attributeMap.setImpBackground(request.getBackground());
         attributeMap.setImpSource(request.getSource());
         attributeMap.setImpImageLastModifiedDt(request.getLastModifiedDate());
-        attributeMap.setImpDescription(request.getDescription());
+        String description = request.getDescription();
+        if(description != null)
+            description = description.trim();
+        attributeMap.setImpDescription(description);
         attributeMap.setImpFileTypeExt(request.getFileExtension());
         return attributeMap;
     }
