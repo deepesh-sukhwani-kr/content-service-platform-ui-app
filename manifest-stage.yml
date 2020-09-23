@@ -1,1 +1,12 @@
-
+---
+memory: 4096M
+buildpack: java_buildpack_offline
+timeout: 180
+instances: 1
+env:
+  SPRING_PROFILES_ACTIVE: test
+  DT_CUSTOM_PROP: "ServiceName=dap-ui-utility-stage InfraGroup=APP-DigitalAssetPlatform ConfigItem=dap-ui-utility"
+services:
+- cspux-encryptionkey
+- cspux-db
+- cspux-auth
