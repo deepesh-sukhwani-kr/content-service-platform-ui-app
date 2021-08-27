@@ -1,17 +1,19 @@
 package com.kroger.csp.ui.controller.v2;
 
 import com.kroger.csp.ui.converter.v2.AddImageV2RequestConverter;
+import com.kroger.csp.ui.converter.v2.SearchImageV2RequestConvertor;
 import com.kroger.csp.ui.domain.request.AddImageUIRequest;
+import com.kroger.csp.ui.domain.request.v2.SearchImageV2APIRequest;
 import com.kroger.csp.ui.domain.response.AddImageUIResponse;
+import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import com.kroger.csp.ui.service.v2.AddImageV2Service;
+import com.kroger.csp.ui.service.v2.SearchImageV2Service;
 import com.kroger.csp.ui.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller class for UI server to hit CSP V2 API's
@@ -25,6 +27,10 @@ public class UIServerControllerV2 {
     private AddImageV2Service addImageV2Service;
     @Autowired
     private AddImageV2RequestConverter addImageV2RequestConverter;
+    @Autowired
+    private SearchImageV2Service searchImageV2Service;
+    @Autowired
+    private SearchImageV2RequestConvertor searchImageV2RequestConverter;
     @Autowired
     private CommonUtils utils;
 
@@ -46,6 +52,34 @@ public class UIServerControllerV2 {
             addImageUIResponse.setErrorResponse(utils.populateErrorResponse(e));
         }
         return addImageUIResponse;
+    }
+
+    /**
+     * Method for handling API call of /imp/ui/v2/server/cspSearch
+     * This is hit CSP V2 search API and will get back the list of GTIN.
+     * At least one of the parameters between imageID and GTIN must be present to perform the search.
+     *
+     * @param imageId     Image ID for which the User wants to search
+     * @param gtin        GTIN for which the User wants to search
+     * @param referenceId Reference ID which UI will send to CSP API while submitting the http request
+     * @return List of Images associated with te search criteria.
+     */
+    @GetMapping(value = "/cspSearch")
+    public SearchResponse searchImageInCSP(@RequestParam(value = "imageId", required = false) String imageId,
+                                           @RequestParam(value = "gtin", required = false) String gtin,
+                                           @RequestParam(value = "referenceId", required = true) String referenceId,
+                                           Authentication auth) {
+        SearchResponse response = new SearchResponse();
+        try {
+            SearchImageV2APIRequest searchImageV2APIRequest = searchImageV2RequestConverter.populateAPIRequest(gtin, imageId, referenceId);
+            response = searchImageV2Service.searchImages(searchImageV2APIRequest);
+        } catch (Exception e) {
+            //TODO: Handle UI server specific exceptions
+            e.printStackTrace();
+            log.error("Error in V2 Csp Search - UI : " + e);
+            response.setError(utils.populateErrorDetails(e));
+        }
+        return response;
     }
 
 }

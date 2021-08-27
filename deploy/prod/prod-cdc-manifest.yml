@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: csp-ui-server-app-v1-prod
+  namespace: dapapp-prod
+spec:
+  selector:
+    matchLabels:
+      app: csp-ui-server-app-v1-prod
+  replicas: 4 # tells deployment to run 4 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: csp-ui-server-app-v1-prod
+    spec:
+      containers:
+        - name: csp-ui-server-app-v1-prod
+          image: docker-prod.registry.kroger.com/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.RELEASE_TAG }}
+          imagePullPolicy: Always   #This forces kubernetes to pull a docker image everytime even with the same tag ids
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "2048Mi"
+            limits:
+              memory: "4096Mi"
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                secretKeyRef:
+                  key: SPRING_PROFILES_ACTIVE
+                  name: csp-ui-server-app-v1-settings
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: csp-ui-server-app-v1-prod
+  namespace: dapapp-prod
+  labels:
+    app: csp-ui-server-app-v1-prod
+spec:
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: csp-ui-server-app-v1-prod
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: csp-ui-server-app-v1-prod
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  namespace: dapapp-prod
+spec:
+  tls:
+    - hosts:
+        #hostname of your application *.dapapp.rch-cdc-cxnonprod.kroger.com
+        - csp-ui-server-app.dapapp.rch-cdc-cxprod.kroger.com
+      #this needs to be replaced
+      secretName: star-dapapp-cdccxprod-dapapp-prod
+  rules:
+    - host: csp-ui-server-app.dapapp.rch-cdc-cxprod.kroger.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: csp-ui-server-app-v1-prod
+                port:
+                  number: 80

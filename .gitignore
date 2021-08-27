@@ -23,3 +23,8 @@ dist/
 nbdist/
 .nb-gradle/
 /contentservicesplatform-ui-app-client/node/node.exe
+
+### Mac related files
+*.DS_Store
+.classpath
+.project

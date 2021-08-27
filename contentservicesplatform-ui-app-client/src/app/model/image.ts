@@ -1,11 +1,11 @@
 export interface Image {
-  gtin;
+  gtin:any[];
   itemType;
   encodedURL;
   approvalStatus;
   imageId;
   fileType;
-  description;
+  description:any[];
   lastModifiedDate;
   background;
   height;

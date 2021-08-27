@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @author Dhriti Ghosh
  */
@@ -11,13 +13,13 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class Image {
-    private String gtin;
+    private List<String> gtin;
     private String itemType;
     private String encodedURL;
     private String approvalStatus;
     private String imageId;
     private String fileType;
-    private String description;
+    private List<String> description;
     private String lastModifiedDate;
     private String background;
     private String height;

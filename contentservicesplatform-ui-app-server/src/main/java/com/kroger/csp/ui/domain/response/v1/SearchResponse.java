@@ -34,14 +34,18 @@ public class SearchResponse {
 
     private Image populateImage(SearchAsset asset) {
         Image image = new Image();
-        image.setGtin(asset.getGtin());
+        List<String> gtin = new ArrayList<>();
+        gtin.add(asset.getGtin());
+        image.setGtin(gtin);
         image.setItemType(asset.getItemType());
         image.setEncodedURL(asset.getEncodedURL());
         image.setApprovalStatus(asset.getApprovalStatus());
         if (asset.getAttributeMap() != null) {
             image.setImageId(asset.getAttributeMap().get("IMP_IMAGE_ID"));
             image.setFileType(asset.getAttributeMap().get("IMP_FILE_TYPE_EXT"));
-            image.setDescription(asset.getAttributeMap().get("IMP_DESCRIPTION"));
+            List<String> description = new ArrayList<>();
+            description.add(asset.getAttributeMap().get("IMP_DESCRIPTION"));
+            image.setDescription(description);
             image.setLastModifiedDate(asset.getAttributeMap().get("IMP_IMAGE_LAST_MODIFIED_DT"));
             image.setBackground(asset.getAttributeMap().get("IMP_BACKGROUND"));
             image.setHeight(asset.getAttributeMap().get("IMP_HEIGHT_PX"));
