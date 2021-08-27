@@ -194,7 +194,7 @@ kroger:
       - gladson
   cspVersionSwitch: v1
   oauth:
-    default-target-uri: https://implivedev.kroger.com
+    default-target-uri: https://csp-ui-server-app-v1-test.dapapp.rch-cdc-cxnonprod.kroger.com
     logout-uri: https://identity.kroger.com/identity/logout
   krypt:
     aes:
@@ -286,7 +286,7 @@ kroger:
   #to be used as a master switch
   cspVersionSwitch: v1
   oauth:
-    default-target-uri: https://implivetest.kroger.com
+    default-target-uri: https://csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
     #default-target-uri: ${vcap.services.cspux-auth.credentials.defaultTargetUri}
     logout-uri: https://identity.kroger.com/identity/logout
     #logout-uri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/logout
