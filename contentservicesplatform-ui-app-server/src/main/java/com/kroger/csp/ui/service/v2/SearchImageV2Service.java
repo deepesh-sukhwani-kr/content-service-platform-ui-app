@@ -39,11 +39,23 @@ public class SearchImageV2Service {
      * @param request Search request
      * @return Formatted response from CSP
      */
-    public SearchResponse searchImages(SearchImageV2APIRequest request) {
-        ResponseEntity<SearchAssetV2Response> responseEntity =
-                restTemplate.postForEntity(URI.create(searchUrl), buildRequest(request),
-                        SearchAssetV2Response.class);
-        return populateSearchImageUIResponse(responseEntity.getBody());
+    public SearchV2Response searchImages(SearchImageV2APIRequest request) {
+        ResponseEntity<SearchAssetV2Response> responseEntity;
+        SearchV2Response searchResponse = new SearchV2Response();
+        try {
+            responseEntity =
+                    restTemplate.postForEntity(URI.create(searchUrl), buildRequest(request),
+                            SearchAssetV2Response.class);
+        }catch(Exception e){
+            //TODO: Handle UI server specific exceptions
+            e.printStackTrace();
+            log.error("Error in V2 Csp Search - Service Call : " + e);
+            throw e;
+        }
+        if(responseEntity!=null) {
+            searchResponse = populateSearchImageUIResponse(responseEntity.getBody());
+        }
+        return searchResponse;
     }
 
     /**
@@ -59,18 +71,18 @@ public class SearchImageV2Service {
         return httpEntityRequest;
     }
 
-    private SearchResponse populateSearchImageUIResponse(SearchAssetV2Response searchAssetV2Response){
-        SearchResponse searchResponse = new SearchResponse();
+    private SearchV2Response populateSearchImageUIResponse(SearchAssetV2Response searchAssetV2Response){
+        SearchV2Response searchResponse = new SearchV2Response();
         if(searchAssetV2Response.getSearchResponse()!=null && searchAssetV2Response.getSearchResponse().getSearchResult()!=null) {
             searchResponse.setImages(populateImages(searchAssetV2Response.getSearchResponse().getSearchResult().getImageList()));
         }
         return searchResponse;
     }
 
-    private List<Image> populateImages(List<SearchResponsePayload> imageResponseList){
-        List<Image> imageList = new ArrayList<>();
+    private List<ImageV2> populateImages(List<SearchResponsePayload> imageResponseList){
+        List<ImageV2> imageList = new ArrayList<>();
         for(SearchResponsePayload imageResponse: imageResponseList){
-            Image image = new Image();
+            ImageV2 image = new ImageV2();
             image.setImageId(imageResponse.getImageId());
             image.setEncodedURL(imageResponse.getImageUrl());
             image.setBackground(imageResponse.getImageBackground());

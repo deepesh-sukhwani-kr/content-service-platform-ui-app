@@ -6,6 +6,7 @@ import com.kroger.csp.ui.domain.request.AddImageUIRequest;
 import com.kroger.csp.ui.domain.request.v2.SearchImageV2APIRequest;
 import com.kroger.csp.ui.domain.response.AddImageUIResponse;
 import com.kroger.csp.ui.domain.response.v1.SearchResponse;
+import com.kroger.csp.ui.domain.response.v2.SearchV2Response;
 import com.kroger.csp.ui.service.v2.AddImageV2Service;
 import com.kroger.csp.ui.service.v2.SearchImageV2Service;
 import com.kroger.csp.ui.util.CommonUtils;
@@ -65,11 +66,11 @@ public class UIServerControllerV2 {
      * @return List of Images associated with te search criteria.
      */
     @GetMapping(value = "/cspSearch")
-    public SearchResponse searchImageInCSP(@RequestParam(value = "imageId", required = false) String imageId,
+    public SearchV2Response searchImageInCSP(@RequestParam(value = "imageId", required = false) String imageId,
                                            @RequestParam(value = "gtin", required = false) String gtin,
                                            @RequestParam(value = "referenceId", required = true) String referenceId,
                                            Authentication auth) {
-        SearchResponse response = new SearchResponse();
+        SearchV2Response response = new SearchV2Response();
         try {
             SearchImageV2APIRequest searchImageV2APIRequest = searchImageV2RequestConverter.populateAPIRequest(gtin, imageId, referenceId);
             response = searchImageV2Service.searchImages(searchImageV2APIRequest);

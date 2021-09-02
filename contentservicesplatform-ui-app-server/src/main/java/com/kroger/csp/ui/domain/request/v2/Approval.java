@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Approval {
-    private  String approvalStatus;
+    private String approvalStatus;
     private String approvalStatusReason;
     private String approvalStatusCode;
     private String approverSource;

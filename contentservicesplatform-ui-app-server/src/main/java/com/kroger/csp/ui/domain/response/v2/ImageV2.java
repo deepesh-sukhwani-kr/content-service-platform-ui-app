@@ -1,4 +1,4 @@
-package com.kroger.csp.ui.domain.response.v1;
+package com.kroger.csp.ui.domain.response.v2;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,19 +7,20 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * @author Dhriti Ghosh
+ * @author Sandeep
  */
 @Setter
 @Getter
 @NoArgsConstructor
-public class Image {
-    private String gtin;
+public class ImageV2 {
+
+    private List<String> gtin;
     private String itemType;
     private String encodedURL;
     private String approvalStatus;
     private String imageId;
     private String fileType;
-    private String description;
+    private List<String> description;
     private String lastModifiedDate;
     private String background;
     private String height;
@@ -32,5 +33,4 @@ public class Image {
     private String source;
     private String width;
     private String providedSize;
-
 }

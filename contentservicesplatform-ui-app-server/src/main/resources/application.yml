@@ -60,7 +60,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://impcoremgtdev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/
+    retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
   authorizedRoles:
     addImage: oa-cspux-support-5420, oa-cspux-supp-center-5420, oa-cspux-taxonomy-5420
   v1:
@@ -72,7 +72,7 @@ kroger:
   v2:
     add:
       #url: https://impcore-asset.kroger.com/imp/asset/v2/images/add
-      url: https://impcore-asset-dev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/add
+      url: https://asset-management-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/add
     search:
       #url: https://imp.kroger.com/imp/search/v2/images/search
       url: https://impcore-search-app-v2-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images
@@ -214,7 +214,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://impcoremgtdev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/
+    retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
   v1:
     add:
       url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
@@ -223,9 +223,9 @@ kroger:
     authorization: KRYPT(jy42tCtTnX7YfiW2aMCnN8A9EUC6kun4XYVJ2D6rRn/5wNfA2e85CxG8PJD1vyt7xv7tj6EDV0uoqZCoUL3/Rg==)
   v2:
     add:
-      url: https://impcore-asset-test.cfcdcinternaltest.kroger.com/imp/asset/v2/images/add
+      url: https://asset-management-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/add
     search:
-      url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v2/images/search
+      url: https://impcore-search-app-v2-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images/search
     authorization: KRYPT(jy42tCtTnX7YfiW2aMCnN8A9EUC6kun4XYVJ2D6rRn/5wNfA2e85CxG8PJD1vyt7xv7tj6EDV0uoqZCoUL3/Rg==)
 
 security:
@@ -242,33 +242,6 @@ security:
     resource:
       #tokenInfoUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/check_token
       tokenInfoUri: https://identity.kroger.com/identity/oauth/check_token
----
-spring:
-  application:
-    name: CSPUIApp
-  output:
-    ansi:
-      enabled: detect
-  mvc:
-    view:
-      suffix: .html
-kroger:
-  ldap:
-    filter-order: -10
-  eaf:
-    version: 5.0.2
-management:
-  endpoints:
-    web:
-      base-path: /manage
-      exposure:
-        include: health,info,krypt,keepalive,refresh
-  endpoint:
-    health:
-      show-details: always
-  health:
-    ldap:
-      enabled: false
 ---
 spring:
   profiles: stage
@@ -310,7 +283,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://impmgt.kroger.com/imp/asset/v1/images/
+    retrieval: https://imp-imageretrieval-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
   v1:
     add:
       url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
@@ -319,9 +292,9 @@ kroger:
     authorization: KRYPT(AFDpu71RZ/HEL/4ebLbUfDl+VgrME78zCUme3YJS2FE5KNspJb5siB1Kl6Wpy1M1)
   v2:
     add:
-      url: https://impcore-asset-dev.cfcdcinternaltest.kroger.com/imp/asset/v2/images/add
+      url: https://asset-management-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/add
     search:
-      url: https://imp-search-test.cfcdcinternaltest.kroger.com/imp/search/v2/images/search
+      url: https://impcore-search-app-v2-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images/search
     authorization: KRYPT(AFDpu71RZ/HEL/4ebLbUfDl+VgrME78zCUme3YJS2FE5KNspJb5siB1Kl6Wpy1M1)
   rbac:
     checkRbac: false
@@ -351,42 +324,14 @@ security:
       tokenInfoUri: https://identity.kroger.com/identity/oauth/check_token
       #tokenInfoUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/check_token
 
-
----
-spring:
-  application:
-    name: CSPUIApp
-  output:
-    ansi:
-      enabled: detect
-  mvc:
-    view:
-      suffix: .html
-kroger:
-  ldap:
-    filter-order: -10
-  eaf:
-    version: 5.0.2
-management:
-  endpoints:
-    web:
-      base-path: /manage
-      exposure:
-        include: health,info,krypt,keepalive,refresh
-  endpoint:
-    health:
-      show-details: always
-  health:
-    ldap:
-      enabled: false
 ---
 spring:
   profiles: prod
   datasource:
-    driver-class-name: ${vcap.services.cspux-db.credentials.driver}
-    url: ${vcap.services.cspux-db.credentials.url}
-    username: ${vcap.services.cspux-db.credentials.username}
-    password: ${vcap.services.cspux-db.credentials.password}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://n060sql11.kroger.com:1675;databaseName=cspuxdbprod
+    username: svc5420cspuxdbp
+    password: KRYPT(mZfRrd5G5y//GIARuClDewDTnCxo7Gwv1E2sCYn4ZqQ6TCeZn2EBjZ0Lr5kRB6Ktk5CCqQIuiPCDzoUYlNlyug==)
     initialize: false
 kroger:
   #to be used as a master switch
@@ -396,7 +341,7 @@ kroger:
     logout-uri: https://identity.kroger.com/identity/logout
   krypt:
     aes:
-      encryptedKey: ${vcap.services.cspux-encryptionkey.credentials.encryptedKey}
+      encryptedKey: Kcqe7lJq/kFzYUB/P8QwbptNc5U9jlS4d+63Q8uCBA21gcZ9TJkzEZC+JohWjUcX
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -413,7 +358,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://impmgt.kroger.com/imp/asset/v1/images/
+    retrieval: https://impmgt.kroger.com/imp/asset/v2/images/
   v1:
     add:
       url: https://impcore-asset.kroger.com/imp/asset/v1/images/add
@@ -442,9 +387,9 @@ kroger:
 security:
   oauth2:
     client:
-      clientId: ${vcap.services.cspux-auth.credentials.clientId}
-      clientSecret: ${vcap.services.cspux-auth.credentials.clientSecret}
-      accessTokenUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/token
-      userAuthorizationUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/authorize
+      clientId: 5420-cspux-prod
+      clientSecret: KRYPT(RmyH4qG9KsFKWGdDIKa7mn4huVCQ1ZAyrf6zWxmF0/Z/0bt3B8akJ6X5SVEUoeebh2K54cakmj1McN5psjcifw==)
+      accessTokenUri: https://identity.kroger.com/identity/oauth/token
+      userAuthorizationUri: https://identity.kroger.com/identity/oauth/authorize
     resource:
-      tokenInfoUri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/oauth/check_token
+      tokenInfoUri: https://identity.kroger.com/identity/oauth/check_token

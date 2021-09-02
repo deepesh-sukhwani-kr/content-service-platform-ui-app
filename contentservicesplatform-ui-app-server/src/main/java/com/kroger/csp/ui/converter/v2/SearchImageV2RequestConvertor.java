@@ -20,6 +20,10 @@ public class SearchImageV2RequestConvertor {
     @Value("${spring.profiles}")
     private String env;
 
+    private final String AND ="AND";
+    private final String GTIN = "gtin";
+    private final String IMAGEID = "imageId";
+
     public SearchImageV2APIRequest populateAPIRequest(String gtin, String imageId, String referenceId){
         SearchImageV2APIRequest searchImageV2APIRequest = new SearchImageV2APIRequest();
         List<Filter> searchFilterList = new ArrayList<>();
@@ -49,10 +53,10 @@ public class SearchImageV2RequestConvertor {
      */
     private Filter populateFilterGtin(String gtin) {
         Filter filter = new Filter();
-        filter.setSequence(3);
-        filter.setField("gtin");
+        filter.setSequence(1);
+        filter.setField(GTIN);
         filter.setValue(gtin);
-        filter.setOperand("AND");
+        filter.setOperand(AND);
         return filter;
     }
 
@@ -64,9 +68,9 @@ public class SearchImageV2RequestConvertor {
     private Filter populateFilterImageId(String imageId) {
         Filter filter = new Filter();
         filter.setSequence(1);
-        filter.setField("imageId");
+        filter.setField(IMAGEID);
         filter.setValue(imageId);
-        filter.setOperand("AND");
+        filter.setOperand(AND);
         return filter;
     }
 
