@@ -2,6 +2,7 @@ package com.kroger.csp.ui.converter.v2;
 
 import com.kroger.csp.ui.domain.request.v2.*;
 import com.kroger.imp.library.domain.TransactionRef;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Component
 @RefreshScope
+@Slf4j
 public class SearchImageV2RequestConvertor {
 
     @Value("${spring.profiles}")
@@ -23,6 +25,7 @@ public class SearchImageV2RequestConvertor {
     private final String AND ="AND";
     private final String GTIN = "gtin";
     private final String IMAGEID = "imageId";
+    private final String IMAGETYPE = "imagetype";
 
     public SearchImageV2APIRequest populateAPIRequest(String gtin, String imageId, String referenceId){
         SearchImageV2APIRequest searchImageV2APIRequest = new SearchImageV2APIRequest();
@@ -31,6 +34,7 @@ public class SearchImageV2RequestConvertor {
             throw new IllegalArgumentException("ImageId or Gtin cannot be null");
         } else if(StringUtils.isNotBlank(gtin)) {
             searchFilterList.add(populateFilterGtin(gtin));
+            searchFilterList.add(populateImageTypeFilter());
             SearchImageV2GTINRequest searchRequest = new SearchImageV2GTINRequest();
             AssetFilters assetFilters = new AssetFilters();
             assetFilters.setFilters(searchFilterList);
@@ -43,6 +47,7 @@ public class SearchImageV2RequestConvertor {
             searchImageV2APIRequest.setSearchRequest(searchRequest);
         }
         searchImageV2APIRequest.setTransactionRef(populateTransactionRef(referenceId));
+        log.info(String.valueOf(searchImageV2APIRequest));
         return searchImageV2APIRequest;
     }
 
@@ -56,6 +61,19 @@ public class SearchImageV2RequestConvertor {
         filter.setSequence(1);
         filter.setField(GTIN);
         filter.setValue(gtin);
+        filter.setOperand(AND);
+        return filter;
+    }
+
+    /**
+     * Populate GTIN filter
+     * @return
+     */
+    private Filter populateImageTypeFilter() {
+        Filter filter = new Filter();
+        filter.setSequence(2);
+        filter.setField(IMAGETYPE);
+        filter.setValue("ProductImage");
         filter.setOperand(AND);
         return filter;
     }
