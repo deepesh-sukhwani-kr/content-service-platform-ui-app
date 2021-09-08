@@ -23,6 +23,8 @@ public class SearchImageV2RequestConvertor {
     private final String AND ="AND";
     private final String GTIN = "gtin";
     private final String IMAGEID = "imageId";
+    private final String IMAGETYPE = "imagetype";
+    private final String PRODUCTIMAGE = "ProductImage";
 
     public SearchImageV2APIRequest populateAPIRequest(String gtin, String imageId, String referenceId){
         SearchImageV2APIRequest searchImageV2APIRequest = new SearchImageV2APIRequest();
@@ -31,6 +33,7 @@ public class SearchImageV2RequestConvertor {
             throw new IllegalArgumentException("ImageId or Gtin cannot be null");
         } else if(StringUtils.isNotBlank(gtin)) {
             searchFilterList.add(populateFilterGtin(gtin));
+            searchFilterList.add(populateImageTypeFilter());
             SearchImageV2GTINRequest searchRequest = new SearchImageV2GTINRequest();
             AssetFilters assetFilters = new AssetFilters();
             assetFilters.setFilters(searchFilterList);
@@ -56,6 +59,19 @@ public class SearchImageV2RequestConvertor {
         filter.setSequence(1);
         filter.setField(GTIN);
         filter.setValue(gtin);
+        filter.setOperand(AND);
+        return filter;
+    }
+
+    /**
+     * Populate ImageType filter
+     * @return
+     */
+    private Filter populateImageTypeFilter() {
+        Filter filter = new Filter();
+        filter.setSequence(2);
+        filter.setField(IMAGETYPE);
+        filter.setValue(PRODUCTIMAGE);
         filter.setOperand(AND);
         return filter;
     }

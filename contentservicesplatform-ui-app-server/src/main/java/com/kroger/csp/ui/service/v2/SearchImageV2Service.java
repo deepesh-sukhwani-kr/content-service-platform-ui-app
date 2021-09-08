@@ -5,6 +5,7 @@ import com.kroger.csp.ui.domain.response.v1.Image;
 import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import com.kroger.csp.ui.domain.response.v2.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -81,38 +82,40 @@ public class SearchImageV2Service {
 
     private List<ImageV2> populateImages(List<SearchResponsePayload> imageResponseList){
         List<ImageV2> imageList = new ArrayList<>();
-        for(SearchResponsePayload imageResponse: imageResponseList){
-            ImageV2 image = new ImageV2();
-            image.setImageId(imageResponse.getImageId());
-            image.setEncodedURL(imageResponse.getImageUrl());
-            image.setBackground(imageResponse.getImageBackground());
-            image.setColorRep(imageResponse.getImageColorProfile());
-            image.setFileType(imageResponse.getImageFileFormat());
-            image.setHeight(imageResponse.getImageHeight());
-            image.setWidth(imageResponse.getImageWidth());
-            image.setLastModifiedDate(imageResponse.getImageLastModifiedDate());
-            image.setProvidedSize(imageResponse.getImageProvidedSize());
-            image.setResDpi(imageResponse.getImageResolutionDpi());
-            image.setViewAngle(imageResponse.getImageViewAngle());
-            image.setSource(imageResponse.getImageSource());
-            List<String> gtins = new ArrayList<>();
-            List<String> descriptions = new ArrayList<>();
-            for(SearchAssociation association: imageResponse.getAssociations()){
-                descriptions.add(association.getDescription());
-                image.setItemType(association.getAssetType());
-                String approvalStatus = "false";
-                if(association.isAssociationVerified()){
-                    approvalStatus = "true";
+        if(CollectionUtils.isNotEmpty(imageResponseList)) {
+            for (SearchResponsePayload imageResponse : imageResponseList) {
+                ImageV2 image = new ImageV2();
+                image.setImageId(imageResponse.getImageId());
+                image.setEncodedURL(imageResponse.getImageUrl());
+                image.setBackground(imageResponse.getImageBackground());
+                image.setColorRep(imageResponse.getImageColorProfile());
+                image.setFileType(imageResponse.getImageFileFormat());
+                image.setHeight(imageResponse.getImageHeight());
+                image.setWidth(imageResponse.getImageWidth());
+                image.setLastModifiedDate(imageResponse.getImageLastModifiedDate());
+                image.setProvidedSize(imageResponse.getImageProvidedSize());
+                image.setResDpi(imageResponse.getImageResolutionDpi());
+                image.setViewAngle(imageResponse.getImageViewAngle());
+                image.setSource(imageResponse.getImageSource());
+                List<String> gtins = new ArrayList<>();
+                List<String> descriptions = new ArrayList<>();
+                for (SearchAssociation association : imageResponse.getAssociations()) {
+                    descriptions.add(association.getDescription());
+                    image.setItemType(association.getAssetType());
+                    String approvalStatus = "false";
+                    if (association.isAssociationVerified()) {
+                        approvalStatus = "true";
+                    }
+                    image.setApprovalStatus(approvalStatus);
+                    gtins.add(getValue(association.getTags(), "GTIN"));
+                    image.setUpc10(getValue(association.getTags(), "UPC10"));
+                    image.setUpc12(getValue(association.getTags(), "UPC12"));
+                    image.setUpc13(getValue(association.getTags(), "UPC13"));
                 }
-                image.setApprovalStatus(approvalStatus);
-                gtins.add(getValue(association.getTags(), "GTIN"));
-                image.setUpc10(getValue(association.getTags(), "UPC10"));
-                image.setUpc12(getValue(association.getTags(), "UPC12"));
-                image.setUpc13(getValue(association.getTags(), "UPC13"));
+                image.setGtin(gtins);
+                image.setDescription(descriptions);
+                imageList.add(image);
             }
-            image.setGtin(gtins);
-            image.setDescription(descriptions);
-            imageList.add(image);
         }
         return imageList;
     }
