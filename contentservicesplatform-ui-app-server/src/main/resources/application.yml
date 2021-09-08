@@ -36,7 +36,7 @@ spring:
 
 kroger:
 #to be used as a master switch
-  cspVersionSwitch: v1
+  cspVersionSwitch: v2
   oauth:
     default-target-uri: http://localhost:8080
     logout-uri: https://federation.kroger.com/identity/logout
@@ -192,7 +192,7 @@ kroger:
       - oa-dap-kroger-restricteduser-5420
     externalSources:
       - gladson
-  cspVersionSwitch: v1
+  cspVersionSwitch: v2
   oauth:
     default-target-uri: https://csp-ui-server-app-v1-test.dapapp.rch-cdc-cxnonprod.kroger.com
     logout-uri: https://identity.kroger.com/identity/logout
@@ -212,7 +212,7 @@ kroger:
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
-    search: /imp/ui/v1/server/cspSearch
+    search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/thumbnail/
   v1:
@@ -257,7 +257,7 @@ spring:
     initialize: false
 kroger:
   #to be used as a master switch
-  cspVersionSwitch: v1
+  cspVersionSwitch: v2
   oauth:
     default-target-uri: https://csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
     #default-target-uri: ${vcap.services.cspux-auth.credentials.defaultTargetUri}
@@ -281,7 +281,7 @@ kroger:
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
-    search: /imp/ui/v1/server/cspSearch
+    search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://imp-imageretrieval-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/thumbnail/
   v1:
@@ -356,7 +356,7 @@ kroger:
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
-    search: /imp/ui/v1/server/cspSearch
+    search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://impcoremgt.kroger.com/imp/asset/v2/images/thumbnail/
   v1:
