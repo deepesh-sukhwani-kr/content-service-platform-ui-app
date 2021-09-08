@@ -106,7 +106,7 @@ public class SearchImageV2RequestConvertor {
         transactionRef.setEvent("SEARCHASSET");
         transactionRef.setSource("PIM");
         if ("stage".equalsIgnoreCase(env))
-            transactionRef.setEnvironment("test");
+            transactionRef.setEnvironment("stage");
         else if("local".equalsIgnoreCase(env))
             transactionRef.setEnvironment("test");
         else

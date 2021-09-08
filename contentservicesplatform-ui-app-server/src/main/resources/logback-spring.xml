@@ -13,6 +13,24 @@
 
 	<springProfile name="local">
 
+		<root level="debug"/>
+
+	</springProfile>
+
+	<springProfile name="test">
+
+		<root level="info"/>
+
+	</springProfile>
+
+	<springProfile name="stage">
+
+		<root level="info"/>
+
+	</springProfile>
+
+	<springProfile name="prod">
+
 		<root level="info"/>
 
 	</springProfile>

@@ -60,7 +60,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
+    retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/thumbnail/
   authorizedRoles:
     addImage: oa-cspux-support-5420, oa-cspux-supp-center-5420, oa-cspux-taxonomy-5420
   v1:
@@ -214,7 +214,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
+    retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/thumbnail/
   v1:
     add:
       url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
@@ -283,7 +283,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://imp-imageretrieval-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
+    retrieval: https://imp-imageretrieval-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/thumbnail/
   v1:
     add:
       url: https://imptest.cfcdcinternaltest.kroger.com/imp/asset/v1/images/add
@@ -295,7 +295,7 @@ kroger:
       url: https://asset-management-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/add
     search:
       url: https://impcore-search-app-v2-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images
-    authorization: KRYPT(AFDpu71RZ/HEL/4ebLbUfDl+VgrME78zCUme3YJS2FE5KNspJb5siB1Kl6Wpy1M1)
+    authorization: c3ZjcGltaW1wczowSVNnQVJxTVRNNmxOUTg=
   rbac:
     checkRbac: false
     addRoles:
@@ -358,7 +358,7 @@ kroger:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
-    retrieval: https://impmgt.kroger.com/imp/asset/v2/images/
+    retrieval: https://impcoremgt.kroger.com/imp/asset/v2/images/thumbnail/
   v1:
     add:
       url: https://impcore-asset.kroger.com/imp/asset/v1/images/add
@@ -369,7 +369,7 @@ kroger:
     add:
       url: https://impcore-asset.kroger.com/imp/asset/v2/images/add
     search:
-      url: https://impcore-search.kroger.com/imp/search/v2/images/search
+      url: https://impcore-search.kroger.com/imp/search/v2/images
     authorization: KRYPT(Xx/z6WZGqMp4lrm/n5K9l9mFIghJmx7p3q+4iTAuz7HYiqWNfOw4jNr8EG/afrq2ezuVkQKMOKzOpGGypiq05+sh+8Z6dYEFM/uQI9G8kAw=)
   rbac:
     checkRbac: true
