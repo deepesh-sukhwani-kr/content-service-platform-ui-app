@@ -137,10 +137,14 @@
                       <div class="ui-g">
                         <div class="ui-g-2 ui-sm-6" align="left">Image ID:</div>
                         <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.imageId}}</b></div>
+                        <div class="ui-g-12 ui-sm-6" style="padding: 0px;" *ngFor="let gtin of image.gtin">
                           <div class="ui-g-2 ui-sm-6" align="left" >GTIN:</div>
-                          <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.gtin}}</b></div>
+                          <div class="ui-g-10 ui-sm-6" align="left"><b>{{gtin}}</b></div>
+                        </div>
+                        <div class="ui-g-12 ui-sm-6"  style="padding: 0px;" *ngFor="let desc of image.description">
                         <div class="ui-g-2 ui-sm-6" align="left" >Description:</div>
-                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.description}}</b></div>
+                        <div class="ui-g-10 ui-sm-6" align="left"><b>{{desc}}</b></div>
+                        </div>
                         <div class="ui-g-2 ui-sm-6" align="left">Date:</div>
                         <div class="ui-g-10 ui-sm-6" align="left"><b>{{image.lastModifiedDate}}</b></div>
                         <div class="ui-g-2 ui-sm-6" align="left">View Angle:</div>

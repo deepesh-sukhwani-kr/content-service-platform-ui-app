@@ -36,7 +36,7 @@ spring:
 
 kroger:
 #to be used as a master switch
-  cspVersionSwitch: v2
+  cspVersionSwitch: v1
   oauth:
     default-target-uri: http://localhost:8080
     logout-uri: https://federation.kroger.com/identity/logout
@@ -192,7 +192,7 @@ kroger:
       - oa-dap-kroger-restricteduser-5420
     externalSources:
       - gladson
-  cspVersionSwitch: v2
+  cspVersionSwitch: v1
   oauth:
     default-target-uri: https://csp-ui-server-app-v1-test.dapapp.rch-cdc-cxnonprod.kroger.com
     logout-uri: https://identity.kroger.com/identity/logout
@@ -212,7 +212,7 @@ kroger:
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
-    search: /imp/ui/v2/server/cspSearch
+    search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://imp-imageretrieval-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
   v1:
@@ -225,7 +225,7 @@ kroger:
     add:
       url: https://asset-management-app-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/add
     search:
-      url: https://impcore-search-app-v2-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images
+      url: https://impcore-search-app-v2-test.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images/search
     authorization: KRYPT(jy42tCtTnX7YfiW2aMCnN8A9EUC6kun4XYVJ2D6rRn/5wNfA2e85CxG8PJD1vyt7xv7tj6EDV0uoqZCoUL3/Rg==)
 
 security:
@@ -257,7 +257,7 @@ spring:
     initialize: false
 kroger:
   #to be used as a master switch
-  cspVersionSwitch: v2
+  cspVersionSwitch: v1
   oauth:
     default-target-uri: https://csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
     #default-target-uri: ${vcap.services.cspux-auth.credentials.defaultTargetUri}
@@ -281,7 +281,7 @@ kroger:
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
-    search: /imp/ui/v2/server/cspSearch
+    search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://imp-imageretrieval-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/
   v1:
@@ -294,7 +294,7 @@ kroger:
     add:
       url: https://asset-management-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/asset/v2/images/add
     search:
-      url: https://impcore-search-app-v2-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images
+      url: https://impcore-search-app-v2-stage.dapapp.rch-cdc-cxnonprod.kroger.com/imp/search/v2/images/search
     authorization: KRYPT(AFDpu71RZ/HEL/4ebLbUfDl+VgrME78zCUme3YJS2FE5KNspJb5siB1Kl6Wpy1M1)
   rbac:
     checkRbac: false
@@ -356,7 +356,7 @@ kroger:
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
-    search: /imp/ui/v2/server/cspSearch
+    search: /imp/ui/v1/server/cspSearch
     vendorsearch: /imp/ui/v1/server/vendorSearch
     retrieval: https://impmgt.kroger.com/imp/asset/v2/images/
   v1:
