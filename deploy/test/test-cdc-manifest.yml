@@ -46,7 +46,7 @@ spec:
   selector:
     app: csp-ui-server-app-v1-test
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: csp-ui-server-app-v1-test
