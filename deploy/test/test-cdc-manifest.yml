@@ -57,7 +57,6 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-name: "route"
     nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
-    nginx.ingress.kubernetes.io/proxy-body-size: 15m
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1200"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1200"
     nginx.ingress.kubernetes.io/configuration-snippet: |
