@@ -13,9 +13,11 @@ spec:
       labels:
         app: csp-ui-server-app-v1-prod
     spec:
+      imagePullSecrets:
+        - name: csp-ui-app-prod-secrets
       containers:
         - name: csp-ui-server-app-v1-prod
-          image: docker-prod.registry.kroger.com/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.RELEASE_TAG }}
+          image: docker-prod.artifactory-edge.kroger.com/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.RELEASE_TAG }}
           imagePullPolicy: Always   #This forces kubernetes to pull a docker image everytime even with the same tag ids
           ports:
             - containerPort: 8080

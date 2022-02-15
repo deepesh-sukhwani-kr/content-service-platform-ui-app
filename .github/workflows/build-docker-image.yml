@@ -5,22 +5,126 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash
+
 env:
   IMAGE_TAG: v1.0
-  DOCKER_BASE_REPOSITORY: docker-prod.registry.kroger.com
+  DOCKER_BASE_REPOSITORY: krogertechnology-docker-prod.jfrog.io
+  TARGET_PATH: /home/vsts-agent/actions-runner/_work
+  FOLDER_NAME: csp-ui-app
+  APP_VERSION: v1
+  APP_NAME: csp-ui-server-app
+  REPO_NAME: content-services-platform-ui-app
 
 jobs:
-
-  build:
-
+  Build-And-Publish:
     runs-on: [self-hosted, Linux, X64, tsa, kroger]
-
     steps:
-      - name: Checkout repo
+      - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Repo Login
-        run: docker login ${{env.DOCKER_BASE_REPOSITORY}} --username ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_PASSWORD }}
-      - name: Build Docker Image
-        run: docker build -t ${{env.DOCKER_BASE_REPOSITORY}}/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.IMAGE_TAG }} .
-      - name: Push Docker Image
-        run: docker push ${{env.DOCKER_BASE_REPOSITORY}}/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.IMAGE_TAG }}
+
+      - name: Get Version
+        id: get_version
+        run: |
+          echo "Version: `echo ${GITHUB_SHA} | cut -c1-8`"
+          echo "::set-output name=tag::`echo ${GITHUB_SHA} | cut -c1-8`"
+      - name: Setup JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+
+      - name: Create Maven Settings File
+        uses: whelk-io/maven-settings-xml-action@v18
+        with:
+          output_file: tmp/settings.xml
+          repositories: |
+            [
+              {
+                "id": "artcentral",
+                "name": "libs-release",
+                "url": "https://krogertechnology.jfrog.io/artifactory/libs-release",
+                "snapshots": {
+                  "enabled": "false"
+                }
+              },
+              {
+                "id": "artsnapshots",
+                "name": "libs-snapshot",
+                "url": "https://krogertechnology.jfrog.io/artifactory/libs-snapshot",
+                "snapshots": {
+                }
+              }
+            ]
+          plugin_repositories: |
+            [
+              {
+                "id": "artcentral",
+                "name": "plugin-release",
+                "url": "https://krogertechnology.jfrog.io/artifactory/plugins-release",
+                "snapshots": {
+                  "enabled": "false"
+                }
+              },
+              {
+                "id": "artsnapshots",
+                "name": "plugin-snapshot",
+                "url": "https://krogertechnology.jfrog.io/artifactory/plugins-snapshot",
+                "snapshots": {
+                }
+              }
+            ]
+          servers: |
+            [
+              {
+                "id": "artcentral",
+                "username": "${{ secrets.JFROG_USERNAME }}",
+                "password": "${{ secrets.JFROG_PASSWORD }}"
+              },
+              {
+                "id": "artsnapshots",
+                "username": "${{ secrets.JFROG_USERNAME }}",
+                "password": "${{ secrets.JFROG_PASSWORD }}"
+              }
+            ]
+          mirrors: |
+            [
+              {
+                "id": "artremote",
+                "name": "remote-repos",
+                "mirrorOf": "*,!artcentral,!artsnapshots,!artremote",
+                "url": "https://krogertechnology.jfrog.io/artifactory/remote-repos"
+              }
+            ]
+      - name: Install buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+
+      - name: Login to Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.DOCKER_BASE_REPOSITORY }}
+          username: ${{ secrets.JFROG_USERNAME }}
+          password: ${{ secrets.JFROG_PASSWORD }}
+
+      - name: Build Application with Maven
+        run: |
+          echo
+          echo "build jar"
+          mvn --batch-mode --settings tmp/settings.xml clean package
+      - name: Dockerize
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: "${{env.DOCKER_BASE_REPOSITORY}}/imp/dap/${{ env.FOLDER_NAME }}/${{ env.APP_VERSION }}/${{ env.APP_NAME }}:${{ env.IMAGE_TAG }}"
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: binary
+          path: ${{ env.TARGET_PATH }}/${{ env.REPO_NAME }}/${{ env.REPO_NAME }}/target

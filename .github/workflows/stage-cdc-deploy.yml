@@ -30,6 +30,16 @@ jobs:
           arguments: |
             --from-literal=SPRING_PROFILES_ACTIVE=stage
           secret-name: csp-ui-server-app-v1-settings
+
+      - name: Push Docker Credentials to Kubernetes
+        env:
+          ARTIFACTORY_USERNAME: ${{ secrets.JFROG_USERNAME }}
+          ARTIFACTORY_PASSWORD: ${{ secrets.JFROG_EDGE_PASSWORD }}
+          DOCKER_REGISTRY: docker-prod.artifactory-edge.kroger.com
+        run: |
+          kubectl --namespace=dapapp-stage delete secret csp-ui-app-stage-secrets --ignore-not-found
+          kubectl --namespace=dapapp-stage create secret docker-registry csp-ui-app-stage-secrets --docker-username=${{ env.ARTIFACTORY_USERNAME }} --docker-password=${{ env.ARTIFACTORY_PASSWORD }} --docker-email=${{ env.ARTIFACTORY_USERNAME }} --docker-server=${{ env.DOCKER_REGISTRY }}
+
       - uses: Azure/k8s-deploy@v1.2
         with:
           namespace: dapapp-stage
@@ -37,22 +47,15 @@ jobs:
             deploy/stage/stage-cdc-manifest.yml
           strategy: blue-green
           images: |
-            docker-${{ env.DOCKER_REGISTRY_ENV }}.registry.kroger.com/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.RELEASE_TAG }}
+            docker-prod.artifactory-edge.kroger.com/imp/dap/csp-ui-app/v1/csp-ui-server-app:${{ env.RELEASE_TAG }}
+
       # If the deployment is successful tag the docker image with whatever env it successfully deployed to eg dev,test,stage,prod
-      # Conformant with https://confluence.kroger.com/confluence/pages/viewpage.action?pageId=192986435#Checklist&Tracker-DAPBuildanddeployStrategyOutline
-      # This will prevent pollution of the docker image by
-      - name: Tag test image as stage and store in docker repo
-        if: success()
-        uses: timperman/artifactory-promote-action@v1
-        with:
-          url: https://artifactory.kroger.com
-          username: ${{ secrets.ARTIFACTORY_USERNAME }}
-          password: ${{ secrets.ARTIFACTORY_PASSWORD }}
-          sourceRepo: docker-prod
-          targetRepo: docker-prod
-          dockerRepository: imp/dap/csp-ui-app/v1/csp-ui-server-app
-          tag: ${{ env.RELEASE_TAG }}
-          targetTag: ${{ env.TARGET_TAG }}
-          copy: 'true'
+      - name: Promote Docker Artifact
+        env:
+          DOCKER_USERNAME: ${{ secrets.JFROG_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+          DOCKER_REPO: imp/dap/csp-ui-app/v1/csp-ui-server-app
+        run: |
+          curl -X POST -u ${{ env.DOCKER_USERNAME }}:${{ env.DOCKER_PASSWORD }} -H "Content-Type: application/json" -d '{"targetRepo" : "docker-prod","dockerRepository" : "${{ env.DOCKER_REPO }}", "tag" : "${{ env.RELEASE_TAG }}", "targetTag" : "${{ env.TARGET_TAG }}","copy": true}' "https://krogertechnology.jfrog.io/artifactory/api/docker/docker-prod/v2/promote"
       - name: 'Clean up'
         run: rm -rf *
