@@ -38,8 +38,8 @@ jobs:
           ARTIFACTORY_PASSWORD: ${{ secrets.JFROG_EDGE_PASSWORD }}
           DOCKER_REGISTRY: docker-prod.artifactory-edge.kroger.com
         run: |
-          kubectl --namespace=dapapp-stage delete secret csp-ui-app-prod-secrets --ignore-not-found
-          kubectl --namespace=dapapp-stage create secret docker-registry csp-ui-app-prod-secrets --docker-username=${{ env.ARTIFACTORY_USERNAME }} --docker-password=${{ env.ARTIFACTORY_PASSWORD }} --docker-email=${{ env.ARTIFACTORY_USERNAME }} --docker-server=${{ env.DOCKER_REGISTRY }}
+          kubectl --namespace=dapapp-prod delete secret csp-ui-app-prod-secrets --ignore-not-found
+          kubectl --namespace=dapapp-prod create secret docker-registry csp-ui-app-prod-secrets --docker-username=${{ env.ARTIFACTORY_USERNAME }} --docker-password=${{ env.ARTIFACTORY_PASSWORD }} --docker-email=${{ env.ARTIFACTORY_USERNAME }} --docker-server=${{ env.DOCKER_REGISTRY }}
 
       - uses: Azure/k8s-deploy@v1.2
         with:
