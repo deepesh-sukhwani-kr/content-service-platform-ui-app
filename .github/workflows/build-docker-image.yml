@@ -115,6 +115,7 @@ jobs:
         run: |
           echo
           echo "build jar"
+          mvn -version
           mvn --batch-mode --settings tmp/settings.xml clean package
       - name: Dockerize
         uses: docker/build-push-action@v2.7.0
