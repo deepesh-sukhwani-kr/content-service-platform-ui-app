@@ -1,0 +1,30 @@
+kap-version: v1
+metadata:
+    lob: Merch
+    dev-group: Item
+    team: Digital Asset Platform
+    application-name: csp-ui-server
+    services:
+        - https://csp-ui-server-app.dapapp.rch-cdc-cxprod.kroger.com/
+kap-metrics:
+    level-1:
+        repo-in-github-saas: true
+        artifacts-in-artifactory-saas: true
+        deploy-uses-harness: false
+        deployment-platform: on-prem k8s
+        uses-github-actions: true
+        api-follows-style-guide: false
+        api-documentation-in-catalog: false - we need to make this true
+    level-2:
+        security-scans-run: false
+        standard-monitoring-level: 3
+        api-follow-api-strategy: true
+    level-3:
+        completed-team-dojo-training: false
+        security-scans-pass: false
+#jira:
+#    project: true
+#    fix-version-regex: true
+#    disable-automated-cycle-time:
+change-log:
+    enterprise: false
