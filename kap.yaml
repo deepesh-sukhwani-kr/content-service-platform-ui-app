@@ -3,7 +3,7 @@ metadata:
     lob: Merch
     dev-group: Item
     team: Digital Asset Platform
-    application-name: csp-ui-server
+    application-name: csp-ui-app
     services:
         - https://csp-ui-server-app.dapapp.rch-cdc-cxprod.kroger.com/
 kap-metrics:
