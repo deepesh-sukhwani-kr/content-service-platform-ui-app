@@ -55,6 +55,9 @@ metadata:
   namespace: dapapp-prod
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/issuer: krogerissuer
+    cert-manager.io/issuer-kind: KrogerIssuer
+    cert-manager.io/issuer-group: certs
     nginx.ingress.kubernetes.io/affinity: "cookie"
     nginx.ingress.kubernetes.io/session-cookie-name: "route"
     nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
@@ -68,7 +71,7 @@ spec:
         #hostname of your application *.dapapp.rch-cdc-cxnonprod.kroger.com
         - csp-ui-server-app.dapapp.rch-cdc-cxprod.kroger.com
       #this needs to be replaced
-      secretName: star-dapapp-cdccxprod-dapapp-prod
+      secretName: csp-ui-server-app-v1-prod-cert
   rules:
     - host: csp-ui-server-app.dapapp.rch-cdc-cxprod.kroger.com
       http:
