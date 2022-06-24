@@ -67,10 +67,10 @@ spec:
   tls:
     - hosts:
         #hostname of your application *.dapapp.rch-cdc-cxnonprod.kroger.com
-        - csp-ui-server-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com
+        - csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
       secretName: csp-ui-server-app-stage-cert
   rules:
-    - host: csp-ui-server-app-stage.dapapp.rch-cdc-cxnonprod.kroger.com
+    - host: csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
       http:
         paths:
           - pathType: Prefix
