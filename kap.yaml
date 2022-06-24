@@ -14,7 +14,7 @@ kap-metrics:
         deployment-platform: on-prem k8s
         uses-github-actions: true
         api-follows-style-guide: false
-        api-documentation-in-catalog: false - we need to make this true
+        api-documentation-in-catalog: false
     level-2:
         security-scans-run: false
         standard-monitoring-level: 3
