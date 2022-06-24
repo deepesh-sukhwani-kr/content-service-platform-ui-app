@@ -51,7 +51,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: csp-ui-server-app-stage
+  name: csp-ui-server-v1-app-stage
   namespace: dapapp-stage
   annotations:
     kubernetes.io/ingress.class: "nginx"
@@ -68,7 +68,7 @@ spec:
     - hosts:
         #hostname of your application *.dapapp.rch-cdc-cxnonprod.kroger.com
         - csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
-      secretName: csp-ui-server-app-stage-cert
+      secretName: csp-ui-server-app-v1-stage-cert
   rules:
     - host: csp-ui-server-app-v1-stage.dapapp.rch-cdc-cxnonprod.kroger.com
       http:
@@ -77,6 +77,6 @@ spec:
             path: /
             backend:
               service:
-                name: csp-ui-server-app-stage
+                name: csp-ui-server-app-v1-stage
                 port:
                   number: 80
