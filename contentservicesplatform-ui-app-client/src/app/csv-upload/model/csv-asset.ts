@@ -19,4 +19,5 @@ export class CsvAsset{
   public imageId: string;
   public url: string;
   public processed: boolean;
+  public imageOrientationType: string;
 }

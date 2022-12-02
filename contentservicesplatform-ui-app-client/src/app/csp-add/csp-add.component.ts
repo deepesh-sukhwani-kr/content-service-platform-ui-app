@@ -30,6 +30,7 @@ export class CspAddComponent implements OnInit {
 
   form: FormGroup;
   sources: SelectItem[];
+  imageOrientationTypes: SelectItem[];
   viewAngles: SelectItem[];
   backgrounds: SelectItem[];
   uploadedFiles: File[] = [];
@@ -54,6 +55,7 @@ export class CspAddComponent implements OnInit {
 
   ngOnInit() {
     this.initiateSources();
+    this.initiateImageOrientationTypes();
     this.initiateViewAngles();
     this.initiateBackgrounds();
     this.initiateForm();
@@ -220,6 +222,13 @@ export class CspAddComponent implements OnInit {
     ];
   }
 
+  private initiateImageOrientationTypes() {
+    this.imageOrientationTypes = [
+      {label: 'Product', value: 'product'},
+      {label: 'Swatches', value: 'swatches'}
+    ];
+  }
+
   private initiateViewAngles() {
     this.utilService.getViewAngels().subscribe(data => {
       let response = <ViewAngleResponse>data;
@@ -260,6 +269,7 @@ export class CspAddComponent implements OnInit {
   addAttributes() {
     const imageAttrObj = this._formBuilder.group({
       source: [],
+      imageOrientationType: [],
       viewAngle: [],
       resolution: [],
       background: [],
@@ -326,6 +336,8 @@ export class CspAddComponent implements OnInit {
       fields = fields + "Description, ";
     if (!(<HTMLInputElement>document.getElementById("fileName" + index)).value)
       fields = fields + "File Name, ";
+    if (!this.imageAttributes.controls[index].get('imageOrientationType').value)
+      fields = fields + "Image Orientation Type, ";
     if (fields != "") {
 
       this.showError('Validation error',
@@ -371,17 +383,19 @@ export class CspAddComponent implements OnInit {
   }
 
   private buildAddImageRequest(): ImageAddRequest {
-    const IMAGE_TYPE: string = 'ProductImage';
+    //const IMAGE_TYPE: string = 'ProductImage';
 
+    let image_orientation_type: string;
     let identifier: AssetIdentifier;
     identifier = new AssetIdentifier();
     identifier.gtin = this.form.get('gtin').value;
+    //image_orientation_type = this.form.get('imageOrientationType').value;
 
     var request: ImageAddRequest = new ImageAddRequest();
     request.referenceId = "DAP-UI-ADD-"
       +(<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds();
     request.creationDatetime = new Date().toISOString();
-    request.imageType = IMAGE_TYPE;
+    //request.imageType = image_orientation_type;
     request.assetIdentifier = identifier;
     request.assetDetails = this.populateAssets();
     return request;
@@ -402,6 +416,7 @@ export class CspAddComponent implements OnInit {
     image.providedSize = this.imageAttributes.controls[index].get('providedSize').value;
     image.background = this.imageAttributes.controls[index].get('background').value;
     image.source = this.imageAttributes.controls[index].get('source').value;
+    image.imageOrientationType = this.imageAttributes.controls[index].get('imageorientationtype').value;
     image.description = this.imageAttributes.controls[index].get('description').value;
     if (this.imageAttributes.at(index).get('source').value === 'imp-support-legacy-ds'
       && this.uploadedFiles[index] != null) {
