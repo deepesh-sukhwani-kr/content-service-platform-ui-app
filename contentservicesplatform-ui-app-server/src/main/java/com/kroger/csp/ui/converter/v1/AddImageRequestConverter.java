@@ -105,7 +105,7 @@ public class AddImageRequestConverter {
     private Asset populateAsset(AddImageUIRequest request) throws Exception{
         Asset asset = new Asset();
         asset.setImageType(request.getImageType());
-        asset.setItemType("ProductImages");
+        //asset.setItemType("ProductImages");
         asset.setGTIN(request.getAssetIdentifier().getGtin());
         asset.setAssetDetails(populateAssetDetailsList(request.getAssetDetails()));
         return asset;
@@ -132,6 +132,7 @@ public class AddImageRequestConverter {
         attributeMap.setIMP_UPC10(request.getUpc10());
         attributeMap.setIMP_UPC12(request.getUpc12());
         attributeMap.setIMP_UPC13(request.getUpc13());
+        //attributeMap.setImageOrientationType(request.getImageOrientationType());
         return attributeMap;
     }
 

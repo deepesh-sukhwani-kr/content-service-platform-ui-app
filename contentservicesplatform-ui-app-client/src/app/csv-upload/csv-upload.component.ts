@@ -226,7 +226,7 @@ export class CsvUploadComponent implements OnInit {
   private populateAssets(data: any) {
     this.csvAssets = [];
     for (let i = 0; i < data.length; i++) {
-      if (i != 0 && data[i].length === 13) {
+      if (i != 0 && data[i].length === 14) {
         this.csvAssets.push(this.populateAsset(data[i]));
       }
     }

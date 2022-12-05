@@ -54,6 +54,7 @@ public class SearchResponse {
             image.setSource(asset.getAttributeMap().get("IMP_SOURCE"));
             image.setWidth(asset.getAttributeMap().get("IMP_WIDTH_PX"));
             image.setProvidedSize(asset.getAttributeMap().get("IMP_PROVIDED_SIZE"));
+            image.setImageOrientationType(asset.getAttributeMap().get("IMAGE_ORIENTATION_TYPE"));
         }
         return image;
     }

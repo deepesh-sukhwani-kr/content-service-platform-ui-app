@@ -337,7 +337,7 @@ export class CspAddComponent implements OnInit {
     if (!(<HTMLInputElement>document.getElementById("fileName" + index)).value)
       fields = fields + "File Name, ";
     if (!this.imageAttributes.controls[index].get('imageOrientationType').value)
-      fields = fields + "Image Orientation Type, ";
+      fields = fields + "Image Orientation Type ";
     if (fields != "") {
 
       this.showError('Validation error',
@@ -416,7 +416,7 @@ export class CspAddComponent implements OnInit {
     image.providedSize = this.imageAttributes.controls[index].get('providedSize').value;
     image.background = this.imageAttributes.controls[index].get('background').value;
     image.source = this.imageAttributes.controls[index].get('source').value;
-    image.imageOrientationType = this.imageAttributes.controls[index].get('imageorientationtype').value;
+    image.imageOrientationType = this.imageAttributes.controls[index].get('imageOrientationType').value;
     image.description = this.imageAttributes.controls[index].get('description').value;
     if (this.imageAttributes.at(index).get('source').value === 'imp-support-legacy-ds'
       && this.uploadedFiles[index] != null) {

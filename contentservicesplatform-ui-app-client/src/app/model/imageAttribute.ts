@@ -16,4 +16,5 @@ export class ImageAttribute{
   public IMP_WIDTH_PX:any;
   public IMP_UPC13:any;
   public IMP_PROVIDED_SIZE:any;
+  public IMAGE_ORIENTATION_TYPE: any;
 }

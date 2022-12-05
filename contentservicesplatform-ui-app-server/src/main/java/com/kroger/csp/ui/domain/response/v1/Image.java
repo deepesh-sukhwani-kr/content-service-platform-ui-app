@@ -32,5 +32,5 @@ public class Image {
     private String source;
     private String width;
     private String providedSize;
-
+    private String imageOrientationType;
 }
