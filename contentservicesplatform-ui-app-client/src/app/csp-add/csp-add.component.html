@@ -185,9 +185,8 @@
                                   style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
                                 <b>Image Orientation Type:&nbsp;&nbsp;</b></td>
                               <td colspan="1" width="30%">
-                                <p-dropdown [options]="imageOrientationTypes" placeholder="Select Image Orientation Type"
+                                <p-dropdown [options]="imageOrientationTypes" placeholder="Select Image Orientation Type" id="imageOrientationType"
                                             [style]="{'width':'220px'}"
-                                            (onChange)="onSourceChange($event, i)"
                                             formControlName="imageOrientationType"></p-dropdown>
                               </td>
                               <td colspan="2">&nbsp;</td>
@@ -199,7 +198,7 @@
                               <td colspan="1" width="30%" align="right"
                                   style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
                                 <div style="visibility: hidden;" id="vendorUrlLabel{{i}}">
-                                  <b>{{selectedVendor}}&nbsp;URL:&nbsp;&nbsp;</b>
+                                  <b>{{selectedVendor}}&nbsp;&nbsp;</b>
                                 </div>
                               </td>
                               <td colspan="1" width="30%">

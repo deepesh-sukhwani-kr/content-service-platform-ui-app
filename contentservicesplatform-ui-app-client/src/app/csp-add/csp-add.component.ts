@@ -15,6 +15,7 @@ import {AuthService, User} from "kroger-ng-oauth2";
 import {Router} from "@angular/router";
 import {UtilService} from "../util/util.service";
 import {ViewAngleResponse} from "../util/model/view-angle-response";
+import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
 
 
 /**
@@ -224,8 +225,8 @@ export class CspAddComponent implements OnInit {
 
   private initiateImageOrientationTypes() {
     this.imageOrientationTypes = [
-      {label: 'Product', value: 'product'},
-      {label: 'Swatches', value: 'swatches'}
+      {label: 'ProductImage', value: 'productImage'},
+      {label: 'Swatch', value: 'swatch'}
     ];
   }
 
