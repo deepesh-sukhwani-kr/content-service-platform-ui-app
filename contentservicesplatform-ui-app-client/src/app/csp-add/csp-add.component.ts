@@ -225,7 +225,7 @@ export class CspAddComponent implements OnInit {
 
   private initiateImageOrientationTypes() {
     this.imageOrientationTypes = [
-      {label: 'ProductImage', value: 'productImage'},
+      {label: 'Product Image', value: 'productImage'},
       {label: 'Swatch', value: 'swatch'}
     ];
   }
