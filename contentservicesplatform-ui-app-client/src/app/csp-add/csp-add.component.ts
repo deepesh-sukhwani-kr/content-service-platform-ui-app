@@ -15,7 +15,7 @@ import {AuthService, User} from "kroger-ng-oauth2";
 import {Router} from "@angular/router";
 import {UtilService} from "../util/util.service";
 import {ViewAngleResponse} from "../util/model/view-angle-response";
-import { AnimationGroupPlayer } from '@angular/animations/src/players/animation_group_player';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 
 
 /**
@@ -44,6 +44,7 @@ export class CspAddComponent implements OnInit {
   imageUrls: string[] = [];
   fileStrings: string[] = [];
   div_visible: boolean = false;
+  div_viewAngle_swatch: boolean = false;
   ifSubmitted: boolean = false;
   viewAngleResponse: string[];
 
@@ -88,6 +89,7 @@ export class CspAddComponent implements OnInit {
     this.msg = "";
     this.msgSeverity = "";
     this.setVisibility("gtinMessage", "hidden");
+    this.div_viewAngle_swatch = false;
     this.form.reset();
     this.addAttributes();
     (<HTMLInputElement>document.getElementById("submit")).disabled = false;
@@ -121,6 +123,13 @@ export class CspAddComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("fileName" + index)).value = this.uploadedFiles[index].name;
   }
 
+  onImageTypeChange(event, index: number){
+    if(event.value === "swatch")
+      this.div_viewAngle_swatch = true;
+    else
+      this.div_viewAngle_swatch = false;
+  }
+
   deleteRow(index: number) {
     if (this.msgs[index]) {
       var len = this.msgs.length;
@@ -144,6 +153,9 @@ export class CspAddComponent implements OnInit {
       this.setVisibility("vendorUrlLabel" + i, "hidden");
       (<HTMLInputElement>document.getElementById("fileName" + i)).value = "";
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = true;
+      if (this.imageOrientationTypes.length == 1) {
+        this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
+      }
       this.ifSubmitted = false;
     } else if (event.value === "kwikee" || event.value === "gladson") {
       this.setVisibility("fileUpload" + i, "hidden");
@@ -151,6 +163,7 @@ export class CspAddComponent implements OnInit {
       this.setVisibility("vendorUrlLabel" + i, "hidden");
       (<HTMLInputElement>document.getElementById("fileName" + i)).value = "";
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = false;
+      this.div_viewAngle_swatch = false;
       this.ifSubmitted = true;
     } else {
       this.selectedVendor = event.value.toUpperCase();
@@ -159,6 +172,7 @@ export class CspAddComponent implements OnInit {
       this.setVisibility("fileUpload" + i, "hidden");
       (<HTMLInputElement>document.getElementById("fileName" + i)).value = "";
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = false;
+      this.div_viewAngle_swatch = false;
       this.ifSubmitted = true;
     }
   }
@@ -225,8 +239,7 @@ export class CspAddComponent implements OnInit {
 
   private initiateImageOrientationTypes() {
     this.imageOrientationTypes = [
-      {label: 'Product Image', value: 'productImage'},
-      {label: 'Swatch', value: 'swatch'}
+      {label: 'Product Image', value: 'productImage'}
     ];
   }
 
@@ -253,7 +266,9 @@ export class CspAddComponent implements OnInit {
       imageAttributes: this._formBuilder.array([])
     });
     this.imageAttributes = this.form.get('imageAttributes') as FormArray;
+    
     this.addAttributes();
+    
   }
 
   private ifEmpty(messages: Message[][]): boolean{
@@ -286,6 +301,7 @@ export class CspAddComponent implements OnInit {
     this.imageUrls.push(null);
     this.imageIds.push(null);
     this.fileStrings.push(null);
+    
   }
 
   getMessage(i: number): Message[]{
@@ -327,7 +343,7 @@ export class CspAddComponent implements OnInit {
     var fields: String = "";
     if (!this.imageAttributes.at(index).get('source').value)
       fields = "Source, ";
-    if (!this.imageAttributes.controls[index].get('viewAngle').value)
+    if (!this.imageAttributes.controls[index].get('viewAngle').value && this.imageAttributes.controls[index].get('imageOrientationType').value != 'swatch')
       fields = fields + "View Angle, ";
     if (!this.imageAttributes.controls[index].get('background').value)
       fields = fields + "Back-ground, ";
@@ -418,6 +434,9 @@ export class CspAddComponent implements OnInit {
     image.background = this.imageAttributes.controls[index].get('background').value;
     image.source = this.imageAttributes.controls[index].get('source').value;
     image.imageOrientationType = this.imageAttributes.controls[index].get('imageOrientationType').value;
+    if (image.imageOrientationType == 'swatch'){
+    image.viewAngle = "swatch";
+    }
     image.description = this.imageAttributes.controls[index].get('description').value;
     if (this.imageAttributes.at(index).get('source').value === 'imp-support-legacy-ds'
       && this.uploadedFiles[index] != null) {

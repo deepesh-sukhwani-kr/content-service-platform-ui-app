@@ -33,7 +33,7 @@ public class SearchImageV2RequestConvertor {
             throw new IllegalArgumentException("ImageId or Gtin cannot be null");
         } else if(StringUtils.isNotBlank(gtin)) {
             searchFilterList.add(populateFilterGtin(gtin));
-            searchFilterList.add(populateImageTypeFilter());
+            //searchFilterList.add(populateImageTypeFilter());
             SearchImageV2GTINRequest searchRequest = new SearchImageV2GTINRequest();
             AssetFilters assetFilters = new AssetFilters();
             assetFilters.setFilters(searchFilterList);
