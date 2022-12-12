@@ -406,13 +406,11 @@ export class CspAddComponent implements OnInit {
     let identifier: AssetIdentifier;
     identifier = new AssetIdentifier();
     identifier.gtin = this.form.get('gtin').value;
-    //image_orientation_type = this.form.get('imageOrientationType').value;
 
     var request: ImageAddRequest = new ImageAddRequest();
     request.referenceId = "DAP-UI-ADD-"
       +(<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds();
     request.creationDatetime = new Date().toISOString();
-    //request.imageType = image_orientation_type;
     request.assetIdentifier = identifier;
     request.assetDetails = this.populateAssets();
     return request;
