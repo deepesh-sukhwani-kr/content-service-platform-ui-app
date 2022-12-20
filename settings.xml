@@ -3,13 +3,13 @@
                         http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
-            <username>${env.ARTIFACTORY_EDGE_USERNAME_REF}</username>
-            <password>${env.ARTIFACTORY_EDGE_TOKEN_REF}</password>
+            <username>noorah.patel@kroger.com</username>
+            <password>AKCp8nHDr3CPcBw4z7XUDV8aUezCLRmSQB6oJMq4Ps9mqP3QE82yGGeLxvS5DCvMEe1T1C18f</password>
             <id>artcentral</id>
         </server>
         <server>
-            <username>${env.ARTIFACTORY_EDGE_USERNAME_REF}</username>
-            <password>${env.ARTIFACTORY_EDGE_TOKEN_REF}</password>
+            <username>noorah.patel@kroger.com</username>
+            <password>AKCp8nHDr3CPcBw4z7XUDV8aUezCLRmSQB6oJMq4Ps9mqP3QE82yGGeLxvS5DCvMEe1T1C18f</password>
             <id>artsnapshots</id>
         </server>
     </servers>
@@ -17,7 +17,7 @@
         <mirror>
             <mirrorOf>*,!artcentral,!artsnapshots,!artremote</mirrorOf>
             <name>remote-repos</name>
-            <url>https://artifactory-edge.kroger.com/artifactory/remote-repos</url>
+            <url>https://krogertechnology.jfrog.io/artifactory/remote-repos</url>
             <id>artremote</id>
         </mirror>
         <mirror>
@@ -36,13 +36,13 @@
                     </snapshots>
                     <id>artcentral</id>
                     <name>libs-release</name>
-                    <url>https://artifactory-edge.kroger.com/artifactory/libs-release</url>
+                    <url>https://krogertechnology.jfrog.io/artifactory/libs-release</url>
                 </repository>
                 <repository>
                     <snapshots />
                     <id>artsnapshots</id>
                     <name>libs-snapshot</name>
-                    <url>https://artifactory-edge.kroger.com/artifactory/libs-snapshot</url>
+                    <url>https://krogertechnology.jfrog.io/artifactory/libs-snapshot</url>
                 </repository>
             </repositories>
             <pluginRepositories>
@@ -52,13 +52,13 @@
                     </snapshots>
                     <id>artcentral</id>
                     <name>plugin-release</name>
-                    <url>https://artifactory-edge.kroger.com/artifactory/plugins-release</url>
+                    <url>https://krogertechnology.jfrog.io/artifactory/plugins-release</url>
                 </pluginRepository>
                 <pluginRepository>
                     <snapshots />
                     <id>artsnapshots</id>
                     <name>plugin-snapshot</name>
-                    <url>https://artifactory-edge.kroger.com/artifactory/plugins-snapshot</url>
+                    <url>https://krogertechnology.jfrog.io/artifactory/plugins-snapshot</url>
                 </pluginRepository>
             </pluginRepositories>
             <id>artifactory</id>

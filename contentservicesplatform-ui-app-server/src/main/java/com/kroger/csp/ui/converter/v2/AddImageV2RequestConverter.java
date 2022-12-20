@@ -58,7 +58,7 @@ public class AddImageV2RequestConverter {
         if("stage".equalsIgnoreCase(env))
             transactionRef.setEnvironment("stage");
         else if("local".equalsIgnoreCase(env))
-            transactionRef.setEnvironment("unittest");
+            transactionRef.setEnvironment("test");
         else
             transactionRef.setEnvironment(env);
         return transactionRef;
