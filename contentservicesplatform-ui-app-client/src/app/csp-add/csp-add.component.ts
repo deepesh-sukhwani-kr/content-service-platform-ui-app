@@ -124,12 +124,10 @@ export class CspAddComponent implements OnInit {
   }
 
   onImageTypeChange(event, index: number){
-   
     if(event.value === "swatch")
       this.div_viewAngle_swatch = true;
     else
       this.div_viewAngle_swatch = false;
-      
   }
 
   deleteRow(index: number) {
