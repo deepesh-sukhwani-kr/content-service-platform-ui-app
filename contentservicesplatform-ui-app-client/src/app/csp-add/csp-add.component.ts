@@ -124,10 +124,14 @@ export class CspAddComponent implements OnInit {
   }
 
   onImageTypeChange(event, index: number){
-    if(event.value === "swatch")
-      this.div_viewAngle_swatch = true;
-    else
-      this.div_viewAngle_swatch = false;
+    switch(event.value){
+      case CspConstants.IMAGE_TYPE_SWATCH:
+        this.div_viewAngle_swatch = true;
+        break;
+      default:
+          this.div_viewAngle_swatch = false;
+          break;
+    }
   }
 
   deleteRow(index: number) {
@@ -153,9 +157,7 @@ export class CspAddComponent implements OnInit {
       this.setVisibility("vendorUrlLabel" + i, "hidden");
       (<HTMLInputElement>document.getElementById("fileName" + i)).value = "";
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = true;
-      if (this.imageOrientationTypes.length == 1) {
-        this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
-      }
+      this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
       this.ifSubmitted = false;
     } else if (event.value === "kwikee" || event.value === "gladson") {
       this.setVisibility("fileUpload" + i, "hidden");
@@ -165,6 +167,7 @@ export class CspAddComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = false;
       this.div_viewAngle_swatch = false;
       this.ifSubmitted = true;
+      this.initiateImageOrientationTypes();
     } else {
       this.selectedVendor = event.value.toUpperCase();
       this.setVisibility("vendorUrl" + i, "visible");
@@ -172,6 +175,7 @@ export class CspAddComponent implements OnInit {
       this.setVisibility("fileUpload" + i, "hidden");
       (<HTMLInputElement>document.getElementById("fileName" + i)).value = "";
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = false;
+      this.initiateImageOrientationTypes();
       this.div_viewAngle_swatch = false;
       this.ifSubmitted = true;
     }
@@ -343,7 +347,7 @@ export class CspAddComponent implements OnInit {
     var fields: String = "";
     if (!this.imageAttributes.at(index).get('source').value)
       fields = "Source, ";
-    if (!this.imageAttributes.controls[index].get('viewAngle').value && this.imageAttributes.controls[index].get('imageOrientationType').value != 'swatch')
+    if (!this.imageAttributes.controls[index].get('viewAngle').value && this.imageAttributes.controls[index].get('imageOrientationType').value != CspConstants.IMAGE_TYPE_SWATCH)
       fields = fields + "View Angle, ";
     if (!this.imageAttributes.controls[index].get('background').value)
       fields = fields + "Back-ground, ";
@@ -432,8 +436,8 @@ export class CspAddComponent implements OnInit {
     image.background = this.imageAttributes.controls[index].get('background').value;
     image.source = this.imageAttributes.controls[index].get('source').value;
     image.imageOrientationType = this.imageAttributes.controls[index].get('imageOrientationType').value;
-    if (image.imageOrientationType == 'swatch'){
-    image.viewAngle = "swatch";
+    if (image.imageOrientationType == CspConstants.IMAGE_TYPE_SWATCH){
+      image.viewAngle = "swatch";
     }
     image.description = this.imageAttributes.controls[index].get('description').value;
     if (this.imageAttributes.at(index).get('source').value === 'imp-support-legacy-ds'
