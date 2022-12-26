@@ -27,5 +27,5 @@ public class AssetDetailsUIRequest {
     private String upc10;
     private String upc12;
     private String upc13;
-
+    private String imageOrientationType;
 }

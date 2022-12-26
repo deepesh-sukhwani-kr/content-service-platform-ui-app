@@ -26,6 +26,13 @@
                       </h2>
                     </td>
                   </tr>
+                  
+                  <tr>
+                    <td colspan="4" align="center">
+                      &nbsp;&nbsp;<div>
+                        <a href="../../assets/CSV_Upload_Template.csv">CSV File Template</a></div>
+                    </td>
+                  </tr>
                   <tr>
                     <td colspan="4">&nbsp;</td>
                   </tr>
@@ -101,6 +108,7 @@
                     <th>Source</th>
                     <th>Image Type</th>
                     <th>Color Profile</th>
+                    <th>Image Type</th>
                   </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-csvAsset>
@@ -125,22 +133,23 @@
                       <td>{{csvAsset.source}}</td>
                       <td>{{csvAsset.imageType}}</td>
                       <td>{{csvAsset.colorProfile}}</td>
+                      <td>{{csvAsset.imageOrientationType}}</td>
                     </tr>
                   </ng-template>
                   </p-table>
-</div>
-</td>
-</tr>
-<tr>
-  <td colspan="4">&nbsp;</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</form>
-</td>
-</tr>
-</table>
+                  </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4">&nbsp;</td>
+                </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </td>
+    </tr>
+  </table>
 </div>
 

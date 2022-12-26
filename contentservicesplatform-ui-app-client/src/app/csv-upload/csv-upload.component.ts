@@ -226,7 +226,7 @@ export class CsvUploadComponent implements OnInit {
   private populateAssets(data: any) {
     this.csvAssets = [];
     for (let i = 0; i < data.length; i++) {
-      if (i != 0 && data[i].length === 13) {
+      if (i != 0 && data[i].length === 14) {
         this.csvAssets.push(this.populateAsset(data[i]));
       }
     }
@@ -248,6 +248,7 @@ export class CsvUploadComponent implements OnInit {
     csvAsset.imageType = asset[10];
     csvAsset.fileName = asset[11];
     csvAsset.colorProfile = asset[12];
+    csvAsset.imageOrientationType = asset[13];
     csvAsset.fileProvided = "../../assets/cros.jfif";
     csvAsset.fileProvidedStatus = false;
     csvAsset.uploadStatus = 'Not Started';
@@ -316,7 +317,7 @@ export class CsvUploadComponent implements OnInit {
 
   private validateCsv(data: any) {
     this.hasError = false;
-    if (data[0].length != 13 || data[0][0].trim().toUpperCase() != 'GTIN' ||
+    if (data[0].length != 14 || data[0][0].trim().toUpperCase() != 'GTIN' ||
       data[0][1].trim().toUpperCase() != 'VIEW_ANGLE' ||
       data[0][2].trim().toUpperCase() != 'SIZE' ||
       data[0][3].trim().toUpperCase() != 'BACKGROUND' ||
@@ -328,11 +329,12 @@ export class CsvUploadComponent implements OnInit {
       data[0][9].trim().toUpperCase() != 'SOURCE' ||
       data[0][10].trim().toUpperCase() != 'IMAGE_TYPE' ||
       data[0][11].trim().toUpperCase() != 'FILE_NAME' ||
-      data[0][12].trim().toUpperCase() != 'COLOR_PROFILE') {
+      data[0][12].trim().toUpperCase() != 'COLOR_PROFILE' ||
+      data[0][13].trim().toUpperCase() != 'IMAGE_ORIENTATION_TYPE') {
       this.showError("Invalid data format:", "The provided CSV data format is invalid. " +
         "The column headers should be present exactly in the following ORDER and SPELLING, " +
         "GTIN, VIEW_ANGLE, SIZE, BACKGROUND, LAST_MODIFIED_DT, DESCRIPTION, UPC_10, UPC_12, UPC_13, " +
-        "SOURCE, IMAGE_TYPE, FILE_NAME, COLOR_PROFILE");
+        "SOURCE, IMAGE_TYPE, FILE_NAME, COLOR_PROFILE, IMAGE_ORIENTATION_TYPE");
       this.hasError = true;
       return;
     }
@@ -374,6 +376,8 @@ export class CsvUploadComponent implements OnInit {
       str += CsvUploadConstants.VALIDATION_ERR_FILE_NAME_MISSING;
     if (!asset.colorProfile.trim())
       str += CsvUploadConstants.VALIDATION_ERR_COLOR_PROFILE_MISSING;
+    if (!asset.imageOrientationType.trim())
+      str += CsvUploadConstants.VALIDATION_ERR_IMAGE_ORIENTATION_TYPE;
     if (str != '') {
       this.showError(CsvUploadConstants.VALIDATION_PREFIX_ROW_NO + index + ':', str);
       this.hasError = true;
@@ -423,7 +427,7 @@ export class CsvUploadComponent implements OnInit {
       (<User>this.authService.getUser()).username+'-' + new Date().getMilliseconds()
       + "-" + identifier.gtin;
     request.creationDatetime = new Date().toISOString();
-    request.imageType = 'ProductImage';
+    request.imageType = csvAsset.imageOrientationType;
     request.assetIdentifier = identifier;
     request.assetDetails = this.buildAssets(csvAsset);
     return request;
@@ -449,6 +453,7 @@ export class CsvUploadComponent implements OnInit {
     image.upc10 = csvAsset.upc10;
     image.upc12 = csvAsset.upc12;
     image.upc13 = csvAsset.upc13;
+    image.imageOrientationType = csvAsset.imageOrientationType;
     images.push(image);
     return images;
   }
@@ -505,7 +510,8 @@ export class CsvUploadComponent implements OnInit {
       line += csvAsset.upc13 + ',';
       line += csvAsset.source + ',';
       line += csvAsset.imageType + ',';
-      line += csvAsset.colorProfile;
+      line += csvAsset.colorProfile + ',';
+      line += csvAsset.imageOrientationType;
       str += line + '\r\n';
     })
     return str;

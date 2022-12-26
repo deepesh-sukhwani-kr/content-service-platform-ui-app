@@ -4,6 +4,7 @@ export class ImageObject {
   providedSize: string;
   background: string;
   source: string;
+  imageOrientationType: string;
   description: string;
   lastModifiedDate: string;
   fileName: string;

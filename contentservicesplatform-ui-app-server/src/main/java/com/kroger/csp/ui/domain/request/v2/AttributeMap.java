@@ -65,6 +65,9 @@ public class AttributeMap {
     private String impCapturedDt;
 
     @JsonIgnore
+    private String imageOrientationType;
+
+    @JsonIgnore
     public String getImpColorRep() {
         return impColorRep;
     }
@@ -135,6 +138,16 @@ public class AttributeMap {
     }
 
     @JsonIgnore
+    public String getImageOrientationType() {
+        return imageOrientationType;
+    }
+
+    @JsonIgnore
+    public void setImageOrientationType(String imageOrientationType) {
+        this.imageOrientationType = imageOrientationType;
+    }
+
+    @JsonIgnore
     public HashMap<String, String> getAttrMap() throws Exception {
         HashMap<String, String> attributeMap = new HashMap<>();
         if (this.getImpViewAngle() != null) {
@@ -182,6 +195,10 @@ public class AttributeMap {
         if (this.getImpCapturedDt() != null) {
             attributeMap.put("IMP_CAPTURED_DT", this.getImpCapturedDt());
         }
+        
+        if (this.getImageOrientationType() != null) {
+            attributeMap.put("IMAGE_ORIENTATION_TYPE", this.getImageOrientationType());
+        }
         return attributeMap;
     }
 
@@ -192,7 +209,7 @@ public class AttributeMap {
                 + impSource + ", IMP_IMAGE_LAST_MODIFIED_DT=" + impImageLastModifiedDt + ", IMP_FILE_TYPE_EXT=" + impFileTypeExt
                 + ", IMP_COLOR_REP=" + impColorRep + ", IMP_IMAGE_ID=" + impImageId + ", IMP_RES_DPI=" + impResDpi
                 + ", IMP_HEIGHT_PX=" + impHeightPx + ", IMP_WIDTH_PX=" + impWidthPx + ", IMP_GTIN=" + impGtin
-                + ", IMP_CAPTURED_DT=" + impCapturedDt + "]";
+                + ", IMP_CAPTURED_DT=" + impCapturedDt + ", IMAGE_ORIENTATION_TYPE=" + imageOrientationType +"]";
     }
 
 }
