@@ -48,13 +48,16 @@ kroger:
     viewangles: front, back, top, bottom, left, right
     size:
       kwikee: 1000x1000
+      syndigo: 1000x1000
       gladson: 1000x1000
     background:
       kwikee: white
+      syndigo: white
       gladson: transparent
     #placeholder for image type
     imagetype:
       kwikee: jpeg
+      syndigo: jpeg
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
@@ -203,12 +206,15 @@ kroger:
     viewangles: front, back, top, bottom, left, right
     size:
       kwikee: 1000x1000
+      syndigo: 1000x1000
       gladson: 1000x1000
     background:
       kwikee: white
+      syndigo: white
       gladson: transparent
     imagetype:
       kwikee: jpeg
+      syndigo: jpeg
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
@@ -271,13 +277,16 @@ kroger:
     viewangles: front, back, top, bottom, left, right
     size:
       kwikee: 1000x1000
+      syndigo: 1000x1000
       gladson: 1000x1000
     background:
       kwikee: white
+      syndigo: white
       gladson: transparent
     #placeholder for image type
     imagetype:
       kwikee: jpeg
+      syndigo: jpeg
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
@@ -346,13 +355,16 @@ kroger:
     viewangles: front, back, top, bottom, left, right
     size:
       kwikee: 1000x1000
+      syndigo: 1000x1000
       gladson: 1000x1000
     background:
       kwikee: white
+      syndigo: white
       gladson: transparent
     #placeholder for image type
     imagetype:
       kwikee: jpeg
+      syndigo: jpeg
       gladson: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage

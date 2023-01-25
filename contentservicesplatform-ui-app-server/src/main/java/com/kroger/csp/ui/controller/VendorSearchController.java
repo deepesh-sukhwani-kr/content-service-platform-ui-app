@@ -4,6 +4,7 @@ import com.kroger.csp.ui.domain.request.RawAssetRequest;
 import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.service.GladsonSearchService;
 import com.kroger.csp.ui.service.KwikeeSearchService;
+import com.kroger.csp.ui.service.SyndigoSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class VendorSearchController {
     @Autowired
     private GladsonSearchService gladsonService;
 
+    @Autowired
+    private SyndigoSearchService syndigoService;
+
     /**
      *
      * @param vendorSource
@@ -43,6 +47,8 @@ public class VendorSearchController {
         try {
             if(StringUtils.equalsIgnoreCase(vendorSource, Vendor.KWIKEE.name()))
                 response = kwikeeService.getImageDetailsByGtin(gtin);
+            if(StringUtils.equalsIgnoreCase(vendorSource, Vendor.SYNDIGO.name()))
+                response = syndigoService.getImageDetailsByGtin(gtin);
             else if(StringUtils.equalsIgnoreCase(vendorSource, Vendor.GLADSON.name()))
                 response = gladsonService.getImageDetailsByGtin(gtin);
         } catch (Exception e) {
@@ -57,6 +63,8 @@ public class VendorSearchController {
         try {
             if(request.getVendor().trim().equalsIgnoreCase(Vendor.KWIKEE.name()))
                 image = kwikeeService.getRawImage(request.getUrl());
+            if(request.getVendor().trim().equalsIgnoreCase(Vendor.SYNDIGO.name()))
+                image = syndigoService.getRawImage(request.getUrl());
             if(request.getVendor().trim().equalsIgnoreCase(Vendor.GLADSON.name()))
                 image = gladsonService.getRawImage(request.getUrl());
         }catch (Exception ex){
@@ -68,5 +76,5 @@ public class VendorSearchController {
     /**
      * Constants to represent vendors
      */
-    private enum Vendor{ KWIKEE, GLADSON}
+    private enum Vendor{ KWIKEE, GLADSON, SYNDIGO}
 }

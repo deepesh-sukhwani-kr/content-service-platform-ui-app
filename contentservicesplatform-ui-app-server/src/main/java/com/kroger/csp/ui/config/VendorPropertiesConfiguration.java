@@ -40,4 +40,16 @@ public class VendorPropertiesConfiguration {
         Resource resource = new ClassPathResource("/GladsonContinuousImageUpdate.properties");
         return PropertiesLoaderUtils.loadProperties(resource);
     }
+
+    /**
+     * Read Syndigo properties
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    @Qualifier("syndigoProperties")
+    public Properties getSyndigoProperties() throws Exception {
+        Resource resource = new ClassPathResource("/SyndigoContinuousImageUpdate.properties");
+        return PropertiesLoaderUtils.loadProperties(resource);
+    }
 }

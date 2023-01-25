@@ -1,6 +1,8 @@
 package com.kroger.csp.ui;
 
 import com.kroger.csp.ui.controller.VendorSearchController;
+import com.kroger.csp.ui.service.SyndigoSearchService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ public class ContentServicesPlatformUiAppApplicationTests {
 
 	@Autowired
 	private VendorSearchController controller;
+	@Autowired
+	private SyndigoSearchService syndigoService;
 
 
 	@Test
@@ -22,4 +26,11 @@ public class ContentServicesPlatformUiAppApplicationTests {
 		controller.vendorSearch("kwikee","00011110028754");
 	}
 
+	//@Ignore
+	@Test
+	public void testChecksImageSearchReturnsSyndigoImageAttributesWithAnotherGtin() throws Exception {
+
+		//Then
+		Assert.assertNotNull(syndigoService.getImageDetailsByGtin("00020000447117"));
+	}
 }
