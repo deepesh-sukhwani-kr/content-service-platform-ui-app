@@ -23,7 +23,7 @@ public class ContentServicesPlatformUiAppApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		controller.vendorSearch("kwikee","00011110028754");
+		controller.vendorSearch("syndigo","00011110028754");
 	}
 
 	//@Ignore

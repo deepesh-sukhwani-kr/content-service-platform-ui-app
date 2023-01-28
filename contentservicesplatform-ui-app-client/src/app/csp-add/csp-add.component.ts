@@ -159,7 +159,7 @@ export class CspAddComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = true;
       this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
       this.ifSubmitted = false;
-    } else if (event.value === "syndigo" || event.value === "gladson") {
+    } else if (event.value === "syndigo") {
       this.setVisibility("fileUpload" + i, "hidden");
       this.setVisibility("vendorUrl" + i, "hidden");
       this.setVisibility("vendorUrlLabel" + i, "hidden");
@@ -235,7 +235,6 @@ export class CspAddComponent implements OnInit {
   private initiateSources() {
     this.sources = [
       {label: 'Syndigo', value: 'syndigo'},
-      {label: 'Gladson', value: 'gladson'},
       {label: 'OneWorldSync', value: 'url'},
       {label: 'Imp-Support-Legacy-DS', value: 'imp-support-legacy-ds'}
     ];
@@ -468,8 +467,6 @@ export class CspAddComponent implements OnInit {
     let source: string = this.imageAttributes.controls[index].get('source').value;
     if (source === 'syndigo')
       image.assetType = AssetType.SYNDIGOAPM;
-    if (source === 'gladson')
-      image.assetType = AssetType.GLADSONAPM;
     if (source === 'url')
       image.assetType = AssetType.ASSETTYPEURL;
 
