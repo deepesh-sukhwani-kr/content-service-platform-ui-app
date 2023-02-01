@@ -30,7 +30,7 @@ export class CspVendorComponent implements OnInit {
               private router: Router, private utilService: UtilService, private http: HttpClient) {
   }
 
-  vendor: string = 'Kwikee';
+  vendor: string = 'Syndigo';
   selectedValues: string = "Front";
   form: FormGroup;
   assetForm: FormGroup
@@ -173,20 +173,14 @@ export class CspVendorComponent implements OnInit {
     image.viewAngle = this.selectedAsset.viewAngle;
     image.providedSize = this.selectedAsset.providedSize;
     image.background = this.selectedAsset.background;
-    if (this.vendor.trim().toUpperCase() === 'KWIKEE') {
-      image.description = this.selectedAsset.description;
-      image.source = 'IMP-SUPPORT-KWIKEE-DS';
-    } else {
-      image.source = 'IMP-SUPPORT-GLADSON-DS';
-    }
+    image.description = this.selectedAsset.description;
+    image.source = 'SYNDIGO-CURATED';
     image.lastModifiedDate = this.selectedAsset.lastModifiedDate;
     image.fileName = this.selectedAsset.filename;
     image.fileExtension = this.getFileExtension(image.fileName);
     let source: string = this.vendor.toLowerCase().trim();
-    if (source === 'kwikee')
-      image.assetType = AssetType.KWIKEEAPM;
-    if (source === 'gladson')
-      image.assetType = AssetType.GLADSONAPM;
+    if (source === 'syndigo')
+      image.assetType = AssetType.SYNDIGOAPM;
     image.asset = this.selectedAsset.url;
     images.push(image);
     return images;
@@ -279,12 +273,10 @@ export class CspVendorComponent implements OnInit {
       responseType: 'blob'
     };
     this.http.post('/imp/ui/v1/server/getAssset', request, httpOptions).subscribe((data) => {
-
+      
       let blob: Blob;
       blob = new Blob([data.body], {type: 'image/jpeg'});
       FileSaver.saveAs(blob, asset.gtin + '_' + asset.viewAngle + '.jpeg');
     });
-
   }
-
 }

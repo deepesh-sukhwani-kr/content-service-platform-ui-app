@@ -2,8 +2,7 @@ package com.kroger.csp.ui.controller;
 
 import com.kroger.csp.ui.domain.request.RawAssetRequest;
 import com.kroger.csp.ui.domain.response.VendorSearchResponse;
-import com.kroger.csp.ui.service.GladsonSearchService;
-import com.kroger.csp.ui.service.KwikeeSearchService;
+import com.kroger.csp.ui.service.SyndigoSearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class VendorSearchController {
 
     @Autowired
-    private KwikeeSearchService kwikeeService;
-    @Autowired
-    private GladsonSearchService gladsonService;
+    private SyndigoSearchService syndigoService;
 
     /**
      *
@@ -41,10 +38,8 @@ public class VendorSearchController {
             @RequestParam(value = "gtin", required = true) String gtin) {
         VendorSearchResponse response = new VendorSearchResponse();
         try {
-            if(StringUtils.equalsIgnoreCase(vendorSource, Vendor.KWIKEE.name()))
-                response = kwikeeService.getImageDetailsByGtin(gtin);
-            else if(StringUtils.equalsIgnoreCase(vendorSource, Vendor.GLADSON.name()))
-                response = gladsonService.getImageDetailsByGtin(gtin);
+            if(StringUtils.equalsIgnoreCase(vendorSource, Vendor.SYNDIGO.name()))
+                response = syndigoService.getImageDetailsByGtin(gtin);
         } catch (Exception e) {
             log.error("Error in Vendor Search - UI : " + e);
         }
@@ -55,10 +50,8 @@ public class VendorSearchController {
     public ResponseEntity<byte[]> getImage(@RequestBody RawAssetRequest request){
         byte[] image = null;
         try {
-            if(request.getVendor().trim().equalsIgnoreCase(Vendor.KWIKEE.name()))
-                image = kwikeeService.getRawImage(request.getUrl());
-            if(request.getVendor().trim().equalsIgnoreCase(Vendor.GLADSON.name()))
-                image = gladsonService.getRawImage(request.getUrl());
+            if(request.getVendor().trim().equalsIgnoreCase(Vendor.SYNDIGO.name()))
+                image = syndigoService.getRawImage(request.getUrl());
         }catch (Exception ex){
             log.error("Error in Vendor Search - UI : " + ex);
         }
@@ -68,5 +61,5 @@ public class VendorSearchController {
     /**
      * Constants to represent vendors
      */
-    private enum Vendor{ KWIKEE, GLADSON}
+    private enum Vendor{ SYNDIGO}
 }

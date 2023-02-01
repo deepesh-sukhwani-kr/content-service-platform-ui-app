@@ -47,15 +47,12 @@ kroger:
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
-      kwikee: 1000x1000
-      gladson: 1000x1000
+      syndigo: 1000x1000
     background:
-      kwikee: white
-      gladson: transparent
+      syndigo: white
     #placeholder for image type
     imagetype:
-      kwikee: jpeg
-      gladson: jpeg
+      syndigo: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
@@ -202,14 +199,11 @@ kroger:
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
-      kwikee: 1000x1000
-      gladson: 1000x1000
+      syndigo: 1000x1000
     background:
-      kwikee: white
-      gladson: transparent
+      syndigo: white
     imagetype:
-      kwikee: jpeg
-      gladson: jpeg
+      syndigo: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
@@ -270,15 +264,12 @@ kroger:
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
-      kwikee: 1000x1000
-      gladson: 1000x1000
+      syndigo: 1000x1000
     background:
-      kwikee: white
-      gladson: transparent
+      syndigo: white
     #placeholder for image type
     imagetype:
-      kwikee: jpeg
-      gladson: jpeg
+      syndigo: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch
@@ -345,15 +336,12 @@ kroger:
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
-      kwikee: 1000x1000
-      gladson: 1000x1000
+      syndigo: 1000x1000
     background:
-      kwikee: white
-      gladson: transparent
+      syndigo: white
     #placeholder for image type
     imagetype:
-      kwikee: jpeg
-      gladson: jpeg
+      syndigo: jpeg
   serverendpoints:
     add: /imp/ui/v2/server/addImage
     search: /imp/ui/v2/server/cspSearch

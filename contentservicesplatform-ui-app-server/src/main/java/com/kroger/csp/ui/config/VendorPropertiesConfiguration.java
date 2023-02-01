@@ -11,33 +11,21 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import java.util.Properties;
 
 /**
- * Configuration class to read properties to hit vendor API's (Kwikee and Gladson)
+ * Configuration class to read properties to hit vendor API's (Syndigo)
  */
 @Configuration
 @ConfigurationProperties
 public class VendorPropertiesConfiguration {
 
     /**
-     * Read Kwikee properties
+     * Read Syndigo properties
      * @return
      * @throws Exception
      */
     @Bean
-    @Qualifier("kwikeeProperties")
-    public Properties getKwikeeProperties() throws Exception {
-        Resource resource = new ClassPathResource("/KwikeeContinuousImageUpdate.properties");
-        return PropertiesLoaderUtils.loadProperties(resource);
-    }
-
-    /**
-     * Read Gladson properties
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    @Qualifier("gladsonProperties")
-    public Properties getGladsonProperties() throws Exception {
-        Resource resource = new ClassPathResource("/GladsonContinuousImageUpdate.properties");
+    @Qualifier("syndigoProperties")
+    public Properties getSyndigoProperties() throws Exception {
+        Resource resource = new ClassPathResource("/SyndigoContinuousImageUpdate.properties");
         return PropertiesLoaderUtils.loadProperties(resource);
     }
 }

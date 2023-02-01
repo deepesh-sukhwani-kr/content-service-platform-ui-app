@@ -159,7 +159,7 @@ export class CspAddComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = true;
       this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
       this.ifSubmitted = false;
-    } else if (event.value === "kwikee" || event.value === "gladson") {
+    } else if (event.value === "syndigo") {
       this.setVisibility("fileUpload" + i, "hidden");
       this.setVisibility("vendorUrl" + i, "hidden");
       this.setVisibility("vendorUrlLabel" + i, "hidden");
@@ -234,8 +234,7 @@ export class CspAddComponent implements OnInit {
 
   private initiateSources() {
     this.sources = [
-      {label: 'Kwikee', value: 'kwikee'},
-      {label: 'Gladson', value: 'gladson'},
+      {label: 'Syndigo', value: 'syndigo'},
       {label: 'OneWorldSync', value: 'url'},
       {label: 'Imp-Support-Legacy-DS', value: 'imp-support-legacy-ds'}
     ];
@@ -466,10 +465,8 @@ export class CspAddComponent implements OnInit {
     image.fileExtension = this.getFileExtension(image.fileName);
     image.asset = this.imageAttributes.at(index).get('url').value;
     let source: string = this.imageAttributes.controls[index].get('source').value;
-    if (source === 'kwikee')
-      image.assetType = AssetType.KWIKEEAPM;
-    if (source === 'gladson')
-      image.assetType = AssetType.GLADSONAPM;
+    if (source === 'syndigo')
+      image.assetType = AssetType.SYNDIGOAPM;
     if (source === 'url')
       image.assetType = AssetType.ASSETTYPEURL;
 
