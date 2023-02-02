@@ -105,7 +105,7 @@ public class AddImageRequestConverter {
     private Asset populateAsset(AddImageUIRequest request) throws Exception{
         Asset asset = new Asset();
         asset.setImageType(request.getImageType());
-        //asset.setItemType("ProductImages");
+        asset.setItemType("ProductImages");
         asset.setGTIN(request.getAssetIdentifier().getGtin());
         asset.setAssetDetails(populateAssetDetailsList(request.getAssetDetails()));
         return asset;
