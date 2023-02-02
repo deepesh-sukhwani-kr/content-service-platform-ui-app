@@ -225,9 +225,7 @@ export class CspVendorComponent implements OnInit {
         this.div_visible = false;
         this.description = data.description;
         this.vendorAssets.forEach(asset => {
-          if (this.vendor.trim().toUpperCase() === 'GLADSON') {
-            asset.lastModifiedDate = (new Date()).toISOString();
-          }
+          asset.lastModifiedDate = (new Date()).toISOString();
           asset.gtin = data.gtin;
           asset.description = data.description;
           asset.providedSize = data.providedSize;
@@ -273,7 +271,7 @@ export class CspVendorComponent implements OnInit {
       responseType: 'blob'
     };
     this.http.post('/imp/ui/v1/server/getAssset', request, httpOptions).subscribe((data) => {
-      
+
       let blob: Blob;
       blob = new Blob([data.body], {type: 'image/jpeg'});
       FileSaver.saveAs(blob, asset.gtin + '_' + asset.viewAngle + '.jpeg');
