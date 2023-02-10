@@ -97,6 +97,7 @@ public class AddImageV2RequestConverter {
     private Asset populateAsset(AddImageUIRequest request){
         Asset asset = new Asset();
         asset.setAssociation(populateAssociation(request.getAssetIdentifier().getGtin()));
+        asset.getAssociation().setImageType(request.getAssetDetails().get(0).getImageOrientationType());
         asset.setAssetDetails(populateAssetDetailsList(request.getAssetDetails()));
         return asset;
     }

@@ -250,6 +250,7 @@ export class CspVendorComponent implements OnInit {
     let request: RawAsset;
     request = new RawAsset();
     request.url = asset.url;
+    console.log(request.url);
     request.vendor = this.vendor;
     const httpOptions: {
       headers?: HttpHeaders | {
