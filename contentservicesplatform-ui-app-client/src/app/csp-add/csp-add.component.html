@@ -123,7 +123,7 @@
                                 <b>Source:&nbsp;&nbsp;</b></td>
                               <td colspan="1" width="30%">
                                 <p-dropdown [options]="sources" placeholder="Select Source"
-                                            [style]="{'width':'220px'}" [(ngModel)]="source"
+                                            [style]="{'width':'220px'}"
                                             (onChange)="onSourceChange($event, i);"
                                             formControlName="source"></p-dropdown>
                               </td>
@@ -131,16 +131,15 @@
                                   style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
                                 <b>View Angle:&nbsp;&nbsp;</b></td>
                               <td colspan="1" width="30%">
-
-                                <div *ngIf="!div_viewAngle_swatch">
-                                <p-dropdown [options]="viewAngles" placeholder="Select View Angle" 
+                                <div style="display: flex;flex-wrap: wrap;">
+                                <div id="dvViewAngle{{i}}" style="display: block;">
+                                <p-dropdown [options]="viewAngles" placeholder="Select View Angle" id="viewAngle"
                                             [style]="{'width':'220px'}" formControlName="viewAngle"></p-dropdown>
-                                </div>
-                                <div *ngIf="imageOrientationType == 'swatch' && div_viewAngle_swatch">
-                                  <input type="text" size="18px" value="Swatch" size="22px" id="SwatchViewAngle"
+                                </div><div id="dvSwatch{{i}}" style="display: none;">
+                                  <input type="text" size="18px" value="Swatch" size="22px" id="SwatchViewAngle{{i}}"
                                        pInputText readonly/>
                                 </div>
-
+                              </div>
                               </td>
                             </tr>
                             <tr>
@@ -193,8 +192,8 @@
                                   style="font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;font-size: 1.1em;">
                                 <b>Image Type:&nbsp;&nbsp;</b></td>
                               <td colspan="1" width="30%">
-                                <p-dropdown [options]="imageOrientationTypes" [(ngModel)]="imageOrientationType"
-                                            [style]="{'width':'220px'}" id="imageOrientationType" placeholder="Select Image Type" 
+                                <p-dropdown [options]="imageOrientationTypes"
+                                            [style]="{'width':'220px'}" id="imageOrientationType{{i}}" placeholder="Select Image Type"
                                             (onChange)="onImageTypeChange($event, i);"
                                             formControlName="imageOrientationType"></p-dropdown>
                               </td>

@@ -1,5 +1,6 @@
 package com.kroger.csp.ui.service;
 
+import com.kroger.csp.ui.config.SyndigoConfiguration;
 import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
 import com.kroger.csp.ui.util.VendorUtil;
@@ -33,7 +34,7 @@ public class SyndigoSearchService {
     private VendorUtil vendorUtil;
     @Autowired
     @Qualifier("syndigoProperties")
-    Properties properties;
+    SyndigoAPI properties;
     @Value("${kroger.imagedata.viewangles}")
     private String[] viewAngles;
     @Value("${kroger.imagedata.size.syndigo}")
@@ -50,13 +51,13 @@ public class SyndigoSearchService {
      */
     public VendorSearchResponse getImageDetailsByGtin(String gtin) throws Exception {
         VendorSearchResponse response = new VendorSearchResponse();
-        SyndigoAPI api = new SyndigoAPI(properties);
+
         response.setGtin(gtin);
         response.setImageType(imageType);
         response.setSource(SyndigoConstants.SYNDIGO.value);
         response.setBackground(background);
         response.setProvidedSize(providedSize);
-        response.setViewAngleList(vendorUtil.getViewAngleList(api.imageSearchReturnsSyndigoImageAttribute(gtin)));
+        response.setViewAngleList(vendorUtil.getViewAngleList(properties.imageSearchReturnsSyndigoImageAttribute(gtin)));
         return response;
     }
 
@@ -66,7 +67,7 @@ public class SyndigoSearchService {
      * @throws Exception
      */
     public byte[] getRawImage(String url) throws Exception{
-        return Base64.decodeBase64(new SyndigoAPI(properties).getAssetFromURL(url));
+        return Base64.decodeBase64(properties.getAssetFromURL(url));
     }
 
 

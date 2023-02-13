@@ -45,6 +45,7 @@ export class CspAddComponent implements OnInit {
   fileStrings: string[] = [];
   div_visible: boolean = false;
   div_viewAngle_swatch: boolean = false;
+  image_orientation_type: string;
   ifSubmitted: boolean = false;
   viewAngleResponse: string[];
 
@@ -90,6 +91,7 @@ export class CspAddComponent implements OnInit {
     this.msgSeverity = "";
     this.setVisibility("gtinMessage", "hidden");
     this.div_viewAngle_swatch = false;
+    this.image_orientation_type = "ProductImage";
     this.form.reset();
     this.addAttributes();
     (<HTMLInputElement>document.getElementById("submit")).disabled = false;
@@ -127,9 +129,17 @@ export class CspAddComponent implements OnInit {
     switch(event.value){
       case CspConstants.IMAGE_TYPE_SWATCH:
         this.div_viewAngle_swatch = true;
+        this.image_orientation_type = 'swatch';
+        (<HTMLInputElement>document.getElementById("dvViewAngle"+index)).style.display = "none";
+        (<HTMLInputElement>document.getElementById("dvSwatch"+index)).style.display = "block";
+        (<HTMLInputElement>document.getElementById("SwatchViewAngle"+index)).style.display = "block";
         break;
       default:
           this.div_viewAngle_swatch = false;
+          this.image_orientation_type = 'productImage';
+          (<HTMLInputElement>document.getElementById("dvViewAngle"+index)).style.display = "block";
+          (<HTMLInputElement>document.getElementById("dvSwatch"+index)).style.display = "none";
+          (<HTMLInputElement>document.getElementById("SwatchViewAngle"+index)).style.display = "none";
           break;
     }
   }
@@ -151,13 +161,16 @@ export class CspAddComponent implements OnInit {
   }
 
   onSourceChange(event, i) {
+    (<HTMLInputElement>document.getElementById("dvSwatch"+i)).style.display = "none";
     if (event.value === "imp-support-legacy-ds") {
       this.setVisibility("fileUpload" + i, "visible");
       this.setVisibility("vendorUrl" + i, "hidden");
       this.setVisibility("vendorUrlLabel" + i, "hidden");
       (<HTMLInputElement>document.getElementById("fileName" + i)).value = "";
       (<HTMLInputElement>document.getElementById("fileName" + i)).disabled = true;
-      this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
+      if(this.imageOrientationTypes.length==1){
+        this.imageOrientationTypes.push({label: "Swatch", value: "swatch"});
+      }
       this.ifSubmitted = false;
     } else if (event.value === "imp-syndigo-ds") {
       this.setVisibility("fileUpload" + i, "hidden");
@@ -269,9 +282,9 @@ export class CspAddComponent implements OnInit {
       imageAttributes: this._formBuilder.array([])
     });
     this.imageAttributes = this.form.get('imageAttributes') as FormArray;
-    
+
     this.addAttributes();
-    
+
   }
 
   private ifEmpty(messages: Message[][]): boolean{
@@ -304,7 +317,7 @@ export class CspAddComponent implements OnInit {
     this.imageUrls.push(null);
     this.imageIds.push(null);
     this.fileStrings.push(null);
-    
+
   }
 
   getMessage(i: number): Message[]{
@@ -456,7 +469,7 @@ export class CspAddComponent implements OnInit {
       this.uploadedFiles[index].type.length);
     image.assetType = AssetType.ASSETTYPEBASE64ENCODED;
     image.asset = this.fileStrings[index];
-    console.log(image.asset);
+    //console.log(image.asset);
   }
 
   private handleUrl(index: number, image: ImageObject) {
