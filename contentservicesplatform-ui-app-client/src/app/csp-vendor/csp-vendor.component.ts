@@ -175,6 +175,7 @@ export class CspVendorComponent implements OnInit {
     image.background = this.selectedAsset.background;
     image.description = this.selectedAsset.description;
     image.source = 'SYNDIGO-CURATED';
+    image.imageOrientationType = 'ProductImage';
     image.lastModifiedDate = this.selectedAsset.lastModifiedDate;
     image.fileName = this.selectedAsset.filename;
     image.fileExtension = this.getFileExtension(image.fileName);

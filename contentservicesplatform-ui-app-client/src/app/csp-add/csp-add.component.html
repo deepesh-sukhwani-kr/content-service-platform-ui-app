@@ -132,10 +132,10 @@
                                 <b>View Angle:&nbsp;&nbsp;</b></td>
                               <td colspan="1" width="30%">
                                 <div style="display: flex;flex-wrap: wrap;">
-                                <div id="dvViewAngle{{i}}" style="visibility: visible;">
+                                <div id="dvViewAngle{{i}}" style="display: block;">
                                 <p-dropdown [options]="viewAngles" placeholder="Select View Angle" id="viewAngle"
                                             [style]="{'width':'220px'}" formControlName="viewAngle"></p-dropdown>
-                                </div><div id="dvSwatch{{i}}" style="visibility: hidden;">
+                                </div><div id="dvSwatch{{i}}" style="display: none;">
                                   <input type="text" size="18px" value="Swatch" size="22px" id="SwatchViewAngle{{i}}"
                                        pInputText readonly/>
                                 </div>

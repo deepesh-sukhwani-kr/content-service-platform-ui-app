@@ -130,16 +130,16 @@ export class CspAddComponent implements OnInit {
       case CspConstants.IMAGE_TYPE_SWATCH:
         this.div_viewAngle_swatch = true;
         this.image_orientation_type = 'swatch';
-        this.setVisibility("dvViewAngle"+ index,"hidden");
-        this.setVisibility("dvSwatch" + index, "visible");
-        this.setVisibility("SwatchViewAngle"+index, "visible");
+        (<HTMLInputElement>document.getElementById("dvViewAngle"+index)).style.display = "none";
+        (<HTMLInputElement>document.getElementById("dvSwatch"+index)).style.display = "block";
+        (<HTMLInputElement>document.getElementById("SwatchViewAngle"+index)).style.display = "block";
         break;
       default:
           this.div_viewAngle_swatch = false;
           this.image_orientation_type = 'productImage';
-          this.setVisibility("dvViewAngle"+ index,"visible");
-          this.setVisibility("dvSwatch" + index, "hidden");
-          this.setVisibility("SwatchViewAngle" + index, "hidden");
+          (<HTMLInputElement>document.getElementById("dvViewAngle"+index)).style.display = "block";
+          (<HTMLInputElement>document.getElementById("dvSwatch"+index)).style.display = "none";
+          (<HTMLInputElement>document.getElementById("SwatchViewAngle"+index)).style.display = "none";
           break;
     }
   }
@@ -161,7 +161,7 @@ export class CspAddComponent implements OnInit {
   }
 
   onSourceChange(event, i) {
-    this.setVisibility("dvSwatch" + i, "hidden");
+    (<HTMLInputElement>document.getElementById("dvSwatch"+i)).style.display = "none";
     if (event.value === "imp-support-legacy-ds") {
       this.setVisibility("fileUpload" + i, "visible");
       this.setVisibility("vendorUrl" + i, "hidden");

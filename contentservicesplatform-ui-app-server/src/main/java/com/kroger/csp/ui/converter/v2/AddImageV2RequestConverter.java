@@ -84,7 +84,7 @@ public class AddImageV2RequestConverter {
      */
     private Association populateAssociation(String gtin){
         Association association = new Association();
-        association.setImageType("ProductImage");
+        //association.setImageType("ProductImage");
         association.setTags(populateTags(gtin));
         return association;
     }
