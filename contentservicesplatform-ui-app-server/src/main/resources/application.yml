@@ -43,7 +43,7 @@ kroger:
   krypt:
     aes:
       #encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
-      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
+      encryptedKey: uY266kD0KlmVxQxa1gLAvSCFdAFtS4OBh/kT4oQsAEO1ujL/BlkhpqXohd8HDDW8
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -78,12 +78,12 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
+      proxyPwd: KRYPT(toIUXUJKbuCs4PGqavvdxd/9i+yXWO5ofybvo2uhpO0xFsjaKd3dm/M+yAwq4Zd5)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
+      authSecret: KRYPT(lNZndFUvoZPazzAUVkH6eq0tbyu0fv1bju7EJGegE8k9pb8qBZ0y1WStWZ9L3WIk4PKgBItOu0nqHPmJPyJ4nK7MlScIIDoD7qHEuIBN0pBXBbLFQvM6RvHdhJhEjonPBCykrYbw4nm4lX2jUk0s3A==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -223,7 +223,7 @@ kroger:
     logout-uri: https://identity.kroger.com/identity/logout
   krypt:
     aes:
-      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
+      encryptedKey: jvbwMTjvlCaWZWuXQsZm18GfCpjA9UZzgbcArZzY4k8BT0P0+ubtWVu/wMpzrBgu
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -252,12 +252,12 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
+      proxyPwd: KRYPT(tjh2r3Gwuzinf47aXutshQGR9kBqWZuSC90esSCHn77TZuc2AaZVja8QhEL2uJgs)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
+      authSecret: KRYPT(Wp4Lo3YDGRS6ZgxmpH1AlOrvync4KxiyBGrSFEwgdVLNDwBWb7S2H6WC+SOxKwBanYwLe2opBBZLwsUOkl5X1zO0u5YSngY3j2zDzx9e6HNETTb8Uc23acJqxJlp0oNvlLnBGWzk9Op0Q52ZTPUWLQ==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -314,7 +314,7 @@ kroger:
     #logout-uri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/logout
   krypt:
     aes:
-      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
+      encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
       #encryptedKey: ${vcap.services.cspux-encryptionkey.credentials.encryptedKey}
   imagedata:
     viewangles: front, back, top, bottom, left, right
@@ -357,12 +357,12 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
+      proxyPwd: KRYPT(x2BPSYggDHFX5oU0YzywlUEI/RUo8plPFqRoUxwoRd32H7WZmafZkXYJoR3wST78)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
+      authSecret: KRYPT(n8BmzqFr+djlkoUHTpuHpHD3d0sYm5f/O54YgMg7dQD0/ap/QJIgz6UvtAqEV5hTe12TWqeqadmqrLMoC7vndZ/BN3qGp1vlfUgGddiOs1ov5w2wqh4YiQuwWG29PN4dJ0uLDMleJKJyGuGv9r6OMQ==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -414,7 +414,7 @@ kroger:
     logout-uri: https://identity.kroger.com/identity/logout
   krypt:
     aes:
-      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
+      encryptedKey: Kcqe7lJq/kFzYUB/P8QwbptNc5U9jlS4d+63Q8uCBA21gcZ9TJkzEZC+JohWjUcX
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -456,12 +456,12 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
+      proxyPwd: KRYPT(DEdr+kMj7OreUtIzqp/Z4BDn9lPEgzc7zdJgZNF3SpzIiADFvXr2PXssyjJXZ51k)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
+      authSecret: KRYPT(rwq652YDOFNjUBj4Fc0dIEhgo8ikx1E5yWPvybtDsmEdOvhKz3b2rFNLVwLTcPdtjYnCgZFmOhl0p9kcT1o8mERYoHL8LeUchq93ZuZORpt39kaJkkNFCzHMLbrkvilXvWXC6V8vmo80nwZAiJFdRg==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
