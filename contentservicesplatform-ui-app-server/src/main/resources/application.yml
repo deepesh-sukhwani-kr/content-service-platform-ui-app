@@ -43,7 +43,7 @@ kroger:
   krypt:
     aes:
       #encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
-      encryptedKey: uY266kD0KlmVxQxa1gLAvSCFdAFtS4OBh/kT4oQsAEO1ujL/BlkhpqXohd8HDDW8
+      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -83,7 +83,7 @@ kroger:
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
+      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -223,7 +223,7 @@ kroger:
     logout-uri: https://identity.kroger.com/identity/logout
   krypt:
     aes:
-      encryptedKey: jvbwMTjvlCaWZWuXQsZm18GfCpjA9UZzgbcArZzY4k8BT0P0+ubtWVu/wMpzrBgu
+      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -257,7 +257,7 @@ kroger:
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
+      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -314,7 +314,7 @@ kroger:
     #logout-uri: ${vcap.services.cspux-auth.credentials.identityServerUri}/identity/logout
   krypt:
     aes:
-      encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
+      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
       #encryptedKey: ${vcap.services.cspux-encryptionkey.credentials.encryptedKey}
   imagedata:
     viewangles: front, back, top, bottom, left, right
@@ -362,7 +362,7 @@ kroger:
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
+      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -414,7 +414,7 @@ kroger:
     logout-uri: https://identity.kroger.com/identity/logout
   krypt:
     aes:
-      encryptedKey: Kcqe7lJq/kFzYUB/P8QwbptNc5U9jlS4d+63Q8uCBA21gcZ9TJkzEZC+JohWjUcX
+      encryptedKey: 4ZAs8Dv53epLTSyTT7Lj/QXvunLWWiY1zkz46WPtfHqDj+rH8iTI/F8dIUYI0/mh
   imagedata:
     viewangles: front, back, top, bottom, left, right
     size:
@@ -461,7 +461,7 @@ kroger:
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
+      authSecret: KRYPT(e3nHl9/BZiVDzjpqFdp4bexliNqyVyC4n/T5xSvh4h7LwcW/sl1nzMCdsqPi2a650VOV1P3vGjtPHBz/1h08eY1Yzlj+9es06ILDQp3Su0aiM1K6cBUpP8s1t0xdH5lLofp9FMfnRKkHiD8H+9VGgw==)
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
