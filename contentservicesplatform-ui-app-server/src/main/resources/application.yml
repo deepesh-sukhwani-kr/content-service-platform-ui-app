@@ -78,7 +78,7 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: 9n8YVv4wjcodSR4u68DW
+      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
@@ -252,7 +252,7 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: 9n8YVv4wjcodSR4u68DW
+      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
@@ -357,7 +357,7 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: 9n8YVv4wjcodSR4u68DW
+      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
@@ -456,7 +456,7 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: 9n8YVv4wjcodSR4u68DW
+      proxyPwd: KRYPT(J2aeNq37+7WvixRxAlOfGLa6BzINi2qaKGcTA8yCvAfIZYTAJ3kvxKa/q5jY6uwp)
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
