@@ -22,10 +22,50 @@
 		<java.version>1.8</java.version>
 		<build.agent>local</build.agent>
 		<build.number>000</build.number>
+		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.minimum>0.05</jacoco-maven-plugin.minimum>
 	</properties>
 
 	<modules>
 		<module>contentservicesplatform-ui-app-client</module>
 		<module>contentservicesplatform-ui-app-server</module>
 	</modules>
+	<build>
+	<plugins>
+	<plugin>
+		<groupId>org.jacoco</groupId>
+		<artifactId>jacoco-maven-plugin</artifactId>
+		<version>${jacoco-maven-plugin.version}</version>
+		<executions>
+			<execution>
+				<id>default</id>
+				<goals>
+					<goal>prepare-agent</goal>
+					<goal>report</goal>
+				</goals>
+			</execution>
+			<execution>
+				<id>check</id>
+				<goals>
+					<goal>check</goal>
+				</goals>
+				<configuration>
+					<rules>
+						<rule>
+							<element>BUNDLE</element>
+							<limits>
+								<limit>
+									<counter>LINE</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>${jacoco-maven-plugin.minimum}</minimum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+				</configuration>
+			</execution>
+		</executions>
+	</plugin>
+	</plugins>
+	</build>
 </project>

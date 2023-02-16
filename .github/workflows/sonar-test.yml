@@ -1,4 +1,4 @@
-name: Sonar Testing
+name: Sonar Testing Via JFrog CLI
 
 # Worklow can be triggered manually from Actions tab as well as runs when new code is pushed to "main" branch
 on:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-    
+
 env:
   M2_HOME: /usr/share/maven
   JFROG_CLI_EXTRACTORS_REMOTE: artifactory/jfrog-cli-extractors-remote
@@ -17,37 +17,65 @@ env:
 jobs:
   maven-build:
     name: Maven build
-    runs-on: kubernetes
+    runs-on: [kubernetes, on-prem]
     container:
-      image: krogertechnology-docker-remote.jfrog.io/maven:3.6.3-openjdk-8
+      image: krogertechnology-docker-remote.jfrog.io/maven:3.6.3-openjdk-11
       credentials:
         username: ${{secrets.JFROG_USERNAME}}
         password: ${{secrets.JFROG_PASSWORD}}
-        
+
     steps:
       - name: 🛒 Check out commit that trigged workflow
         uses: actions/checkout@v2
-        
+
       - name: Cache Maven dependencies
         uses: actions/cache@v2
         with:
-          path: ${{env.M2_HOME}}
+          path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        
+
       - name: 🐸 Download JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v1
-        
+        uses: jfrog/setup-jfrog-cli@v2
+        with:
+          version: 2.9.0
+
       - name: 🐸 Configure JFrog CLI
         run: |
           jfrog config add --url=https://krogertechnology.jfrog.io --user=${{ secrets.JFROG_USERNAME }} --password=${{ secrets.JFROG_PASSWORD }} --interactive=false artifactory
-          
+
       - name: Configure JFrog CLI Maven
         run: |
           jfrog rt mvn-config --server-id-resolve artifactory --server-id-deploy artifactory --repo-resolve-releases libs-release --repo-resolve-snapshots libs-snapshot --repo-deploy-releases kroger-software-engineering --repo-deploy-snapshots kroger-software-engr-snap
-      
+
       - name: Maven clean compile
-        run: jfrog rt mvn clean compiler:compile --build-name $GITHUB_REPOSITORY --build-number $GITHUB_RUN_ID-$GITHUB_RUN_NUMBER
-        
+        run: jfrog rt mvn clean verify
+
+      - name: Upload target folder
+        uses: actions/upload-artifact@v2
+        with:
+          name: target
+          path: target/
+          retention-days: 1
+
+  sonar-scan:
+    name: Scan code with sonar
+    needs: [maven-build]
+    runs-on: [kubernetes, on-prem]
+    steps:
+      - name: 🛒 Check out commit that trigged workflow
+        uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: target
+          path: target/
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
       - name: Install jq
         shell: sh
         run: |
@@ -59,18 +87,15 @@ jobs:
             echo 'Error: jq is not installed/failed to install.' >&2
             exit 1
           fi
-      
+
       - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v1.1.0
+        uses: sonarsource/sonarqube-scan-action@v1.0.0
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN_REF }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL_REF }}
-    
+
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@v1.0.0
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN_REF }}
-        
-      
-    
