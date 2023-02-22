@@ -78,12 +78,14 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(toIUXUJKbuCs4PGqavvdxd/9i+yXWO5ofybvo2uhpO0xFsjaKd3dm/M+yAwq4Zd5)
+      #proxyPwd: KRYPT(toIUXUJKbuCs4PGqavvdxd/9i+yXWO5ofybvo2uhpO0xFsjaKd3dm/M+yAwq4Zd5)
+      proxyPwd: 9n8YVv4wjcodSR4u68DW
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(lNZndFUvoZPazzAUVkH6eq0tbyu0fv1bju7EJGegE8k9pb8qBZ0y1WStWZ9L3WIk4PKgBItOu0nqHPmJPyJ4nK7MlScIIDoD7qHEuIBN0pBXBbLFQvM6RvHdhJhEjonPBCykrYbw4nm4lX2jUk0s3A==)
+      #authSecret: KRYPT(lNZndFUvoZPazzAUVkH6eq0tbyu0fv1bju7EJGegE8k9pb8qBZ0y1WStWZ9L3WIk4PKgBItOu0nqHPmJPyJ4nK7MlScIIDoD7qHEuIBN0pBXBbLFQvM6RvHdhJhEjonPBCykrYbw4nm4lX2jUk0s3A==)
+      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -252,12 +254,14 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(tjh2r3Gwuzinf47aXutshQGR9kBqWZuSC90esSCHn77TZuc2AaZVja8QhEL2uJgs)
+      #proxyPwd: KRYPT(tjh2r3Gwuzinf47aXutshQGR9kBqWZuSC90esSCHn77TZuc2AaZVja8QhEL2uJgs)
+      proxyPwd: 9n8YVv4wjcodSR4u68DW
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(Wp4Lo3YDGRS6ZgxmpH1AlOrvync4KxiyBGrSFEwgdVLNDwBWb7S2H6WC+SOxKwBanYwLe2opBBZLwsUOkl5X1zO0u5YSngY3j2zDzx9e6HNETTb8Uc23acJqxJlp0oNvlLnBGWzk9Op0Q52ZTPUWLQ==)
+      #authSecret: KRYPT(Wp4Lo3YDGRS6ZgxmpH1AlOrvync4KxiyBGrSFEwgdVLNDwBWb7S2H6WC+SOxKwBanYwLe2opBBZLwsUOkl5X1zO0u5YSngY3j2zDzx9e6HNETTb8Uc23acJqxJlp0oNvlLnBGWzk9Op0Q52ZTPUWLQ==)
+      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -357,12 +361,14 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(x2BPSYggDHFX5oU0YzywlUEI/RUo8plPFqRoUxwoRd32H7WZmafZkXYJoR3wST78)
+      #proxyPwd: KRYPT(x2BPSYggDHFX5oU0YzywlUEI/RUo8plPFqRoUxwoRd32H7WZmafZkXYJoR3wST78)
+      proxyPwd: 9n8YVv4wjcodSR4u68DW
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(n8BmzqFr+djlkoUHTpuHpHD3d0sYm5f/O54YgMg7dQD0/ap/QJIgz6UvtAqEV5hTe12TWqeqadmqrLMoC7vndZ/BN3qGp1vlfUgGddiOs1ov5w2wqh4YiQuwWG29PN4dJ0uLDMleJKJyGuGv9r6OMQ==)
+      #authSecret: KRYPT(n8BmzqFr+djlkoUHTpuHpHD3d0sYm5f/O54YgMg7dQD0/ap/QJIgz6UvtAqEV5hTe12TWqeqadmqrLMoC7vndZ/BN3qGp1vlfUgGddiOs1ov5w2wqh4YiQuwWG29PN4dJ0uLDMleJKJyGuGv9r6OMQ==)
+      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
@@ -456,12 +462,14 @@ kroger:
   connection:
     syndigo:
       proxyUserID: svc3804impcprxy
-      proxyPwd: KRYPT(DEdr+kMj7OreUtIzqp/Z4BDn9lPEgzc7zdJgZNF3SpzIiADFvXr2PXssyjJXZ51k)
+      #proxyPwd: KRYPT(DEdr+kMj7OreUtIzqp/Z4BDn9lPEgzc7zdJgZNF3SpzIiADFvXr2PXssyjJXZ51k)
+      proxyPwd: 9n8YVv4wjcodSR4u68DW
       proxyUrl: proxy.kroger.com
       proxyPort: 3128
       authURL: https://api.syndigo.com/api/auth/authenticate
       authUsername: TheKrogerCoPilot_API
-      authSecret: KRYPT(rwq652YDOFNjUBj4Fc0dIEhgo8ikx1E5yWPvybtDsmEdOvhKz3b2rFNLVwLTcPdtjYnCgZFmOhl0p9kcT1o8mERYoHL8LeUchq93ZuZORpt39kaJkkNFCzHMLbrkvilXvWXC6V8vmo80nwZAiJFdRg==)
+      #authSecret: KRYPT(rwq652YDOFNjUBj4Fc0dIEhgo8ikx1E5yWPvybtDsmEdOvhKz3b2rFNLVwLTcPdtjYnCgZFmOhl0p9kcT1o8mERYoHL8LeUchq93ZuZORpt39kaJkkNFCzHMLbrkvilXvWXC6V8vmo80nwZAiJFdRg==)
+      authSecret: tksh0k03tKG0DRgJqr4K2tnfa3A6sBRF+ZEDl+wSHmiux9QhhWaAf3wN4aDmm3C+WF65G/acpDCUO24oEigNag==
       searchURL: https://api.syndigo.com/api/marketplace/search?skip=0&take=10&companyId=3d82f991-147c-4bd7-acdc-da9f3f684c27
       assetURL: https://assets.syndigo.com
       targetPartyId: 47f66d9f-9429-48ad-8f2a-267dcd67a346
