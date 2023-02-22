@@ -111,6 +111,8 @@ public class SyndigoConfiguration {
         syndigoProp.setProperty("SYNDIGO.ASSET.VIEWANGLE.MAPPING.INGREDIENTS", this.viewAngleMappingIngredients);
         syndigoProp.setProperty("SYNDIGO.ASSET.VIEWANGLE.MAPPING.MOBILE", this.viewAngleMappingMobile);
         syndigoProp.setProperty("SYNDIGO.ASSET.VIEWANGLE.MAPPING.MARKETINGINFOGRAPHIC", this.viewAngleMappingMarketingInfographic);
+        log.info("Syndigo Proxy URL is " + this.getProxyUrl());
+        log.info("Syndigo Asset URL is " + this.getAssetURL());
         return new SyndigoAPI(syndigoProp);
     }
 }
