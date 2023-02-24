@@ -67,7 +67,7 @@ public class SyndigoSearchService {
      * @throws Exception
      */
     public byte[] getRawImage(String url) throws Exception{
-        return Base64.decodeBase64(properties.getAssetFromURL(url));
+        return properties.downloadAsset(url);
     }
 
 
