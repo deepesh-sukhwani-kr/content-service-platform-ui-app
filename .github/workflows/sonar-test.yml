@@ -19,7 +19,7 @@ jobs:
     name: Maven build
     runs-on: [kubernetes, on-prem]
     container:
-      image: krogertechnology-docker-remote.jfrog.io/maven:3.6.3-openjdk-11
+      image: krogertechnology-docker-remote.jfrog.io/maven:3.6.3-openjdk-8
       credentials:
         username: ${{secrets.JFROG_USERNAME}}
         password: ${{secrets.JFROG_PASSWORD}}
