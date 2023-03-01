@@ -248,7 +248,6 @@ export class CspAddComponent implements OnInit {
   private initiateSources() {
     this.sources = [
       {label: 'Imp-Syndigo-DS', value: 'imp-syndigo-ds'},
-      {label: 'OneWorldSync', value: 'url'},
       {label: 'Imp-Support-Legacy-DS', value: 'imp-support-legacy-ds'}
     ];
   }
