@@ -27,7 +27,7 @@
 		<build.agent>NONE</build.agent>
 		<build.number>UNKNOWN</build.number>
 		<jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
-		<jacoco-maven-plugin.minimum>0.05</jacoco-maven-plugin.minimum>
+		<jacoco-maven-plugin.minimum>0.1</jacoco-maven-plugin.minimum>
 	</properties>
 
 	<dependencies>
