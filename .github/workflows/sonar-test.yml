@@ -68,7 +68,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: target
-          path: target/
+          path: contentservicesplatform-ui-app-server/target/
 
       - name: Set up JDK
         uses: actions/setup-java@v2
