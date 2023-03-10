@@ -48,13 +48,13 @@ jobs:
           jfrog rt mvn-config --server-id-resolve artifactory --server-id-deploy artifactory --repo-resolve-releases libs-release --repo-resolve-snapshots libs-snapshot --repo-deploy-releases kroger-software-engineering --repo-deploy-snapshots kroger-software-engr-snap
 
       - name: Maven clean compile
-        run: jfrog rt mvn clean verify
+        run: jfrog rt mvn clean install
 
       - name: Upload target folder
         uses: actions/upload-artifact@v2
         with:
           name: target
-          path: target/
+          path: contentservicesplatform-ui-app-server/target/
           retention-days: 1
 
   sonar-scan:
