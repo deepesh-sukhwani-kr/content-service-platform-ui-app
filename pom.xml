@@ -28,4 +28,5 @@
 		<module>contentservicesplatform-ui-app-client</module>
 		<module>contentservicesplatform-ui-app-server</module>
 	</modules>
+	
 </project>
