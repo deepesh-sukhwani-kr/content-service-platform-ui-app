@@ -31,10 +31,10 @@ import java.util.List;
 public class AddImageService {
 
     @Autowired
-    RestTemplate restTemplate;
-    @Value("${kroger.v1.add.url}")
+    private RestTemplate restTemplate;
+    @Value ("${kroger.v1.add.url}")
     private String addUrl;
-    @Value("${kroger.v1.authorization}")
+    @Value ("${kroger.v1.authorization}")
     private String authorizationValue;
     public static final String AUTHORIZATION = "Authorization";
 
@@ -44,8 +44,8 @@ public class AddImageService {
      * @throws Exception
      */
     public AddImageUIResponse addImage(AddImageAPIRequest request) {
-        ResponseEntity<AddImageAPIResponse> responseEntity = restTemplate.postForEntity(URI.create(addUrl),
-                populateHttpEntity(request), AddImageAPIResponse.class);
+        ResponseEntity<AddImageAPIResponse> responseEntity =
+                restTemplate.postForEntity(URI.create(addUrl), populateHttpEntity(request), AddImageAPIResponse.class);
         return populateResponse(responseEntity.getBody());
     }
 
@@ -96,12 +96,12 @@ public class AddImageService {
         response.setStatusMessage(payload.getStatus());
 
         ResponsePayload.IngestionDetails ingestionDetails = payload.getIngestionDetails();
-        if (ObjectUtils.allNotNull(payload.getErrorDetails())
-                && StringUtils.isNotBlank(payload.getErrorDetails().getErrorCode())) {
+        if (ObjectUtils.allNotNull(payload.getErrorDetails()) && StringUtils.isNotBlank(
+                payload.getErrorDetails().getErrorCode())) {
             handleError(payload, response);
-        } else if (ObjectUtils.allNotNull(ingestionDetails)
-                && ObjectUtils.allNotNull(ingestionDetails.getDuplicateAssetList())
-                && CollectionUtils.isNotEmpty(ingestionDetails.getDuplicateAssetList().getDuplicateAsset())) {
+        } else if (ObjectUtils.allNotNull(ingestionDetails) && ObjectUtils.allNotNull(
+                ingestionDetails.getDuplicateAssetList()) && CollectionUtils.isNotEmpty(
+                ingestionDetails.getDuplicateAssetList().getDuplicateAsset())) {
             handleDuplicate(ingestionDetails.getDuplicateAssetList().getDuplicateAsset().getFirst(), response);
         } else if (ObjectUtils.allNotNull(ingestionDetails)) {
             handleSuccess(ingestionDetails, response);
