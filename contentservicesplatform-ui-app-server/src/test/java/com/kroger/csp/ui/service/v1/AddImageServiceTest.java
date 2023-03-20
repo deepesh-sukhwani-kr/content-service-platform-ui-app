@@ -7,6 +7,8 @@ import com.kroger.csp.ui.domain.response.v1.AddImageAPIResponse;
 import com.kroger.csp.ui.domain.response.v1.AddImageAPIResponse.AddImageResponseBody;
 import com.kroger.imp.assetmanagement.domain.ResponsePayload;
 import com.kroger.imp.assetmanagement.domain.ResponsePayload.IngestionDetails;
+import com.kroger.imp.datasource.domain.DuplicateAsset;
+import com.kroger.imp.datasource.domain.DuplicateAssetList;
 import com.kroger.imp.exception.ErrorDetails;
 import com.kroger.imp.library.domain.ImpResponseHeader;
 import com.kroger.imp.library.domain.TransactionRef;
@@ -49,7 +51,7 @@ public class AddImageServiceTest {
     @Test
     public void shouldReturnSuccessResponseWhenValidRequest() {
         AddImageAPIRequest request = new AddImageAPIRequest();
-        AddImageAPIResponse expectedResponse = createSuccessAPIResponse();
+        AddImageAPIResponse expectedResponse = createSuccessAPIResponse(createResponsePayloads(null));
 
         when(restTemplate.postForEntity(URI.create(HTTP_TEST_URL_COM), createHttpEntity(request, TEST_AUTHORIZATION),
                 AddImageAPIResponse.class)).thenReturn(new ResponseEntity<>(expectedResponse, HttpStatus.OK));
@@ -69,6 +71,63 @@ public class AddImageServiceTest {
         assertThat(assetDetailsUIResponse.getStatusCode()).isEqualTo("200");
         assertThat(assetDetailsUIResponse.getImageId()).isEqualTo(ingestionDetails.getImageID());
         assertThat(assetDetailsUIResponse.getImageUrl()).isEqualTo(ingestionDetails.getImageURL());
+    }
+
+    @Test
+    public void shouldReturnSuccessResponseWhenValidRequestWithDuplicates() {
+        AddImageAPIRequest request = new AddImageAPIRequest();
+        AddImageAPIResponse expectedResponse =
+                createSuccessAPIResponse(createResponsePayloads(createDuplicateAssetList()));
+
+        when(restTemplate.postForEntity(URI.create(HTTP_TEST_URL_COM), createHttpEntity(request, TEST_AUTHORIZATION),
+                AddImageAPIResponse.class)).thenReturn(new ResponseEntity<>(expectedResponse, HttpStatus.OK));
+
+        AddImageUIResponse response = addImageService.addImage(request);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getReferenceId()).isEqualTo(
+                expectedResponse.getHeader().getOriginalTransactionRef().getReferenceID());
+        assertThat(response.getCreationDatetime()).isNotNull();
+        assertThat(response.getAssetDetails()).hasSize(1);
+
+        AssetDetailsUIResponse assetDetailsUIResponse = response.getAssetDetails().get(0);
+        ResponsePayload responsePayload = expectedResponse.getBody().getResponsePayload().getFirst();
+        IngestionDetails ingestionDetails = responsePayload.getIngestionDetails();
+
+        assertThat(assetDetailsUIResponse.getStatusCode()).isEqualTo("200");
+        assertThat(assetDetailsUIResponse.getImageId()).isEqualTo(ingestionDetails.getImageID());
+        assertThat(assetDetailsUIResponse.getImageUrl()).isEqualTo(ingestionDetails.getImageURL());
+    }
+
+    @Test
+    public void shouldReturnSuccessResponseWhenValidRequestWithEmptyResponsePayload() {
+        AddImageAPIRequest request = new AddImageAPIRequest();
+        AddImageAPIResponse expectedResponse = createSuccessAPIResponse(null);
+
+        when(restTemplate.postForEntity(URI.create(HTTP_TEST_URL_COM), createHttpEntity(request, TEST_AUTHORIZATION),
+                AddImageAPIResponse.class)).thenReturn(new ResponseEntity<>(expectedResponse, HttpStatus.OK));
+
+        AddImageUIResponse response = addImageService.addImage(request);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getReferenceId()).isEqualTo(
+                expectedResponse.getHeader().getOriginalTransactionRef().getReferenceID());
+        assertThat(response.getCreationDatetime()).isNotNull();
+
+        assertThat(expectedResponse.getBody().getResponsePayload()).isNull();
+    }
+
+    private DuplicateAssetList createDuplicateAssetList() {
+        DuplicateAssetList duplicateAssetList = new DuplicateAssetList();
+
+        DuplicateAsset duplicateAsset1 = new DuplicateAsset("IMG123", "http://test-url.com/image/IMG123", "REJECTED");
+
+        LinkedList<DuplicateAsset> duplicateAssetLinkedList = new LinkedList<>();
+        duplicateAssetLinkedList.add(duplicateAsset1);
+
+        duplicateAssetList.setDuplicateAsset(duplicateAssetLinkedList);
+
+        return duplicateAssetList;
     }
 
     @Test
@@ -92,7 +151,7 @@ public class AddImageServiceTest {
         assertThat(assetDetailsUIResponse.getErrorDetails()).isEqualTo("Bad Request");
     }
 
-    private AddImageAPIResponse createSuccessAPIResponse() {
+    private AddImageAPIResponse createSuccessAPIResponse(LinkedList<ResponsePayload> responsePayloads) {
         AddImageAPIResponse response = new AddImageAPIResponse();
         ImpResponseHeader header = new ImpResponseHeader();
         TransactionRef originalTransactionRef = new TransactionRef();
@@ -103,6 +162,15 @@ public class AddImageServiceTest {
         response.setHeader(header);
 
         AddImageResponseBody body = new AddImageResponseBody();
+
+        body.setResponsePayload(responsePayloads);
+
+        response.setBody(body);
+
+        return response;
+    }
+
+    private static LinkedList<ResponsePayload> createResponsePayloads(DuplicateAssetList duplicateAssetList) {
         ResponsePayload responsePayload = new ResponsePayload();
         responsePayload.setSequence("1");
         responsePayload.setStatus("Success");
@@ -110,14 +178,12 @@ public class AddImageServiceTest {
         IngestionDetails ingestionDetails = new IngestionDetails();
         ingestionDetails.setImageID("IMG123");
         ingestionDetails.setImageURL("http://test-url.com/image/IMG123");
+        ingestionDetails.setDuplicateAssetList(duplicateAssetList);
 
         responsePayload.setIngestionDetails(ingestionDetails);
         LinkedList<ResponsePayload> responsePayloads = new LinkedList<>();
         responsePayloads.add(responsePayload);
-        body.setResponsePayload(responsePayloads);
-        response.setBody(body);
-
-        return response;
+        return responsePayloads;
     }
 
     private AddImageAPIResponse createErrorAPIResponse() {

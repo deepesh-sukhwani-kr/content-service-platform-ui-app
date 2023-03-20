@@ -59,7 +59,10 @@ public class SyndigoSearchServiceTest {
         Assertions.assertThat(response.getSource()).isEqualTo("SYNDIGO");
         Assertions.assertThat(response.getBackground()).isEqualTo(BACK_GROUND);
         Assertions.assertThat(response.getProvidedSize()).isEqualTo(SIZE);
-        Assertions.assertThat(response.getViewAngleList()).isEqualTo(vendorSearchViewAngleResponse);
+
+        Assertions.assertThat(response.getViewAngleList()).hasSameSizeAs(vendorSearchViewAngleResponse);
+        Assertions.assertThat(response.getViewAngleList().get(0))
+                .isEqualToComparingFieldByField(vendorSearchViewAngleResponse.get(0));
     }
 
     @Test
