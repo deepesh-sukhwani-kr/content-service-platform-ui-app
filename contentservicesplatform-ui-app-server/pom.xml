@@ -202,6 +202,13 @@
 		<groupId>org.jacoco</groupId>
 		<artifactId>jacoco-maven-plugin</artifactId>
 		<version>${jacoco-maven-plugin.version}</version>
+		<configuration>
+			<excludes>
+				<exclude>**/domain/**/*</exclude>
+				<exclude>**/ContentServicesPlatformUiAppApplication.class</exclude>
+				<exclude>**/config/**/*</exclude>
+			</excludes>
+		</configuration>
 		<executions>
 			<execution>
 				<id>default</id>
