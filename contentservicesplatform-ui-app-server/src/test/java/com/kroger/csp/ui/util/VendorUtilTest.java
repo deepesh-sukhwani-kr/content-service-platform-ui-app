@@ -1,9 +1,11 @@
 package com.kroger.csp.ui.util;
 
 import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.HashMap;
@@ -11,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.MockitoAnnotations.initMocks;
 
+@ExtendWith (MockitoExtension.class)
 public class VendorUtilTest {
 
     private static final String VIEW_ANGLE_FRONT = "front";
@@ -27,9 +29,8 @@ public class VendorUtilTest {
     @InjectMocks
     private VendorUtil vendorUtil;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        initMocks(this);
         ReflectionTestUtils.setField(vendorUtil, "viewAngles",
                 new String[]{VIEW_ANGLE_FRONT, VIEW_ANGLE_BACK, VIEW_ANGLE_TOP});
     }

@@ -3,16 +3,17 @@ package com.kroger.csp.ui.controller;
 import com.kroger.csp.ui.domain.request.RawAssetRequest;
 import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.service.SyndigoSearchService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
+@ExtendWith (MockitoExtension.class)
 public class VendorSearchControllerTest {
 
     @Mock
@@ -20,11 +21,6 @@ public class VendorSearchControllerTest {
 
     @InjectMocks
     private VendorSearchController vendorSearchController;
-
-    @Before
-    public void setUp() {
-        initMocks(this);
-    }
 
     @Test
     public void shouldReturnVendorSearchResponseWhenVendorSearchCalledWithValidParameters() throws Exception {

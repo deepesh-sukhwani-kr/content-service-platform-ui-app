@@ -12,10 +12,12 @@ import com.kroger.imp.datasource.domain.DuplicateAssetList;
 import com.kroger.imp.exception.ErrorDetails;
 import com.kroger.imp.library.domain.ImpResponseHeader;
 import com.kroger.imp.library.domain.TransactionRef;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -29,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+@ExtendWith (MockitoExtension.class)
 public class AddImageServiceTest {
 
     public static final String TEST_AUTHORIZATION = "test-authorization";
@@ -40,10 +43,8 @@ public class AddImageServiceTest {
     @InjectMocks
     private AddImageService addImageService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        initMocks(this);
-
         ReflectionTestUtils.setField(addImageService, "addUrl", HTTP_TEST_URL_COM);
         ReflectionTestUtils.setField(addImageService, "authorizationValue", TEST_AUTHORIZATION);
     }

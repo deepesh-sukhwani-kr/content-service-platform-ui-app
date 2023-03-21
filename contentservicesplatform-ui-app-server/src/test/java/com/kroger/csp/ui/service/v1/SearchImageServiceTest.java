@@ -6,13 +6,12 @@ import com.kroger.csp.ui.domain.response.v1.SearchAsset;
 import com.kroger.csp.ui.domain.response.v1.SearchImageAPIResponse;
 import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ import static com.kroger.csp.ui.utils.ObjectUtils.createTransactionRef;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith (MockitoJUnitRunner.class)
+@ExtendWith (MockitoExtension.class)
 public class SearchImageServiceTest {
 
     @Mock
@@ -36,9 +35,8 @@ public class SearchImageServiceTest {
     @InjectMocks
     private SearchImageService searchImageService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(searchImageService, "searchUrl", "https://example.com/api/search");
         ReflectionTestUtils.setField(searchImageService, "authorizationValue", "abc123");
     }

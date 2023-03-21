@@ -7,14 +7,16 @@ import com.kroger.csp.ui.domain.response.v2.SearchAssociation;
 import com.kroger.csp.ui.domain.response.v2.SearchResponsePayload;
 import com.kroger.csp.ui.domain.response.v2.SearchTag;
 import com.kroger.csp.ui.domain.response.v2.SearchV2Response;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -22,7 +24,9 @@ import java.util.List;
 
 import static com.kroger.csp.ui.utils.ObjectUtilsV2.createSearchAssetV2Response;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+@ExtendWith (MockitoExtension.class)
 public class SearchImageV2ServiceTest {
 
     @Mock
@@ -31,12 +35,10 @@ public class SearchImageV2ServiceTest {
     @InjectMocks
     private SearchImageV2Service searchImageV2Service;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        org.springframework.test.util.ReflectionTestUtils.setField(searchImageV2Service, "searchUrl",
-                "http://example.com/search");
-        org.springframework.test.util.ReflectionTestUtils.setField(searchImageV2Service, "auth", "fakeAuth");
+        ReflectionTestUtils.setField(searchImageV2Service, "searchUrl", "http://example.com/search");
+        ReflectionTestUtils.setField(searchImageV2Service, "auth", "fakeAuth");
     }
 
     @Test
@@ -54,13 +56,13 @@ public class SearchImageV2ServiceTest {
         assertSearchResponse(searchAssetV2Response, searchV2Response);
     }
 
-    @Test (expected = RuntimeException.class)
+    @Test
     public void shouldThrowExceptionWhenSearchImagesCalledAndRestTemplateFails() {
         SearchImageV2APIRequest request = new SearchImageV2APIRequest();
         Mockito.when(restTemplate.postForEntity(Mockito.any(URI.class), Mockito.any(HttpEntity.class),
                 Mockito.eq(SearchAssetV2Response.class))).thenThrow(RuntimeException.class);
 
-        searchImageV2Service.searchImages(request);
+        assertThatThrownBy(() -> searchImageV2Service.searchImages(request)).isInstanceOf(RuntimeException.class);
     }
 
     private void assertSearchResponse(SearchAssetV2Response searchAssetV2Response, SearchV2Response searchV2Response) {

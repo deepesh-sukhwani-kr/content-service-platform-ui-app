@@ -4,23 +4,28 @@ import com.kroger.csp.ui.domain.response.VendorSearchResponse;
 import com.kroger.csp.ui.domain.response.VendorSearchViewAngleResponse;
 import com.kroger.csp.ui.util.VendorUtil;
 import com.kroger.imp.apm.SyndigoAPI;
+import com.kroger.imp.apm.exception.DAPSyndigoPluginException;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
 import static com.kroger.csp.ui.utils.SyndigoObjectUtils.VIEW_ANGLES;
 import static com.kroger.csp.ui.utils.SyndigoObjectUtils.createVendorSearchViewAngleResponse;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@ExtendWith (MockitoExtension.class)
 public class SyndigoSearchServiceTest {
 
     public static final String SIZE = "200x200";
@@ -35,9 +40,8 @@ public class SyndigoSearchServiceTest {
     @Mock
     private SyndigoAPI properties;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(syndigoSearchService, "viewAngles", VIEW_ANGLES);
         ReflectionTestUtils.setField(syndigoSearchService, "providedSize", SIZE);
         ReflectionTestUtils.setField(syndigoSearchService, "background", BACK_GROUND);
@@ -73,16 +77,17 @@ public class SyndigoSearchServiceTest {
 
         byte[] result = syndigoSearchService.getRawImage(url);
 
-        org.assertj.core.api.Assertions.assertThat(result).isEqualTo(expectedByteArray);
+        assertThat(result).isEqualTo(expectedByteArray);
         verify(properties, times(1)).downloadAsset(url);
     }
 
-    @Test (expected = Exception.class)
+    @Test
     public void shouldThrowExceptionWhenGetRawImageFails() throws Exception {
         String url = "https://fakeurl.com/image.jpg";
 
-        when(properties.downloadAsset(url)).thenThrow(new Exception("Error downloading asset"));
+        when(properties.downloadAsset(url)).thenThrow(new DAPSyndigoPluginException("Error downloading asset"));
 
-        syndigoSearchService.getRawImage(url);
+        assertThatThrownBy(() -> syndigoSearchService.getRawImage(url)).isInstanceOf(DAPSyndigoPluginException.class);
+
     }
 }

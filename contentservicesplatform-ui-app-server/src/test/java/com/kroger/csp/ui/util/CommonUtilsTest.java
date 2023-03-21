@@ -2,22 +2,18 @@ package com.kroger.csp.ui.util;
 
 import com.kroger.csp.ui.domain.response.ErrorResponse;
 import com.kroger.imp.exception.ErrorDetails;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.MockitoAnnotations.initMocks;
 
+@ExtendWith (MockitoExtension.class)
 public class CommonUtilsTest {
 
     @InjectMocks
     private CommonUtils commonUtils;
-
-    @Before
-    public void setUp() {
-        initMocks(this);
-    }
 
     @Test
     public void shouldPopulateErrorResponseWhenExceptionOccurs() {

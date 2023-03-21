@@ -2,24 +2,25 @@ package com.kroger.csp.ui.converter.v2;
 
 import com.kroger.csp.ui.domain.request.AddImageUIRequest;
 import com.kroger.csp.ui.domain.request.v2.AddImageV2APIRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.kroger.csp.ui.utils.ObjectUtils.ENV;
 import static com.kroger.csp.ui.utils.ObjectUtils.createAddImageUIRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith (MockitoExtension.class)
 public class AddImageV2RequestConverterTest {
 
     @InjectMocks
     private AddImageV2RequestConverter addImageV2RequestConverter;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(addImageV2RequestConverter, "env", ENV);
     }
 

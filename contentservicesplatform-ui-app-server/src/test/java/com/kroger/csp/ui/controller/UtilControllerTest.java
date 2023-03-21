@@ -3,10 +3,12 @@ package com.kroger.csp.ui.controller;
 import com.kroger.csp.ui.config.RBACConfiguration;
 import com.kroger.csp.ui.domain.response.RBACResponse;
 import com.kroger.csp.ui.domain.response.ViewAngleResponse;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +16,9 @@ import java.util.List;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.util.ReflectionTestUtils.setField;
 
+@ExtendWith(MockitoExtension.class)
 public class UtilControllerTest {
 
     @Mock
@@ -25,9 +27,8 @@ public class UtilControllerTest {
     @InjectMocks
     private UtilController utilController;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        initMocks(this);
         mockViewAngles();
         mockServerEndpoints();
     }

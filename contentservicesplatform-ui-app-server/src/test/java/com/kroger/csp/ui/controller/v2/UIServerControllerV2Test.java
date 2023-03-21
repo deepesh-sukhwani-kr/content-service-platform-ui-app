@@ -3,7 +3,6 @@ package com.kroger.csp.ui.controller.v2;
 import com.kroger.csp.ui.converter.v2.AddImageV2RequestConverter;
 import com.kroger.csp.ui.converter.v2.SearchImageV2RequestConvertor;
 import com.kroger.csp.ui.domain.request.AddImageUIRequest;
-import com.kroger.csp.ui.domain.request.v2.SearchImageV2APIRequest;
 import com.kroger.csp.ui.domain.response.AddImageUIResponse;
 import com.kroger.csp.ui.domain.response.ErrorResponse;
 import com.kroger.csp.ui.domain.response.v2.SearchV2Response;
@@ -11,18 +10,20 @@ import com.kroger.csp.ui.service.v2.AddImageV2Service;
 import com.kroger.csp.ui.service.v2.SearchImageV2Service;
 import com.kroger.csp.ui.util.CommonUtils;
 import com.kroger.imp.exception.ErrorDetails;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@ExtendWith (MockitoExtension.class)
 public class UIServerControllerV2Test {
 
     @Mock
@@ -42,11 +43,6 @@ public class UIServerControllerV2Test {
 
     @InjectMocks
     private UIServerControllerV2 uiServerControllerV2;
-
-    @Before
-    public void setUp() {
-        initMocks(this);
-    }
 
     @Test
     public void shouldReturnAddImageUIResponseWhenAddImageV2IsCalled() {

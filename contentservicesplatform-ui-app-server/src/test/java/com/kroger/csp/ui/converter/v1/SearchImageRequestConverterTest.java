@@ -1,24 +1,25 @@
 package com.kroger.csp.ui.converter.v1;
 
 import com.kroger.csp.ui.domain.request.v1.SearchImageAPIRequest;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static com.kroger.csp.ui.utils.ObjectUtils.ENV;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+@ExtendWith (MockitoExtension.class)
 public class SearchImageRequestConverterTest {
 
     @InjectMocks
     private SearchImageRequestConverter searchImageRequestConverter;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(searchImageRequestConverter, "env", ENV);
     }
 

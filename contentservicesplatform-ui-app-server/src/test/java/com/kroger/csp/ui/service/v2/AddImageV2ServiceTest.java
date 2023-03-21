@@ -10,11 +10,12 @@ import com.kroger.csp.ui.domain.response.v2.DuplicateAsset;
 import com.kroger.csp.ui.domain.response.v2.IngestionDetails;
 import com.kroger.imp.exception.ErrorDetails;
 import com.kroger.imp.library.domain.ImpResponseHeader;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@ExtendWith (MockitoExtension.class)
 public class AddImageV2ServiceTest {
 
     public static final String HTTPS_EXAMPLE_COM_API_SEARCH = "https://example.com/api/search";
@@ -41,9 +43,8 @@ public class AddImageV2ServiceTest {
     @InjectMocks
     private AddImageV2Service addImageV2Service;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(addImageV2Service, "addUrl", HTTPS_EXAMPLE_COM_API_SEARCH);
         ReflectionTestUtils.setField(addImageV2Service, "auth", AUTH);
     }

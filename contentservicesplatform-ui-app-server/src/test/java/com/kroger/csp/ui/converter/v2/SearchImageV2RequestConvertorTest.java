@@ -6,10 +6,11 @@ import com.kroger.csp.ui.domain.request.v2.SearchImageV2GTINRequest;
 import com.kroger.csp.ui.domain.request.v2.SearchImageV2ImageIdRequest;
 import com.kroger.csp.ui.utils.ObjectUtils;
 import com.kroger.imp.library.domain.TransactionRef;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
@@ -21,14 +22,14 @@ import static com.kroger.csp.ui.utils.ObjectUtilsV2.createSearchImageV2ImageIdRe
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+@ExtendWith (MockitoExtension.class)
 public class SearchImageV2RequestConvertorTest {
 
     @InjectMocks
     private SearchImageV2RequestConvertor searchImageV2RequestConvertor;
 
-    @Before
+    @BeforeEach
     public void setup() {
-        MockitoAnnotations.initMocks(this);
         ReflectionTestUtils.setField(searchImageV2RequestConvertor, "env", ENV);
     }
 
