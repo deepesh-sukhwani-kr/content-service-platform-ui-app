@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * CSP Add image V1 API request converter class
@@ -142,37 +143,34 @@ public class AddImageRequestConverter {
      * @return AssetInfo object
      * @throws Exception
      */
-    private AssetInfo populateAssetInfo(AssetDetailsUIRequest request) throws Exception{
+    private AssetInfo populateAssetInfo(AssetDetailsUIRequest request) throws Exception {
         AssetInfo assetInfo = new AssetInfo();
         assetInfo.setAssetType(request.getAssetType());
-        if (StringUtils.isNotBlank(request.getFilePath())){
+        if (StringUtils.isNotBlank(request.getFilePath())) {
             Path path = Paths.get(request.getFilePath());
-            Optional<Path> filePath = Files.find(path, 1,
-                    (path1, basicFileAttributes) ->
-                            path1.toFile().getName().contains(request.getFileName())).limit(1).findFirst();
-            if (filePath.isPresent())
-                assetInfo.setAsset(getAssetAsString(filePath));
-        }else
+            try (Stream<Path> filesStream = Files.find(path, 1,
+                    (path1, basicFileAttributes) -> path1.toFile().getName().contains(request.getFileName()))) {
+                Optional<Path> filePath = filesStream.limit(1).findFirst();
+                setAssetInfoAsset(assetInfo, filePath);
+            }
+        } else {
             assetInfo.setAsset(request.getAsset());
+        }
         return assetInfo;
     }
 
-    /**
-     * Get Asset and Base64 encoded string
-     * @param filePath
-     * @return Base 64 encoded asset String
-     * @throws Exception
-     */
-    private String getAssetAsString(Optional<Path> filePath) throws Exception{
-        File imageFile = new File(filePath.get().toAbsolutePath().toString());
-        try (FileInputStream fis = new FileInputStream(imageFile)) {
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int n; (n = fis.read(buf)) != -1; ) {
-                output.write(buf, 0, n);
+    private void setAssetInfoAsset(AssetInfo assetInfo, Optional<Path> filePath) throws Exception {
+        if (filePath.isPresent()) {
+            File imageFile = new File(filePath.get().toAbsolutePath().toString());
+            try (FileInputStream fis = new FileInputStream(imageFile)) {
+                ByteArrayOutputStream output = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int n; (n = fis.read(buf)) != -1; ) {
+                    output.write(buf, 0, n);
+                }
+                byte[] imgBytes = output.toByteArray();
+                assetInfo.setAsset(Base64.getEncoder().encodeToString(imgBytes));
             }
-            byte[] imgBytes = output.toByteArray();
-            return Base64.getEncoder().encodeToString(imgBytes);
         }
     }
 
