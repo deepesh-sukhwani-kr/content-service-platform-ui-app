@@ -49,63 +49,46 @@ public class AddImageRequestConverter {
     }
 
     /**
-     * Populate Transaction ref
-     *
-     * @param request
-     * @return TransactionRef object
-     */
-    private TransactionRef populateTransactionRef(AddImageUIRequest request) {
-        TransactionRef transactionRef = new TransactionRef();
-        transactionRef.setReferenceID(request.getReferenceId());
-        transactionRef.setCreationdatetime(request.getCreationDatetime());
-        transactionRef.setEvent("ADDASSET");
-        transactionRef.setSource("UI");
-        if ("stage".equalsIgnoreCase(env)) {transactionRef.setEnvironment("test");} else if ("local".equalsIgnoreCase(
-                env)) {transactionRef.setEnvironment("test");} else {
-            transactionRef.setEnvironment(env);
-        }
-        return transactionRef;
-    }
-
-    /**
-     * Populate Asset object
-     *
-     * @param request
-     * @return Asset object
-     * @throws Exception
-     */
-    private Asset populateAsset(AddImageUIRequest request) throws Exception {
-        Asset asset = new Asset();
-        asset.setImageType(request.getImageType());
-        asset.setItemType("ProductImages");
-        asset.setGTIN(request.getAssetIdentifier().getGtin());
-        asset.setAssetDetails(populateAssetDetailsList(request.getAssetDetails()));
-        return asset;
-    }
-
-    /**
      * Populate Asset Details List
-     *
      * @param requestList
      * @return List of AssetDetails object
      * @throws Exception
      */
     private List<AssetDetails> populateAssetDetailsList(List<AssetDetailsUIRequest> requestList) throws Exception {
         List<AssetDetails> assetDetailsList = new ArrayList<>();
-        for (AssetDetailsUIRequest request : requestList) {
+        for(AssetDetailsUIRequest request : requestList){
             assetDetailsList.add(populateAssetDetails(request));
         }
         return assetDetailsList;
     }
 
     /**
+     * Populate Transaction ref
+     * @param request
+     * @return TransactionRef object
+     */
+    private TransactionRef populateTransactionRef(AddImageUIRequest request){
+        TransactionRef transactionRef = new TransactionRef();
+        transactionRef.setReferenceID(request.getReferenceId());
+        transactionRef.setCreationdatetime(request.getCreationDatetime());
+        transactionRef.setEvent("ADDASSET");
+        transactionRef.setSource("UI");
+        if("stage".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("test");
+        else if("local".equalsIgnoreCase(env))
+            transactionRef.setEnvironment("test");
+        else
+            transactionRef.setEnvironment(env);
+        return transactionRef;
+    }
+
+    /**
      * Populate individual AssetDetails objects
-     *
      * @param request
      * @return AssetDetails object
      * @throws Exception
      */
-    private AssetDetails populateAssetDetails(AssetDetailsUIRequest request) throws Exception {
+    private AssetDetails populateAssetDetails(AssetDetailsUIRequest request) throws Exception{
         AssetDetails assetDetails = new AssetDetails();
         assetDetails.setSequence(request.getSequence());
         assetDetails.setFileName(request.getFileName());
@@ -115,12 +98,26 @@ public class AddImageRequestConverter {
     }
 
     /**
+     * Populate Asset object
+     * @param request
+     * @return Asset object
+     * @throws Exception
+     */
+    private Asset populateAsset(AddImageUIRequest request) throws Exception{
+        Asset asset = new Asset();
+        asset.setImageType(request.getImageType());
+        asset.setItemType("ProductImages");
+        asset.setGTIN(request.getAssetIdentifier().getGtin());
+        asset.setAssetDetails(populateAssetDetailsList(request.getAssetDetails()));
+        return asset;
+    }
+
+    /**
      * Puplate Attribute map
-     *
      * @param request
      * @return AttributeMap object
      */
-    private AttributeMap populateAttributeMap(AssetDetailsUIRequest request) {
+    private AttributeMap populateAttributeMap(AssetDetailsUIRequest request){
         AttributeMap attributeMap = new AttributeMap();
         attributeMap.setIMP_VIEW_ANGLE(request.getViewAngle());
         attributeMap.setIMP_PROVIDED_SIZE(request.getProvidedSize());
@@ -129,9 +126,10 @@ public class AddImageRequestConverter {
         attributeMap.setIMP_IMAGE_LAST_MODIFIED_DT(request.getLastModifiedDate());
         attributeMap.setIMP_DESCRIPTION(request.getDescription());
         attributeMap.setIMP_FILE_TYPE_EXT(request.getFileExtension());
-        if (StringUtils.isNotBlank(request.getColorProfile())) {
+        if(StringUtils.isNotBlank(request.getColorProfile()))
             attributeMap.setIMP_COLOR_REP(request.getColorProfile());
-        } else {attributeMap.setIMP_COLOR_REP("RGB");}
+        else
+            attributeMap.setIMP_COLOR_REP("RGB");
         attributeMap.setIMP_UPC10(request.getUpc10());
         attributeMap.setIMP_UPC12(request.getUpc12());
         attributeMap.setIMP_UPC13(request.getUpc13());
@@ -141,7 +139,6 @@ public class AddImageRequestConverter {
 
     /**
      * Populate AssetInfo object
-     *
      * @param request
      * @return AssetInfo object
      * @throws Exception
@@ -176,4 +173,5 @@ public class AddImageRequestConverter {
             }
         }
     }
+
 }
