@@ -2,13 +2,7 @@ package com.kroger.csp.ui.converter.v2;
 
 import com.kroger.csp.ui.domain.request.AddImageUIRequest;
 import com.kroger.csp.ui.domain.request.AssetDetailsUIRequest;
-import com.kroger.csp.ui.domain.request.v2.AddImageV2APIRequest;
-import com.kroger.csp.ui.domain.request.v2.Asset;
-import com.kroger.csp.ui.domain.request.v2.AssetDetails;
-import com.kroger.csp.ui.domain.request.v2.AssetInfo;
-import com.kroger.csp.ui.domain.request.v2.Association;
-import com.kroger.csp.ui.domain.request.v2.AttributeMap;
-import com.kroger.csp.ui.domain.request.v2.Tag;
+import com.kroger.csp.ui.domain.request.v2.*;
 import com.kroger.imp.library.domain.TransactionRef;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -29,7 +23,7 @@ public class AddImageV2RequestConverter {
     @Value("${spring.profiles}")
     private String env;
 
-    private   static String KROGER_CANONICAL_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
+    private static final String KROGER_CANONICAL_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
     private static final DateTimeFormatter krogerDtTimeFormatter = DateTimeFormatter.ofPattern(KROGER_CANONICAL_DATE_FORMAT);
 
     /**

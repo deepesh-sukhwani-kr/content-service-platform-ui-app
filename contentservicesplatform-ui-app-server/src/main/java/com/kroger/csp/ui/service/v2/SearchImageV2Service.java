@@ -1,9 +1,12 @@
 package com.kroger.csp.ui.service.v2;
 
 import com.kroger.csp.ui.domain.request.v2.SearchImageV2APIRequest;
-import com.kroger.csp.ui.domain.response.v1.Image;
-import com.kroger.csp.ui.domain.response.v1.SearchResponse;
-import com.kroger.csp.ui.domain.response.v2.*;
+import com.kroger.csp.ui.domain.response.v2.ImageV2;
+import com.kroger.csp.ui.domain.response.v2.SearchAssetV2Response;
+import com.kroger.csp.ui.domain.response.v2.SearchAssociation;
+import com.kroger.csp.ui.domain.response.v2.SearchResponsePayload;
+import com.kroger.csp.ui.domain.response.v2.SearchTag;
+import com.kroger.csp.ui.domain.response.v2.SearchV2Response;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +51,7 @@ public class SearchImageV2Service {
                     restTemplate.postForEntity(URI.create(searchUrl), buildRequest(request),
                             SearchAssetV2Response.class);
         }catch(Exception e){
-            //TODO: Handle UI server specific exceptions
-            e.printStackTrace();
-            log.error("Error in V2 Csp Search - Service Call : " + e);
+            log.error("Error in V2 Csp Search - Service Call : ", e);
             throw e;
         }
         if(responseEntity!=null) {
