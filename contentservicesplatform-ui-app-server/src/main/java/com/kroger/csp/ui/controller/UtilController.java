@@ -1,7 +1,6 @@
 package com.kroger.csp.ui.controller;
 
 import com.kroger.csp.ui.config.RBACConfiguration;
-import com.kroger.csp.ui.domain.response.AuthorizedRolesResponse;
 import com.kroger.csp.ui.domain.response.RBACResponse;
 import com.kroger.csp.ui.domain.response.ViewAngleResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Utility controller to support UI with master data
@@ -53,8 +53,8 @@ public class UtilController {
      * @return
      */
     @GetMapping(path = "/endpoints")
-    public HashMap<String, String> getEndpoints(){
-        HashMap<String, String> endpoints = new HashMap<>();
+    public Map<String, String> getEndpoints(){
+        Map<String, String> endpoints = new HashMap<>();
         endpoints.put("add", add);
         endpoints.put("search", search);
         endpoints.put("vendorSearch", vendorSearch);

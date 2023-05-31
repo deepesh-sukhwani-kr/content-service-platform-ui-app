@@ -49,7 +49,7 @@ public class SearchImageRequestConverter {
         if ("stage".equalsIgnoreCase(env))
             transactionRef.setEnvironment("test");
         else if("local".equalsIgnoreCase(env))
-        transactionRef.setEnvironment("test");
+            transactionRef.setEnvironment("test");
         else
             transactionRef.setEnvironment(env);
         return transactionRef;

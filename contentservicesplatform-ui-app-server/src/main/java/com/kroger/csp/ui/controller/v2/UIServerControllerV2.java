@@ -5,7 +5,6 @@ import com.kroger.csp.ui.converter.v2.SearchImageV2RequestConvertor;
 import com.kroger.csp.ui.domain.request.AddImageUIRequest;
 import com.kroger.csp.ui.domain.request.v2.SearchImageV2APIRequest;
 import com.kroger.csp.ui.domain.response.AddImageUIResponse;
-import com.kroger.csp.ui.domain.response.v1.SearchResponse;
 import com.kroger.csp.ui.domain.response.v2.SearchV2Response;
 import com.kroger.csp.ui.service.v2.AddImageV2Service;
 import com.kroger.csp.ui.service.v2.SearchImageV2Service;
@@ -14,7 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller class for UI server to hit CSP V2 API's
@@ -47,9 +51,7 @@ public class UIServerControllerV2 {
         try {
             addImageUIResponse = addImageV2Service.addImage(addImageV2RequestConverter.populateAPIRequest(request));
         } catch (Exception e) {
-            //TODO: Handle UI server specific exceptions
-            e.printStackTrace();
-            log.error("Error in V2 Csp Add - UI : " + e);
+            log.error("Error in V2 Csp Add - UI : ", e);
             addImageUIResponse.setErrorResponse(utils.populateErrorResponse(e));
         }
         return addImageUIResponse;
@@ -75,9 +77,7 @@ public class UIServerControllerV2 {
             SearchImageV2APIRequest searchImageV2APIRequest = searchImageV2RequestConverter.populateAPIRequest(gtin, imageId, referenceId);
             response = searchImageV2Service.searchImages(searchImageV2APIRequest);
         } catch (Exception e) {
-            //TODO: Handle UI server specific exceptions
-            e.printStackTrace();
-            log.error("Error in V2 Csp Search - UI : " + e);
+            log.error("Error in V2 Csp Search - UI : ", e);
             response.setError(utils.populateErrorDetails(e));
         }
         return response;

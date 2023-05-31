@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +52,7 @@ public class UtilControllerTest {
 
     @Test
     public void shouldReturnEndpointsWhenGetEndpointsCalled() {
-        HashMap<String, String> endpoints = utilController.getEndpoints();
+        Map<String, String> endpoints = utilController.getEndpoints();
         assertThat(endpoints).containsEntry("add", "addEndpoint").containsEntry("search", "searchEndpoint")
                 .containsEntry("vendorSearch", "vendorSearchEndpoint").containsEntry("retrieval", "retrievalEndpoint");
     }

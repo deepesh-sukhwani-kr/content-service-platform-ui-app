@@ -1,13 +1,16 @@
 package com.kroger.csp.ui.converter.v2;
 
-import com.kroger.csp.ui.domain.request.v2.*;
+import com.kroger.csp.ui.domain.request.v2.AssetFilters;
+import com.kroger.csp.ui.domain.request.v2.Filter;
+import com.kroger.csp.ui.domain.request.v2.SearchImageV2APIRequest;
+import com.kroger.csp.ui.domain.request.v2.SearchImageV2GTINRequest;
+import com.kroger.csp.ui.domain.request.v2.SearchImageV2ImageIdRequest;
 import com.kroger.imp.library.domain.TransactionRef;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,11 +23,11 @@ public class SearchImageV2RequestConvertor {
     @Value("${spring.profiles}")
     private String env;
 
-    private final String AND ="AND";
-    private final String GTIN = "gtin";
-    private final String IMAGEID = "imageId";
-    private final String IMAGETYPE = "imagetype";
-    private final String PRODUCTIMAGE = "ProductImage";
+    private static final String AND ="AND";
+    private static final String GTIN = "gtin";
+    private static final String IMAGEID = "imageId";
+    private static final String IMAGETYPE = "imagetype";
+    private static final String PRODUCTIMAGE = "ProductImage";
 
     public SearchImageV2APIRequest populateAPIRequest(String gtin, String imageId, String referenceId){
         SearchImageV2APIRequest searchImageV2APIRequest = new SearchImageV2APIRequest();
@@ -98,7 +101,6 @@ public class SearchImageV2RequestConvertor {
     private TransactionRef populateTransactionRef(String referenceId) {
         TransactionRef transactionRef = new TransactionRef();
         transactionRef.setReferenceID(referenceId+"-"+env);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         String createdDateTime = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss").format(LocalDateTime.now());
         transactionRef.setCreationdatetime(createdDateTime);
         transactionRef.setEvent("SEARCHASSET");
