@@ -380,8 +380,12 @@ export class CsvUploadComponent implements OnInit {
       str += CsvUploadConstants.VALIDATION_ERR_IMAGE_ORIENTATION_TYPE;
     if (asset.imageOrientationType.toLowerCase().trim()=='swatch' && asset.source.toLowerCase().trim()!='imp-support-legacy-ds')
       str += CsvUploadConstants.VALIDATION_ERR_IMAGE_SWATCH;
-    if(asset.source.toUpperCase().includes("ONEWORLDSYNC"))
+    if(!(asset.source.toUpperCase().includes("IMP-SUPPORT-LEGACY-DS") || asset.source.toUpperCase().includes("IMP-SYNDIGO-DS")))
       str += CsvUploadConstants.VALIDATION_ERR_SOURCE;
+    if (asset.imageOrientationType.toLowerCase().trim()=='swatch' && asset.viewAngle.toLowerCase().trim()!='swatch')
+      str += CsvUploadConstants.VALIDATION_ERR_VIEW_ANGLE_SWATCH;
+    if (asset.imageOrientationType.toLowerCase().trim()!='swatch' && asset.viewAngle.toLowerCase().trim()=='swatch')
+      str += CsvUploadConstants.VALIDATION_ERR_IMAGE_ORIENTATION_TYPE_SWATCH;
     if (str != '') {
       this.showError(CsvUploadConstants.VALIDATION_PREFIX_ROW_NO + index + ':', str);
       this.hasError = true;
