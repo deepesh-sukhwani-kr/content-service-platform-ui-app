@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy-prod:
-    runs-on: [self-hosted, tsa]
+    runs-on: [self-hosted, kubernetes]
     environment:
       name : prod
     env:
@@ -23,6 +23,10 @@ jobs:
         uses: Azure/k8s-set-context@v1
         with:
           kubeconfig: ${{ secrets.PROD_KUBE_CONFIG_CDC }}
+
+      - uses: azure/setup-kubectl@v3
+        with:
+          id: install
 
       - uses: azure/k8s-create-secret@v1
         with:
@@ -60,3 +64,33 @@ jobs:
           curl -X POST -u ${{ env.DOCKER_USERNAME }}:${{ env.DOCKER_PASSWORD }} -H "Content-Type: application/json" -d '{"targetRepo" : "docker-prod","dockerRepository" : "${{ env.DOCKER_REPO }}", "tag" : "${{ env.RELEASE_TAG }}", "targetTag" : "${{ env.TARGET_TAG }}","copy": true}' "https://krogertechnology.jfrog.io/artifactory/api/docker/docker-prod/v2/promote"
       - name: 'Clean up'
         run: rm -rf *
+  promote-prod:
+    needs: deploy-prod
+    runs-on: [ self-hosted, aks ]
+    env:
+      DOCKER_REGISTRY_ENV: prod
+      APP_VERSION: v1
+      FOLDER_NAME: csp-ui-app
+      SOURCE_TAG: stage
+      TARGET_TAG: prod
+      REPO_PATH: imp/dap
+      APP_NAME: csp-ui-server-app
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set environment variables
+        run: |
+          echo "DOCKER_BASE_REPOSITORY=krogertechnology-docker-prod.jfrog.io" >> $GITHUB_ENV
+      - name: Log in to custom Docker registry
+        run: echo "${{ secrets.JFROG_PASSWORD }}" | docker login ${{ env.DOCKER_BASE_REPOSITORY }} -u "${{ secrets.JFROG_USERNAME }}" --password-stdin
+
+      - name: Pull Docker image with source tag
+        run: docker pull ${{ env.DOCKER_BASE_REPOSITORY }}/imp/dap/${{ env.FOLDER_NAME }}/${{ env.APP_VERSION }}/${{ env.APP_NAME }}:${{ env.SOURCE_TAG }}
+
+      - name: Tag Docker image with target tag
+        run: docker tag ${{ env.DOCKER_BASE_REPOSITORY }}/imp/dap/${{ env.FOLDER_NAME }}/${{ env.APP_VERSION }}/${{ env.APP_NAME }}:${{ env.SOURCE_TAG }} ${{ env.DOCKER_BASE_REPOSITORY }}/imp/dap/${{ env.FOLDER_NAME }}/${{ env.APP_VERSION }}/${{ env.APP_NAME }}:${{ env.TARGET_TAG }}
+
+      - name: Push Docker image with target tag
+        run: docker push ${{ env.DOCKER_BASE_REPOSITORY }}/imp/dap/${{ env.FOLDER_NAME }}/${{ env.APP_VERSION }}/${{ env.APP_NAME }}:${{ env.TARGET_TAG }}
