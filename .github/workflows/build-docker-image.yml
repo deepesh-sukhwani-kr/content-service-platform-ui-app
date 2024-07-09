@@ -17,6 +17,7 @@ env:
   APP_VERSION: v1
   APP_NAME: csp-ui-server-app
   REPO_NAME: content-services-platform-ui-app
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
 jobs:
   Build-And-Publish:
