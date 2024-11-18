@@ -20,7 +20,7 @@ import java.util.List;
 @RefreshScope
 public class SearchImageV2RequestConvertor {
 
-    @Value("${spring.profiles}")
+    @Value("${spring.config.activate.on-profile}")
     private String env;
 
     private static final String AND ="AND";

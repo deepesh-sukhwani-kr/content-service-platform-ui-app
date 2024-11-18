@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 @RefreshScope
 public class AddImageRequestConverter {
 
-    @Value("${spring.profiles}")
+    @Value("${spring.config.activate.on-profile}")
     private String env;
 
     /**

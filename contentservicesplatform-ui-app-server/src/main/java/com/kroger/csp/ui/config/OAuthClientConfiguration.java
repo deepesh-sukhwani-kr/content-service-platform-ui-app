@@ -1,24 +1,18 @@
 package com.kroger.csp.ui.config;
 
 import com.kroger.commons.boot.autoconfigure.security.NonSpoofingCondition;
-import com.kroger.commons.security.oauth.OAuth2ClientConfigurationSupport;
+import com.kroger.commons.security.oauth.AbstractOAuth2ClientWebSecurityConfiguration;
 import com.kroger.commons.security.oauth.OAuthSecurity;
-import com.kroger.commons.security.oauth.OAuthUtil;
+import com.kroger.csp.ui.util.OauthClientRegistrationEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.client.OAuth2ClientContext;
-import org.springframework.security.oauth2.client.OAuth2RestOperations;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 
 import java.util.List;
 
@@ -26,7 +20,7 @@ import java.util.List;
 @Configuration
 @Conditional(NonSpoofingCondition.class)
 @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true, proxyTargetClass = true)
-public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
+public class OAuthClientConfiguration extends AbstractOAuth2ClientWebSecurityConfiguration {
     public static final String[] REQUEST_MATCHERS = {"/", "/index.html", "/login", "/relogin", "/logout", "/oauth/logout", "/api/dance", "/manage/**"};
 
     @Value("${kroger.oauth.default-target-uri}")
@@ -41,8 +35,15 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
     @Autowired
     private RBACConfiguration rbacConfig;
 
-    protected OAuth2RestOperations oauth2RestOperations;
+//    protected OAuth2RestOperations oauth2RestOperations;
 
+    @Autowired(required = false)
+    @Qualifier("oauthExchangeFilter")
+    private static ExchangeFilterFunction oauthExchangeFilter = (request, next) -> next
+            .exchange(request);
+
+
+    // protected OAuth2RestOperations oauth2RestOperations;
     /**
      * Create a rest template to get access_token and logout
      *
@@ -50,12 +51,17 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
      * @param context
      * @return
      */
-    @Bean
-    public OAuth2RestOperations oauth2RestOperations(
-            OAuth2ProtectedResourceDetails resource, OAuth2ClientContext context) {
-        oauth2RestOperations = new OAuth2RestTemplate(resource, context);
-        return oauth2RestOperations;
-    }
+//    @Bean
+//    public OAuth2RestOperations oauth2RestOperations(
+//            OAuth2ProtectedResourceDetails resource, OAuth2ClientContext context) {
+//        oauth2RestOperations = new OAuth2RestTemplate(resource, context);
+//        return oauth2RestOperations;
+//    }
+    /*
+     * @Bean public OAuth2RestOperations oauth2RestOperations(OAuth2ProtectedResourceDetails
+     * resource, OAuth2ClientContext context) { oauth2RestOperations = new
+     * OAuth2RestTemplate(resource, context); return oauth2RestOperations; }
+     */
 
     /**
      * Logout end point, invokes logout api on identity server to revoke the token, then
@@ -63,22 +69,22 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
      *
      * @return logout page
      */
-    @RequestMapping("/oauth/logout")
-    public String logout(
-            @RequestParam(required = false, value = "targetUrl") String targetUrl) {
-        if (targetUrl == null || targetUrl.isEmpty()) {
-            targetUrl = defaultTargetUrl;
-        }
-        return OAuthUtil.logout(oauth2RestOperations, logoutUrl, targetUrl);
-    }
+//    @RequestMapping("/oauth/logout")
+//    public String logout(
+//            @RequestParam(required = false, value = "targetUrl") String targetUrl) {
+//        if (targetUrl == null || targetUrl.isEmpty()) {
+//            targetUrl = defaultTargetUrl;
+//        }
+//        return OAuthUtil.logout(oauth2RestOperations, logoutUrl, targetUrl);
+//    }
 
     /**
      * Override logout handler so that we redirect back into the application
      */
-    @Bean
-    protected LogoutSuccessHandler logoutSuccessHandler() {
-        return OAuthUtil.logoutSuccessHandler(true, defaultTargetUrl);
-    }
+//    @Bean
+//    protected LogoutSuccessHandler logoutSuccessHandler() {
+//        return OAuthUtil.logoutSuccessHandler(true, defaultTargetUrl);
+//    }
 
     /**
      * This application is a stand-alone web application (as opposed to a micro-service
@@ -88,12 +94,18 @@ public class OAuthClientConfiguration extends OAuth2ClientConfigurationSupport {
      */
     @Override
     protected void configure(OAuthSecurity oAuthSecurity) throws Exception {
+        oauthExchangeFilter = oAuthSecurity.filters()
+                .servletOAuth2AuthorizedClientExchangeFilterFunction(
+                        OauthClientRegistrationEnum.KROGER_SERVICE.getRegistrationId());
         // @formatter:off
-        oAuthSecurity.http().requestMatcher(OAuthSecurity.createFrontEndMatchers(REQUEST_MATCHERS));
+//        oAuthSecurity.http().requestMatcher(OAuthSecurity.createFrontEndMatchers(REQUEST_MATCHERS));
+//
+//        oAuthSecurity
+//                .supportLogin()
+//                .supportLogout(logoutSuccessHandler());
+        oAuthSecurity.frontEndRequestMatchers(REQUEST_MATCHERS).supportOAuth2Login()
+                .supportOAuth2Logout();
 
-        oAuthSecurity
-                .supportLogin()
-                .supportLogout(logoutSuccessHandler());
 
         configureAuthRules(oAuthSecurity.http());
         // @formatter:on

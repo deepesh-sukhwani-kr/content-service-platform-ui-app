@@ -18,7 +18,7 @@ import java.util.ArrayList;
 @RefreshScope
 public class SearchImageRequestConverter {
 
-    @Value("${spring.profiles}")
+    @Value("${spring.config.activate.on-profile}")
     private String env;
 
     /**

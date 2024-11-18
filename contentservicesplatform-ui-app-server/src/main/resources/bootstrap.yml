@@ -1,51 +1,51 @@
+##spring:
+#  #profiles:
+#    #active: test,spoofing
+#---
 #spring:
-  #profiles:
-    #active: test,spoofing
----
-spring:
-  profiles: test
-  cloud:
-    config:
-      failFast: true
-      server:
-        bootstrap: true
-        git:
-          uri: https://github.kroger.com/kt/impcore-configuration.git
-          searchPaths: csp-ui-config/test
-      uri: http://localhost:8080
-kroger:
-  krypt:
-    aes:
-      encryptedKey: jvbwMTjvlCaWZWuXQsZm18GfCpjA9UZzgbcArZzY4k8BT0P0+ubtWVu/wMpzrBgu
----
-spring:
-  profiles: stage
-  cloud:
-    config:
-      failFast: true
-      server:
-        bootstrap: true
-        git:
-          uri: https://github.kroger.com/kt/impcore-configuration.git
-          searchPaths: csp-ui-config/stage
-      uri: http://localhost:8080
-kroger:
-  krypt:
-    aes:
-      encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      failFast: true
-      server:
-        bootstrap: true
-        git:
-          uri: https://github.kroger.com/kt/impcore-configuration.git
-          searchPaths: csp-ui-config/prod
-      uri: http://localhost:8080
-kroger:
-  krypt:
-    aes:
-      encryptedKey: Kcqe7lJq/kFzYUB/P8QwbptNc5U9jlS4d+63Q8uCBA21gcZ9TJkzEZC+JohWjUcX
+#  profiles: test
+#  cloud:
+#    config:
+#      failFast: true
+#      server:
+#        bootstrap: true
+#        git:
+#          uri: https://github.kroger.com/kt/impcore-configuration.git
+#          searchPaths: csp-ui-config/test
+#      uri: http://localhost:8080
+#kroger:
+#  krypt:
+#    aes:
+#      encryptedKey: jvbwMTjvlCaWZWuXQsZm18GfCpjA9UZzgbcArZzY4k8BT0P0+ubtWVu/wMpzrBgu
+#---
+#spring:
+#  profiles: stage
+#  cloud:
+#    config:
+#      failFast: true
+#      server:
+#        bootstrap: true
+#        git:
+#          uri: https://github.kroger.com/kt/impcore-configuration.git
+#          searchPaths: csp-ui-config/stage
+#      uri: http://localhost:8080
+#kroger:
+#  krypt:
+#    aes:
+#      encryptedKey: +eVf2H5Ban/uafJhPkJBBecUTXQuC15GK9va4MnsWLScEi4cYAC2/Fm4AsX3VhPZ
+#---
+#spring:
+#  profiles: prod
+#  cloud:
+#    config:
+#      failFast: true
+#      server:
+#        bootstrap: true
+#        git:
+#          uri: https://github.kroger.com/kt/impcore-configuration.git
+#          searchPaths: csp-ui-config/prod
+#      uri: http://localhost:8080
+#kroger:
+#  krypt:
+#    aes:
+#      encryptedKey: Kcqe7lJq/kFzYUB/P8QwbptNc5U9jlS4d+63Q8uCBA21gcZ9TJkzEZC+JohWjUcX

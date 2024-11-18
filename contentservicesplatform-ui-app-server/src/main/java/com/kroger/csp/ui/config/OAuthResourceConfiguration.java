@@ -2,23 +2,26 @@ package com.kroger.csp.ui.config;
 
 import com.kroger.commons.boot.autoconfigure.security.NonSpoofingCondition;
 import com.kroger.commons.security.KrogerSecurityProperties;
-import com.kroger.commons.security.RethrowExceptionAuthenticationEntryPoint;
-import com.kroger.commons.security.oauth.OAuth2ResourceConfigurationSupport;
+import com.kroger.commons.security.oauth.AbstractOAuth2ResourceWebSecurityConfiguration;
+import com.kroger.commons.security.oauth.CheckOpaqueTokenFilter;
+import com.kroger.commons.security.oauth.KrogerSecurityMiscellany;
 import com.kroger.commons.security.oauth.OAuthSecurity;
-import com.kroger.commons.security.oauth.SessionAwareBearerTokenExtractor;
+import com.kroger.csp.ui.util.OauthClientRegistrationEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 
 @Order(3)
 @Configuration
 @Conditional(NonSpoofingCondition.class)
-public class OAuthResourceConfiguration extends OAuth2ResourceConfigurationSupport
+public class OAuthResourceConfiguration extends AbstractOAuth2ResourceWebSecurityConfiguration
 {
     @Autowired
     private KrogerSecurityProperties krogerSecurityProperties;
@@ -34,12 +37,16 @@ public class OAuthResourceConfiguration extends OAuth2ResourceConfigurationSuppo
      * resource to find the access token in the session if not found in the typical
      * locations.
      */
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception
-    {
-        resources.tokenExtractor(new SessionAwareBearerTokenExtractor());
-        resources.authenticationEntryPoint(new RethrowExceptionAuthenticationEntryPoint());
-    }
+//    @Override
+//    public void configure(ResourceServerSecurityConfigurer resources) throws Exception
+//    {
+//        resources.tokenExtractor(new SessionAwareBearerTokenExtractor());
+//        resources.authenticationEntryPoint(new RethrowExceptionAuthenticationEntryPoint());
+//    }
+    @Autowired(required = false)
+    @Qualifier("oauthExchangeFilter")
+    protected ExchangeFilterFunction oauthExchangeFilter = (request, next) -> next
+            .exchange(request);
 
     /**
      * Configuration for an OAuth Resource that requires a session to find the access token.
@@ -48,6 +55,17 @@ public class OAuthResourceConfiguration extends OAuth2ResourceConfigurationSuppo
     protected void configure(OAuthSecurity oAuthSecurity) throws Exception
     {
         // Session is required when access token is not given out
+        oauthExchangeFilter = oAuthSecurity.filters()
+                .servletOAuth2AuthorizedClientExchangeFilterFunction(
+                        OauthClientRegistrationEnum.KROGER_SERVICE.getRegistrationId());
+        // some reads operations are done via POST, so we need to give read access to
+        // them too
+        CheckOpaqueTokenFilter checkOpaqueTokenFilter = new CheckOpaqueTokenFilter(
+                this.securityMiscellany());
+        oAuthSecurity.http().addFilterAfter(checkOpaqueTokenFilter,
+                SecurityContextPersistenceFilter.class);
+        KrogerSecurityMiscellany securityMiscellany = securityMiscellany();
+
         oAuthSecurity
                 .http().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 

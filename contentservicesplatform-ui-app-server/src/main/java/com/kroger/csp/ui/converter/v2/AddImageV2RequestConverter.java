@@ -20,7 +20,7 @@ import java.util.List;
 @RefreshScope
 public class AddImageV2RequestConverter {
 
-    @Value("${spring.profiles}")
+    @Value("${spring.config.activate.on-profile}")
     private String env;
 
     private static final String KROGER_CANONICAL_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";

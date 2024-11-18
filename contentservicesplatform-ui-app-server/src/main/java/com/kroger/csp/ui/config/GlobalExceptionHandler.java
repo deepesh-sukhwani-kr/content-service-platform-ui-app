@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 
 @RestControllerAdvice
 @EnableMissingWebRouteSupport
@@ -31,14 +32,19 @@ public class GlobalExceptionHandler extends AbstractGlobalExceptionHandler
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(org.springframework.security.oauth2.common.exceptions.OAuth2Exception.class)
-    public ResponseEntity<ApiError> handleHttpExceptions(org.springframework.security.oauth2.common.exceptions.OAuth2Exception ex,
-                                                         WebRequest webRequest)
+    @ExceptionHandler(OAuth2AuthenticationException.class)
+    public ResponseEntity<ApiError> handleOAuth2AuthenticationException(
+            OAuth2AuthenticationException ex,
+            WebRequest webRequest)
     {
-        ApiError apiError = ApiError.of(ex.getOAuth2ErrorCode(),
-                ex.getLocalizedMessage());
+        ApiError apiError = ApiError.of(ex.getError().getErrorCode(),
+                ex.getMessage());
+
+        // Optional: Add your trace context if necessary
         addTraceContext(apiError);
-        return new ResponseEntity<>(apiError, HttpStatus.resolve(ex.getHttpErrorCode()));
+
+        HttpStatus status = HttpStatus.UNAUTHORIZED; // Default status; adjust as needed
+        return new ResponseEntity<>(apiError, status);
     }
 
     @ExceptionHandler(org.springframework.security.core.AuthenticationException.class)
